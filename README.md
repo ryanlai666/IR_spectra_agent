@@ -1,9 +1,6 @@
 # IR_agent_conda 
 LangGraph Computational Chemistry Agent for OPT and IR calculation
 
-<p align="center">
-  <img src="IR_agent_flowchart.png" alt="Network Architecture" width="88%">
-</p>
 
 ## 1. INTRODUCTION
 This project implements a multi-agent workflow using LangGraph to automate computational chemistry simulations with the Atomic Simulation Environment (ASE). The system is designed to take a high-level, natural-language task (e.g., "Run a fast IR spectrum simulation for water on Au(111)") and execute a full pipeline:
@@ -17,7 +14,10 @@ This project implements a multi-agent workflow using LangGraph to automate compu
 
 This framework is built to be a modular and extensible platform for automating repetitive computational tasks in materials science and chemistry.
 
-![langgraph_flowchart](langgraph_structures_v3.png)
+<!-- ![langgraph_flowchart](langgraph_structures_v3.png) -->
+<p align="center">
+  <img src="IR_agent_flowchart.png" alt="Network Architecture" width="88%">
+</p>
 
 ## 2. CORE FEATURES
 
