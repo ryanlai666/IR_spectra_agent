@@ -1,19 +1,46 @@
 # IR Spectra Agent
 
 An AI agent that turns a plain-language request ("IR spectrum of CO on Pt(111) with UMA") into a
-complete vibrational-spectroscopy calculation for molecules and adsorbates on metal, silicon and
-silica surfaces, using machine-learned interatomic potentials (Meta UMA, Orb, PET) and GFN-xTB. Every
-result is checked against measured spectra (NIST gas-phase data and a curated table of published
-surface IR/HREELS bands).
+checked vibrational-spectroscopy calculation for molecules and adsorbates on metal surfaces, using
+machine-learned interatomic potentials (Meta UMA, Orb, PET) and GFN-xTB. Its results, extended to
+silicon and silica surface models, are validated against measured spectra (NIST gas-phase data and
+a curated table of published surface IR/HREELS bands).
 
 [![ci](https://github.com/ryanlai666/IR_spectra_agent/actions/workflows/ci.yml/badge.svg)](.github/workflows/ci.yml)
 
-![Adsorption-induced C-O and NH3-umbrella band shifts on Pt(111) and Au(111) for six methods, against literature values with their consistency windows](docs/figures/adsorbate_shifts.png)
+![Agent workflow: user request, then planner, geometry, calculation and critic (with a retry loop back to calculation), then plot_geometry, spectra and analysis, ending in an IR spectrum and report; any node with an error goes to failure](docs/figures/agent_flowchart.png)
 
-*Adsorption-induced band shifts of CO and NH3 on Pt(111) and Au(111) for six methods (cluster models
-left, periodic slabs right) against the literature value and its consistency window; hatched bars
-were flagged by the agent's critic and are not used for conclusions. The UMA-S 1.2.1 rows are in the
-tables below.*
+<details><summary>The same graph in Mermaid (nodes and edges as in <code>src/ir_agent/agent/graph.py</code>)</summary>
+
+```mermaid
+flowchart LR
+  request(["user request or plan.json"]) --> planner
+  planner["planner<br/>Gemini → typed plan, validated, with fallbacks,<br/>or JSON plan (--no-llm)"] --> geometry
+  geometry["geometry<br/>molecule, metal slab or cluster model,<br/>adsorption site, pre-relax"] --> calculation
+  calculation["calculation<br/>tight relax, Hessian by finite differences (xtb: own --hess),<br/>dipoles, MSSR on metals<br/>tools: UMA · Orb · PET · GFN-xTB"] --> critic
+  critic{{"critic<br/>retry: not converged, imaginary modes<br/>flag: site changed, weakly bound, desorbed"}}
+  critic -- "retry (at most critic.max_retries, default 1)" --> calculation
+  critic -- "ok or flagged" --> plot_geometry
+  plot_geometry["plot_geometry<br/>structure images, initial → relaxed"] --> spectra
+  spectra["spectra<br/>broadens frequencies + IR intensities into a spectrum"] --> analysis
+  analysis["analysis<br/>vs NIST and measured surface bands, report<br/>(+ optional LLM summary)"] -- "IR spectrum + report" --> END(["END"])
+  planner & geometry & calculation & critic & plot_geometry & spectra & analysis -. error .-> failure
+  failure["failure<br/>writes an error report"] --> END
+  classDef llm fill:#F7E5EF,stroke:#CC79A7,stroke-width:2px
+  classDef structure fill:#E6F4FC,stroke:#56B4E9,stroke-width:2px
+  classDef compute fill:#D9E9F4,stroke:#0072B2,stroke-width:2px
+  classDef check fill:#FCF1D9,stroke:#E69F00,stroke-width:2px
+  classDef output fill:#D9F0EA,stroke:#009E73,stroke-width:2px
+  classDef fail fill:#EEEEEE,stroke:#8C8C8C,stroke-dasharray:5 4
+  class planner llm
+  class geometry,plot_geometry structure
+  class calculation compute
+  class critic check
+  class spectra,analysis output
+  class failure fail
+```
+
+</details>
 
 ## Results at a glance
 
@@ -68,28 +95,8 @@ The full technical record (methods, every table, caveats, negative results, comp
 
 ## How it works
 
-```mermaid
-flowchart LR
-  U[User request] --> P[planner<br/>Gemini structured output<br/>pydantic validation + retries]
-  J[JSON plan<br/>--no-llm] --> P
-  P --> G[geometry<br/>molecule / slab / cluster]
-  G --> C[calculation]
-  C --> K{critic<br/>convergence, imaginary modes,<br/>relaxed site}
-  K -- retry: follow imaginary mode / re-relax --> C
-  K -- ok or flagged --> PG[plot_geometry] --> S[spectra] --> A[analysis<br/>NIST + literature + critic flags]
-  P & G & C & K & PG & S & A -.error.-> F[failure report]
-  subgraph C[calculation: hybrid IR]
-    direction TB
-    D[6N displaced geometries] --> FE[force method<br/>UMA / Orb / PET batched on GPU, or xTB]
-    D --> DE[dipole method<br/>GFN2-xTB / GFN1-xTB<br/>on adsorbate fragment]
-    FE --> H[Hessian -> normal modes<br/>Eckart projection for molecules]
-    DE --> M[dmu/dQ -> intensities<br/>MSSR on metals]
-    H --> M
-  end
-```
-
-Any node that fails routes to a failure report instead of crashing. The method in brief (details
-and equations: REPORT.md §1-§2):
+The workflow is drawn at the top; any node that raises routes to `failure`, which writes an error
+report instead of crashing. The method in brief (details and equations: REPORT.md §1-§2):
 
 1. **Hessian** by central finite differences of the forces (δ = 0.01 Å) over the adsorbate atoms
    (partial Hessian on surfaces) or all atoms (molecules), with all displaced geometries batched
@@ -113,6 +120,13 @@ All numbers come from saved run outputs in `docs/validation/` (provenance:
 [docs/validation/README.md](docs/validation/README.md)). Shifts are adsorbed band minus the gas band
 of the *same* method (and the same UMA task). Bold = inside the "consistent" window of a reference;
 ⚑ = flagged by the critic and not used for conclusions.
+
+![Adsorption-induced C-O and NH3-umbrella band shifts on Pt(111) and Au(111) for six methods, against literature values with their consistency windows](docs/figures/adsorbate_shifts.png)
+
+*Adsorption-induced band shifts of CO and NH3 on Pt(111) and Au(111) for six methods (cluster models
+left, periodic slabs right) against the literature value and its consistency window; hatched bars
+were flagged by the agent's critic and are not used for conclusions. The UMA-S 1.2.1 rows are in the
+tables below.*
 
 **Gas phase and CO/NH3 on Pt** (REPORT.md §5-§8):
 
@@ -264,6 +278,7 @@ python scripts/run_c.py --gpu        # Run C, UMA part (GPU, ~4 min)
 python scripts/benchmark_uma_proxy.py    # random-weight UMA-S proxy timing benchmark (GPU)
 python scripts/classify_sites.py runs/<run dir> ...       # relaxed sites + convergence from saved runs
 python scripts/make_report_figures.py                     # figures + summary_tables.md from saved JSON
+python scripts/make_flowchart.py                          # docs/figures/agent_flowchart.png (no calculations)
 python scripts/eval_planner.py                            # planner accuracy (needs GOOGLE_API_KEY)
 ```
 
@@ -320,7 +335,8 @@ src/ir_agent/
   pipeline.py  plotting.py  tracking.py  gpu.py  config.py  cli.py
 configs/default.yaml     data/reference/*.csv     examples/plans/*.json     examples/planner_eval/
 scripts/   run_uma_run_a.py, run_uma_run_b.py, run_c.py, site_energies.py, benchmark_uma_proxy.py,
-           smoke_mlip_gpu.py, make_report_figures.py, classify_sites.py, eval_planner.py, package_tester/
+           smoke_mlip_gpu.py, make_report_figures.py, make_flowchart.py, classify_sites.py,
+           eval_planner.py, package_tester/
 docs/      figures/, validation/ (run outputs), benchmarks/, planner_eval/
 tests/     notebooks/colab_launcher.ipynb     REPORT.md     DATA.md
 ```

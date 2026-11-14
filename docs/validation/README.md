@@ -27,6 +27,7 @@ Derived files (regenerate, do not edit):
 - `adsorbate_sites.json`, `convergence.json`: `scripts/classify_sites.py` over the run directories
   (oldest first). They hold the relaxed site per adsorbate case and the final optimizer fmax per
   sub-run. Not converged: PET-OMol-L CO/Pt (1.22 eV/Å), dxtb CO/Au (0.14), PET-MAD gas CO (0.025).
-- `summary_tables.md` and `docs/figures/*.png`: `scripts/make_report_figures.py`.
+- `summary_tables.md` and the result figures in `docs/figures/`: `scripts/make_report_figures.py`;
+  `docs/figures/agent_flowchart.png` (the workflow diagram): `scripts/make_flowchart.py`.
 - `co_pt111_gfn1_cluster_report.md` (+ `docs/figures/co_pt111_gfn1_cluster.png`): an agent-graph run
   of CO on the Pt10 cluster with GFN1-xTB (`xtb --hess` route, fragment dipoles, critic OK).
