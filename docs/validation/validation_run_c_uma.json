@@ -1,0 +1,371 @@
+{
+  "dir": "runs/20261113-122442_run_c",
+  "gas": [
+    {
+      "calculator": "uma-omol",
+      "molecule": "CO",
+      "task": "omol",
+      "wall_s": 13.214143199991668,
+      "force_method": "uma[omol] (batched x24)",
+      "dipole": "GFN2-xTB (xtb)",
+      "route": "hybrid",
+      "timings": {
+        "forces": 0.3475057000032393,
+        "dipoles": 0.9518137999984901,
+        "final_opt": 0.1960341999947559
+      },
+      "n_disp": 12,
+      "gpu_peak_mb": 1192.02685546875,
+      "converged": true,
+      "n_imag": 0,
+      "flags": [],
+      "issues": [],
+      "matches": [
+        {
+          "mode": "C-O stretch",
+          "symmetry": "Sigma",
+          "exp_cm": 2143,
+          "calc_cm": 2244.06908198115,
+          "calc_intensity": 26.968897532760348,
+          "exp_intensity": null,
+          "ir_active": true,
+          "error_cm": 101.0690819811498
+        }
+      ],
+      "stats": {
+        "mae_cm": 101.0690819811498,
+        "max_abs_cm": 101.0690819811498,
+        "mse_cm": 101.0690819811498,
+        "mape_pct": 4.716242742937461
+      },
+      "gas_bands": {
+        "C-O stretch": 2244.06908198115
+      }
+    },
+    {
+      "calculator": "uma-oc20",
+      "molecule": "CO",
+      "task": "oc20",
+      "wall_s": 1.953790100000333,
+      "force_method": "uma[oc20] (batched x24)",
+      "dipole": "GFN2-xTB (xtb)",
+      "route": "hybrid",
+      "timings": {
+        "forces": 0.20530509999662172,
+        "dipoles": 0.8404108999966411,
+        "final_opt": 0.1484444999950938
+      },
+      "n_disp": 12,
+      "gpu_peak_mb": 1319.05615234375,
+      "converged": true,
+      "n_imag": 0,
+      "flags": [],
+      "issues": [],
+      "matches": [
+        {
+          "mode": "C-O stretch",
+          "symmetry": "Sigma",
+          "exp_cm": 2143,
+          "calc_cm": 2085.6819120236455,
+          "calc_intensity": 26.553456550671797,
+          "exp_intensity": null,
+          "ir_active": true,
+          "error_cm": -57.31808797635449
+        }
+      ],
+      "stats": {
+        "mae_cm": 57.31808797635449,
+        "max_abs_cm": 57.31808797635449,
+        "mse_cm": -57.31808797635449,
+        "mape_pct": 2.6746657945102426
+      },
+      "gas_bands": {
+        "C-O stretch": 2085.6819120236455
+      }
+    },
+    {
+      "calculator": "uma-omat",
+      "molecule": "CO",
+      "task": "omat",
+      "wall_s": 1.8021974000002956,
+      "force_method": "uma[omat] (batched x24)",
+      "dipole": "GFN2-xTB (xtb)",
+      "route": "hybrid",
+      "timings": {
+        "forces": 0.21168089999991935,
+        "dipoles": 0.7869944999984,
+        "final_opt": 0.15040099999168888
+      },
+      "n_disp": 12,
+      "gpu_peak_mb": 1792.8955078125,
+      "converged": true,
+      "n_imag": 0,
+      "flags": [],
+      "issues": [],
+      "matches": [
+        {
+          "mode": "C-O stretch",
+          "symmetry": "Sigma",
+          "exp_cm": 2143,
+          "calc_cm": 2118.2351454387153,
+          "calc_intensity": 26.723732877416836,
+          "exp_intensity": null,
+          "ir_active": true,
+          "error_cm": -24.764854561284665
+        }
+      ],
+      "stats": {
+        "mae_cm": 24.764854561284665,
+        "max_abs_cm": 24.764854561284665,
+        "mse_cm": -24.764854561284665,
+        "mape_pct": 1.1556161717818323
+      },
+      "gas_bands": {
+        "C-O stretch": 2118.2351454387153
+      }
+    }
+  ],
+  "adsorbates": [
+    {
+      "calculator": "uma-omol",
+      "system": "CO/Cu(111)",
+      "site_requested": "ontop",
+      "wall_s": 3.2513731000071857,
+      "force_method": "uma[omol] (batched x24)",
+      "dipole": "GFN2-xTB (xtb) on adsorbate fragment",
+      "route": "hybrid",
+      "model": "cluster",
+      "n_atoms": 12,
+      "task": "omol",
+      "gas_ref_calculator": "uma-omol",
+      "gpu_peak_mb": 1319.05615234375,
+      "converged": true,
+      "n_imag": 0,
+      "site": {
+        "site": "ontop",
+        "anchor": "C",
+        "anchor_index": 11,
+        "n_metal": 1,
+        "distances": [
+          2.1008910401602754
+        ],
+        "min_distance": 2.1008910401602754,
+        "cutoff": 2.704,
+        "label": "ontop 2.10",
+        "requested": "ontop"
+      },
+      "flags": [],
+      "issues": [],
+      "band": "C-O stretch",
+      "ref_ads_cm": 2077,
+      "ref_gas_cm": 2143,
+      "ref_verified": true,
+      "band_cm": 2154.133687188069,
+      "band_intensity": 26.934707941306335,
+      "gas_ref_cm": 2244.06908198115,
+      "calc_shift_cm": -89.93539479308083,
+      "ref_shift_cm": -66
+    },
+    {
+      "calculator": "uma-omol",
+      "system": "CO/Ru(0001)",
+      "site_requested": "ontop",
+      "wall_s": 2.744590000002063,
+      "force_method": "uma[omol] (batched x24)",
+      "dipole": "GFN2-xTB (xtb) on adsorbate fragment",
+      "route": "hybrid",
+      "model": "cluster",
+      "n_atoms": 12,
+      "task": "omol",
+      "gas_ref_calculator": "uma-omol",
+      "gpu_peak_mb": 1319.05615234375,
+      "converged": true,
+      "n_imag": 0,
+      "site": {
+        "site": "ontop",
+        "anchor": "C",
+        "anchor_index": 11,
+        "n_metal": 1,
+        "distances": [
+          1.9232168177219677
+        ],
+        "min_distance": 1.9232168177219677,
+        "cutoff": 2.8859999999999997,
+        "label": "ontop 1.92",
+        "requested": "ontop"
+      },
+      "flags": [],
+      "issues": [],
+      "band": "C-O stretch",
+      "ref_ads_cm": 1976,
+      "ref_gas_cm": 2143,
+      "ref_verified": false,
+      "band_cm": 2064.4936787642346,
+      "band_intensity": 26.726939668903892,
+      "gas_ref_cm": 2244.06908198115,
+      "calc_shift_cm": -179.57540321691522,
+      "ref_shift_cm": -167
+    },
+    {
+      "calculator": "uma-oc20",
+      "system": "CO/Cu(111)",
+      "site_requested": "ontop",
+      "wall_s": 5.33615170000121,
+      "force_method": "uma[oc20] (batched x24)",
+      "dipole": "GFN2-xTB (xtb) on adsorbate fragment",
+      "route": "hybrid",
+      "model": "surface",
+      "n_atoms": 29,
+      "task": "oc20",
+      "gas_ref_calculator": "uma-oc20",
+      "gpu_peak_mb": 1792.8955078125,
+      "converged": true,
+      "n_imag": 0,
+      "site": {
+        "site": "ontop",
+        "anchor": "C",
+        "anchor_index": 28,
+        "n_metal": 1,
+        "distances": [
+          1.8728542025768415
+        ],
+        "min_distance": 1.8728542025768415,
+        "cutoff": 2.704,
+        "label": "ontop 1.87",
+        "requested": "ontop"
+      },
+      "flags": [],
+      "issues": [],
+      "band": "C-O stretch",
+      "ref_ads_cm": 2077,
+      "ref_gas_cm": 2143,
+      "ref_verified": true,
+      "band_cm": 1970.0849405890017,
+      "band_intensity": 26.298262985558754,
+      "gas_ref_cm": 2085.6819120236455,
+      "calc_shift_cm": -115.59697143464382,
+      "ref_shift_cm": -66
+    },
+    {
+      "calculator": "uma-oc20",
+      "system": "CO/Ru(0001)",
+      "site_requested": "ontop",
+      "wall_s": 4.528893399998196,
+      "force_method": "uma[oc20] (batched x24)",
+      "dipole": "GFN2-xTB (xtb) on adsorbate fragment",
+      "route": "hybrid",
+      "model": "surface",
+      "n_atoms": 29,
+      "task": "oc20",
+      "gas_ref_calculator": "uma-oc20",
+      "gpu_peak_mb": 1792.8955078125,
+      "converged": true,
+      "n_imag": 0,
+      "site": {
+        "site": "ontop",
+        "anchor": "C",
+        "anchor_index": 28,
+        "n_metal": 1,
+        "distances": [
+          1.8910859297943472
+        ],
+        "min_distance": 1.8910859297943472,
+        "cutoff": 2.8859999999999997,
+        "label": "ontop 1.89",
+        "requested": "ontop"
+      },
+      "flags": [],
+      "issues": [],
+      "band": "C-O stretch",
+      "ref_ads_cm": 1976,
+      "ref_gas_cm": 2143,
+      "ref_verified": false,
+      "band_cm": 1925.9501199975962,
+      "band_intensity": 26.094292992297753,
+      "gas_ref_cm": 2085.6819120236455,
+      "calc_shift_cm": -159.73179202604933,
+      "ref_shift_cm": -167
+    },
+    {
+      "calculator": "uma-omat",
+      "system": "CO/Cu(111)",
+      "site_requested": "ontop",
+      "wall_s": 5.167425099993125,
+      "force_method": "uma[omat] (batched x24)",
+      "dipole": "GFN2-xTB (xtb) on adsorbate fragment",
+      "route": "hybrid",
+      "model": "surface",
+      "n_atoms": 29,
+      "task": "omat",
+      "gas_ref_calculator": "uma-omat",
+      "gpu_peak_mb": 1795.50634765625,
+      "converged": true,
+      "n_imag": 0,
+      "site": {
+        "site": "ontop",
+        "anchor": "C",
+        "anchor_index": 28,
+        "n_metal": 1,
+        "distances": [
+          1.8353402814563564
+        ],
+        "min_distance": 1.8353402814563564,
+        "cutoff": 2.704,
+        "label": "ontop 1.84",
+        "requested": "ontop"
+      },
+      "flags": [],
+      "issues": [],
+      "band": "C-O stretch",
+      "ref_ads_cm": 2077,
+      "ref_gas_cm": 2143,
+      "ref_verified": true,
+      "band_cm": 2015.0127149345562,
+      "band_intensity": 26.31545237504831,
+      "gas_ref_cm": 2118.2351454387153,
+      "calc_shift_cm": -103.22243050415909,
+      "ref_shift_cm": -66
+    },
+    {
+      "calculator": "uma-omat",
+      "system": "CO/Ru(0001)",
+      "site_requested": "ontop",
+      "wall_s": 3.5384316999989096,
+      "force_method": "uma[omat] (batched x24)",
+      "dipole": "GFN2-xTB (xtb) on adsorbate fragment",
+      "route": "hybrid",
+      "model": "surface",
+      "n_atoms": 29,
+      "task": "omat",
+      "gas_ref_calculator": "uma-omat",
+      "gpu_peak_mb": 1795.50634765625,
+      "converged": true,
+      "n_imag": 0,
+      "site": {
+        "site": "ontop",
+        "anchor": "C",
+        "anchor_index": 28,
+        "n_metal": 1,
+        "distances": [
+          1.8742180571406375
+        ],
+        "min_distance": 1.8742180571406375,
+        "cutoff": 2.8859999999999997,
+        "label": "ontop 1.87",
+        "requested": "ontop"
+      },
+      "flags": [],
+      "issues": [],
+      "band": "C-O stretch",
+      "ref_ads_cm": 1976,
+      "ref_gas_cm": 2143,
+      "ref_verified": false,
+      "band_cm": 1940.165760301409,
+      "band_intensity": 26.015355138336083,
+      "gas_ref_cm": 2118.2351454387153,
+      "calc_shift_cm": -178.06938513730643,
+      "ref_shift_cm": -167
+    }
+  ],
+  "skipped": {}
+}

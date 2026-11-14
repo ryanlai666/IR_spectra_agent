@@ -1,0 +1,354 @@
+{
+ "runs/20261113-003214_validation/ads_CO_Au111_dxtb": {
+  "final_fmax": 0.140727,
+  "converged": false
+ },
+ "runs/20261113-003214_validation/ads_CO_Au111_emt": {
+  "final_fmax": 0.003562,
+  "converged": true
+ },
+ "runs/20261113-003214_validation/ads_CO_Au111_xtb-gfn1": {
+  "final_fmax": 0.001477,
+  "converged": true
+ },
+ "runs/20261113-003214_validation/ads_CO_Pt111_emt": {
+  "final_fmax": 0.00786,
+  "converged": true
+ },
+ "runs/20261113-003214_validation/ads_CO_Pt111_xtb": {
+  "final_fmax": 0.006733,
+  "converged": true
+ },
+ "runs/20261113-003214_validation/ads_CO_Pt111_xtb-gfn1": {
+  "final_fmax": 0.005772,
+  "converged": true
+ },
+ "runs/20261113-003214_validation/ads_NH3_Au111_dxtb": {
+  "final_fmax": 0.00674,
+  "converged": true
+ },
+ "runs/20261113-003214_validation/ads_NH3_Au111_emt": {
+  "final_fmax": 0.008645,
+  "converged": true
+ },
+ "runs/20261113-003214_validation/ads_NH3_Au111_xtb-gfn1": {
+  "final_fmax": 0.003083,
+  "converged": true
+ },
+ "runs/20261113-003214_validation/ads_NH3_Pt111_emt": {
+  "final_fmax": 0.008841,
+  "converged": true
+ },
+ "runs/20261113-003214_validation/ads_NH3_Pt111_xtb": {
+  "final_fmax": 0.004853,
+  "converged": true
+ },
+ "runs/20261113-003214_validation/ads_NH3_Pt111_xtb-gfn1": {
+  "final_fmax": 0.005523,
+  "converged": true
+ },
+ "runs/20261113-003214_validation/gas_CO2_dxtb": {
+  "final_fmax": 1.3e-05,
+  "converged": true
+ },
+ "runs/20261113-003214_validation/gas_CO2_emt": {
+  "final_fmax": 0.006622,
+  "converged": true
+ },
+ "runs/20261113-003214_validation/gas_CO2_xtb": {
+  "final_fmax": 8e-06,
+  "converged": true
+ },
+ "runs/20261113-003214_validation/gas_CO2_xtb-gfn1": {
+  "final_fmax": 1.3e-05,
+  "converged": true
+ },
+ "runs/20261113-003214_validation/gas_CO_dxtb": {
+  "final_fmax": 0.002302,
+  "converged": true
+ },
+ "runs/20261113-003214_validation/gas_CO_emt": {
+  "final_fmax": 0.001662,
+  "converged": true
+ },
+ "runs/20261113-003214_validation/gas_CO_xtb": {
+  "final_fmax": 0.001332,
+  "converged": true
+ },
+ "runs/20261113-003214_validation/gas_CO_xtb-gfn1": {
+  "final_fmax": 0.002302,
+  "converged": true
+ },
+ "runs/20261113-003214_validation/gas_H2O_dxtb": {
+  "final_fmax": 0.003322,
+  "converged": true
+ },
+ "runs/20261113-003214_validation/gas_H2O_emt": {
+  "final_fmax": 0.000621,
+  "converged": true
+ },
+ "runs/20261113-003214_validation/gas_H2O_xtb": {
+  "final_fmax": 0.002019,
+  "converged": true
+ },
+ "runs/20261113-003214_validation/gas_H2O_xtb-gfn1": {
+  "final_fmax": 0.003322,
+  "converged": true
+ },
+ "runs/20261113-003214_validation/gas_NH3_dxtb": {
+  "final_fmax": 0.009995,
+  "converged": true
+ },
+ "runs/20261113-003214_validation/gas_NH3_emt": {
+  "final_fmax": 0.008608,
+  "converged": true
+ },
+ "runs/20261113-003214_validation/gas_NH3_xtb": {
+  "final_fmax": 0.003885,
+  "converged": true
+ },
+ "runs/20261113-003214_validation/gas_NH3_xtb-gfn1": {
+  "final_fmax": 0.009995,
+  "converged": true
+ },
+ "runs/20261113-020635_validation/ads_CO_Au111_orb-mol": {
+  "final_fmax": 0.004402,
+  "converged": true
+ },
+ "runs/20261113-020635_validation/ads_CO_Au111_orb-omat": {
+  "final_fmax": 0.005327,
+  "converged": true
+ },
+ "runs/20261113-020635_validation/ads_CO_Au111_xtb-gfn1": {
+  "final_fmax": 0.001477,
+  "converged": true
+ },
+ "runs/20261113-020635_validation/ads_CO_Pt111_orb-mol": {
+  "final_fmax": 0.005656,
+  "converged": true
+ },
+ "runs/20261113-020635_validation/ads_CO_Pt111_orb-omat": {
+  "final_fmax": 0.006149,
+  "converged": true
+ },
+ "runs/20261113-020635_validation/ads_CO_Pt111_xtb": {
+  "final_fmax": 0.006734,
+  "converged": true
+ },
+ "runs/20261113-020635_validation/ads_CO_Pt111_xtb-gfn1": {
+  "final_fmax": 0.005775,
+  "converged": true
+ },
+ "runs/20261113-020635_validation/ads_NH3_Au111_orb-mol": {
+  "final_fmax": 0.009099,
+  "converged": true
+ },
+ "runs/20261113-020635_validation/ads_NH3_Au111_orb-omat": {
+  "final_fmax": 0.005144,
+  "converged": true
+ },
+ "runs/20261113-020635_validation/ads_NH3_Au111_xtb-gfn1": {
+  "final_fmax": 0.003083,
+  "converged": true
+ },
+ "runs/20261113-020635_validation/ads_NH3_Pt111_orb-mol": {
+  "final_fmax": 0.004211,
+  "converged": true
+ },
+ "runs/20261113-020635_validation/ads_NH3_Pt111_orb-omat": {
+  "final_fmax": 0.008768,
+  "converged": true
+ },
+ "runs/20261113-020635_validation/ads_NH3_Pt111_xtb": {
+  "final_fmax": 0.004853,
+  "converged": true
+ },
+ "runs/20261113-020635_validation/ads_NH3_Pt111_xtb-gfn1": {
+  "final_fmax": 0.005524,
+  "converged": true
+ },
+ "runs/20261113-020635_validation/gas_CO2_orb-mol": {
+  "final_fmax": 0.000781,
+  "converged": true
+ },
+ "runs/20261113-020635_validation/gas_CO2_orb-omat": {
+  "final_fmax": 0.003562,
+  "converged": true
+ },
+ "runs/20261113-020635_validation/gas_CO2_xtb": {
+  "final_fmax": 8e-06,
+  "converged": true
+ },
+ "runs/20261113-020635_validation/gas_CO2_xtb-gfn1": {
+  "final_fmax": 1.3e-05,
+  "converged": true
+ },
+ "runs/20261113-020635_validation/gas_CO_orb-mol": {
+  "final_fmax": 0.002037,
+  "converged": true
+ },
+ "runs/20261113-020635_validation/gas_CO_orb-omat": {
+  "final_fmax": 0.000954,
+  "converged": true
+ },
+ "runs/20261113-020635_validation/gas_CO_xtb": {
+  "final_fmax": 0.001332,
+  "converged": true
+ },
+ "runs/20261113-020635_validation/gas_CO_xtb-gfn1": {
+  "final_fmax": 0.002302,
+  "converged": true
+ },
+ "runs/20261113-020635_validation/gas_H2O_orb-mol": {
+  "final_fmax": 0.001551,
+  "converged": true
+ },
+ "runs/20261113-020635_validation/gas_H2O_orb-omat": {
+  "final_fmax": 0.005017,
+  "converged": true
+ },
+ "runs/20261113-020635_validation/gas_H2O_xtb": {
+  "final_fmax": 0.002019,
+  "converged": true
+ },
+ "runs/20261113-020635_validation/gas_H2O_xtb-gfn1": {
+  "final_fmax": 0.003322,
+  "converged": true
+ },
+ "runs/20261113-020635_validation/gas_NH3_orb-mol": {
+  "final_fmax": 0.005644,
+  "converged": true
+ },
+ "runs/20261113-020635_validation/gas_NH3_orb-omat": {
+  "final_fmax": 0.007103,
+  "converged": true
+ },
+ "runs/20261113-020635_validation/gas_NH3_xtb": {
+  "final_fmax": 0.003885,
+  "converged": true
+ },
+ "runs/20261113-020635_validation/gas_NH3_xtb-gfn1": {
+  "final_fmax": 0.009995,
+  "converged": true
+ },
+ "runs/20261113-020717_validation/ads_CO_Au111_pet-mad": {
+  "final_fmax": 0.00921,
+  "converged": true
+ },
+ "runs/20261113-020717_validation/ads_CO_Au111_pet-omol": {
+  "final_fmax": 0.00661,
+  "converged": true
+ },
+ "runs/20261113-020717_validation/ads_CO_Pt111_pet-mad": {
+  "final_fmax": 0.007288,
+  "converged": true
+ },
+ "runs/20261113-020717_validation/ads_CO_Pt111_pet-omol": {
+  "final_fmax": 1.221465,
+  "converged": false
+ },
+ "runs/20261113-020717_validation/ads_NH3_Au111_pet-mad": {
+  "final_fmax": 0.008421,
+  "converged": true
+ },
+ "runs/20261113-020717_validation/ads_NH3_Au111_pet-omol": {
+  "final_fmax": 0.00997,
+  "converged": true
+ },
+ "runs/20261113-020717_validation/ads_NH3_Pt111_pet-mad": {
+  "final_fmax": 0.009626,
+  "converged": true
+ },
+ "runs/20261113-020717_validation/ads_NH3_Pt111_pet-omol": {
+  "final_fmax": 0.008974,
+  "converged": true
+ },
+ "runs/20261113-020717_validation/gas_CO2_pet-mad": {
+  "final_fmax": 0.005805,
+  "converged": true
+ },
+ "runs/20261113-020717_validation/gas_CO2_pet-omol": {
+  "final_fmax": 0.004121,
+  "converged": true
+ },
+ "runs/20261113-020717_validation/gas_CO_pet-mad": {
+  "final_fmax": 0.02512,
+  "converged": false
+ },
+ "runs/20261113-020717_validation/gas_CO_pet-omol": {
+  "final_fmax": 0.002963,
+  "converged": true
+ },
+ "runs/20261113-020717_validation/gas_H2O_pet-mad": {
+  "final_fmax": 0.003549,
+  "converged": true
+ },
+ "runs/20261113-020717_validation/gas_H2O_pet-omol": {
+  "final_fmax": 0.001497,
+  "converged": true
+ },
+ "runs/20261113-020717_validation/gas_NH3_pet-mad": {
+  "final_fmax": 0.007318,
+  "converged": true
+ },
+ "runs/20261113-020717_validation/gas_NH3_pet-omol": {
+  "final_fmax": 0.006289,
+  "converged": true
+ },
+ "runs/20261113-032834_validation/ads_CO_Au111_xtb-gfn1": {
+  "final_fmax": 0.001477,
+  "converged": true
+ },
+ "runs/20261113-032834_validation/ads_CO_Pt111_xtb": {
+  "final_fmax": 0.006733,
+  "converged": true
+ },
+ "runs/20261113-032834_validation/ads_CO_Pt111_xtb-gfn1": {
+  "final_fmax": 0.005772,
+  "converged": true
+ },
+ "runs/20261113-032834_validation/ads_NH3_Au111_xtb-gfn1": {
+  "final_fmax": 0.003083,
+  "converged": true
+ },
+ "runs/20261113-032834_validation/ads_NH3_Pt111_xtb": {
+  "final_fmax": 0.004853,
+  "converged": true
+ },
+ "runs/20261113-032834_validation/ads_NH3_Pt111_xtb-gfn1": {
+  "final_fmax": 0.005524,
+  "converged": true
+ },
+ "runs/20261113-032834_validation/gas_CO2_xtb": {
+  "final_fmax": 8e-06,
+  "converged": true
+ },
+ "runs/20261113-032834_validation/gas_CO2_xtb-gfn1": {
+  "final_fmax": 1.3e-05,
+  "converged": true
+ },
+ "runs/20261113-032834_validation/gas_CO_xtb": {
+  "final_fmax": 0.001332,
+  "converged": true
+ },
+ "runs/20261113-032834_validation/gas_CO_xtb-gfn1": {
+  "final_fmax": 0.002302,
+  "converged": true
+ },
+ "runs/20261113-032834_validation/gas_H2O_xtb": {
+  "final_fmax": 0.002019,
+  "converged": true
+ },
+ "runs/20261113-032834_validation/gas_H2O_xtb-gfn1": {
+  "final_fmax": 0.003322,
+  "converged": true
+ },
+ "runs/20261113-032834_validation/gas_NH3_xtb": {
+  "final_fmax": 0.003885,
+  "converged": true
+ },
+ "runs/20261113-032834_validation/gas_NH3_xtb-gfn1": {
+  "final_fmax": 0.009995,
+  "converged": true
+ }
+}

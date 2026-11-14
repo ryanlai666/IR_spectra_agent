@@ -1,0 +1,720 @@
+{
+  "gas": [
+    {
+      "calculator": "pet-omol",
+      "molecule": "H2O",
+      "wall_s": 63.93057850000332,
+      "dipole": "GFN2-xTB (xtb)",
+      "route": "hybrid",
+      "timings": {
+        "forces": 5.424534999998286,
+        "dipoles": 2.6840385000105016,
+        "final_opt": 0.6697132999979658
+      },
+      "n_disp": 18,
+      "gpu_peak_mb": null,
+      "matches": [
+        {
+          "mode": "OH sym. stretch",
+          "symmetry": "A1",
+          "exp_cm": 3657,
+          "calc_cm": 3823.0627894665504,
+          "calc_intensity": 6.0780339057558335,
+          "exp_intensity": 2.9,
+          "ir_active": true,
+          "error_cm": 166.06278946655038
+        },
+        {
+          "mode": "bend",
+          "symmetry": "A1",
+          "exp_cm": 1595,
+          "calc_cm": 1621.1151092252926,
+          "calc_intensity": 131.29654165735474,
+          "exp_intensity": 62.5,
+          "ir_active": true,
+          "error_cm": 26.1151092252926
+        },
+        {
+          "mode": "OH asym. stretch",
+          "symmetry": "B2",
+          "exp_cm": 3756,
+          "calc_cm": 3921.2374672777646,
+          "calc_intensity": 14.764306815130556,
+          "exp_intensity": 41.7,
+          "ir_active": true,
+          "error_cm": 165.2374672777646
+        }
+      ],
+      "n_imag": 0,
+      "stats": {
+        "mae_cm": 119.13845532320254,
+        "max_abs_cm": 166.06278946655038,
+        "mse_cm": 119.13845532320254,
+        "mape_pct": 3.5258537649369543
+      },
+      "converged": true
+    },
+    {
+      "calculator": "pet-omol",
+      "molecule": "CO",
+      "wall_s": 8.343804999996792,
+      "dipole": "GFN2-xTB (xtb)",
+      "route": "hybrid",
+      "timings": {
+        "forces": 3.5743236999987857,
+        "dipoles": 2.922669000006863,
+        "final_opt": 0.01795480000146199
+      },
+      "n_disp": 12,
+      "gpu_peak_mb": null,
+      "matches": [
+        {
+          "mode": "C-O stretch",
+          "symmetry": "Sigma",
+          "exp_cm": 2143,
+          "calc_cm": 2238.651829114008,
+          "calc_intensity": 26.966737819825603,
+          "exp_intensity": null,
+          "ir_active": true,
+          "error_cm": 95.6518291140078
+        }
+      ],
+      "n_imag": 0,
+      "stats": {
+        "mae_cm": 95.6518291140078,
+        "max_abs_cm": 95.6518291140078,
+        "mse_cm": 95.6518291140078,
+        "mape_pct": 4.463454461689585
+      },
+      "gas_bands": {
+        "C-O stretch": 2238.651829114008
+      },
+      "converged": true
+    },
+    {
+      "calculator": "pet-omol",
+      "molecule": "NH3",
+      "wall_s": 18.298085000002175,
+      "dipole": "GFN2-xTB (xtb)",
+      "route": "hybrid",
+      "timings": {
+        "forces": 11.059235399996396,
+        "dipoles": 3.863796399993589,
+        "final_opt": 1.782994499997585
+      },
+      "n_disp": 24,
+      "gpu_peak_mb": null,
+      "matches": [
+        {
+          "mode": "NH sym. stretch",
+          "symmetry": "A1",
+          "exp_cm": 3337,
+          "calc_cm": 3492.7675689220196,
+          "calc_intensity": 0.31607384751855816,
+          "exp_intensity": 7.1,
+          "ir_active": true,
+          "error_cm": 155.76756892201956
+        },
+        {
+          "mode": "sym. deformation (umbrella)",
+          "symmetry": "A1",
+          "exp_cm": 950,
+          "calc_cm": 1025.1140259187548,
+          "calc_intensity": 204.8537302563287,
+          "exp_intensity": 138.0,
+          "ir_active": true,
+          "error_cm": 75.1140259187548
+        },
+        {
+          "mode": "NH deg. stretch",
+          "symmetry": "E",
+          "exp_cm": 3444,
+          "calc_cm": 3608.2765780996506,
+          "calc_intensity": 10.770516254342407,
+          "exp_intensity": 4.3,
+          "ir_active": true,
+          "error_cm": 164.27657809965058
+        },
+        {
+          "mode": "deg. deformation",
+          "symmetry": "E",
+          "exp_cm": 1627,
+          "calc_cm": 1653.9106443751134,
+          "calc_intensity": 56.05918671673163,
+          "exp_intensity": 28.2,
+          "ir_active": true,
+          "error_cm": 26.910644375113407
+        }
+      ],
+      "n_imag": 0,
+      "stats": {
+        "mae_cm": 105.51720432888459,
+        "max_abs_cm": 164.27657809965058,
+        "mse_cm": 105.51720432888459,
+        "mape_pct": 4.749642849499502
+      },
+      "gas_bands": {
+        "umbrella": 1025.1140259187548
+      },
+      "converged": true
+    },
+    {
+      "calculator": "pet-omol",
+      "molecule": "CO2",
+      "wall_s": 24.209621400004835,
+      "dipole": "GFN2-xTB (xtb)",
+      "route": "hybrid",
+      "timings": {
+        "forces": 4.741174900002079,
+        "dipoles": 2.280452900013188,
+        "final_opt": 0.011269400012679398
+      },
+      "n_disp": 18,
+      "gpu_peak_mb": null,
+      "matches": [
+        {
+          "mode": "sym. stretch",
+          "symmetry": "Sigma_g",
+          "exp_cm": 1333,
+          "calc_cm": 1388.4141927845776,
+          "calc_intensity": 0.00027058913388429683,
+          "exp_intensity": null,
+          "ir_active": false,
+          "error_cm": 55.41419278457761
+        },
+        {
+          "mode": "asym. stretch",
+          "symmetry": "Sigma_u",
+          "exp_cm": 2349,
+          "calc_cm": 2413.627190364861,
+          "calc_intensity": 1010.3042253100962,
+          "exp_intensity": 665.0,
+          "ir_active": true,
+          "error_cm": 64.62719036486078
+        },
+        {
+          "mode": "bend",
+          "symmetry": "Pi_u",
+          "exp_cm": 667,
+          "calc_cm": 683.5916139895544,
+          "calc_intensity": 132.40278755009638,
+          "exp_intensity": 54.2,
+          "ir_active": true,
+          "error_cm": 16.59161398955439
+        }
+      ],
+      "n_imag": 0,
+      "stats": {
+        "mae_cm": 45.54433237966426,
+        "max_abs_cm": 64.62719036486078,
+        "mse_cm": 45.54433237966426,
+        "mape_pct": 3.1319553472237227
+      },
+      "gas_bands": {
+        "C-O stretch": 2413.627190364861
+      },
+      "converged": true
+    },
+    {
+      "calculator": "pet-mad",
+      "molecule": "H2O",
+      "wall_s": 12.598202199995285,
+      "dipole": "GFN2-xTB (xtb)",
+      "route": "hybrid",
+      "timings": {
+        "forces": 1.2024053999921307,
+        "dipoles": 1.7897068000020226,
+        "final_opt": 0.19043399998918176
+      },
+      "n_disp": 18,
+      "gpu_peak_mb": null,
+      "matches": [
+        {
+          "mode": "OH sym. stretch",
+          "symmetry": "A1",
+          "exp_cm": 3657,
+          "calc_cm": 3765.2194576928514,
+          "calc_intensity": 6.135591468574307,
+          "exp_intensity": 2.9,
+          "ir_active": true,
+          "error_cm": 108.21945769285139
+        },
+        {
+          "mode": "bend",
+          "symmetry": "A1",
+          "exp_cm": 1595,
+          "calc_cm": 1579.310663075923,
+          "calc_intensity": 131.8501226591094,
+          "exp_intensity": 62.5,
+          "ir_active": true,
+          "error_cm": -15.689336924076997
+        },
+        {
+          "mode": "OH asym. stretch",
+          "symmetry": "B2",
+          "exp_cm": 3756,
+          "calc_cm": 3830.3843608180614,
+          "calc_intensity": 14.353119159336671,
+          "exp_intensity": 41.7,
+          "ir_active": true,
+          "error_cm": 74.3843608180614
+        }
+      ],
+      "n_imag": 0,
+      "stats": {
+        "mae_cm": 66.09771847832992,
+        "max_abs_cm": 108.21945769285139,
+        "mse_cm": 55.638160528945264,
+        "mape_pct": 1.9744377237797897
+      },
+      "converged": true
+    },
+    {
+      "calculator": "pet-mad",
+      "molecule": "CO",
+      "wall_s": 7.8870341000001645,
+      "dipole": "GFN2-xTB (xtb)",
+      "route": "hybrid",
+      "timings": {
+        "forces": 1.0522325000056298,
+        "dipoles": 2.0049998000031337,
+        "final_opt": 4.191178499997477
+      },
+      "n_disp": 12,
+      "gpu_peak_mb": null,
+      "matches": [
+        {
+          "mode": "C-O stretch",
+          "symmetry": "Sigma",
+          "exp_cm": 2143,
+          "calc_cm": 2208.3749931903035,
+          "calc_intensity": 26.945873310397456,
+          "exp_intensity": null,
+          "ir_active": true,
+          "error_cm": 65.37499319030348
+        }
+      ],
+      "n_imag": 0,
+      "stats": {
+        "mae_cm": 65.37499319030348,
+        "max_abs_cm": 65.37499319030348,
+        "mse_cm": 65.37499319030348,
+        "mape_pct": 3.0506296402381468
+      },
+      "gas_bands": {
+        "C-O stretch": 2208.3749931903035
+      },
+      "converged": false,
+      "flags": [
+        "not_converged"
+      ]
+    },
+    {
+      "calculator": "pet-mad",
+      "molecule": "NH3",
+      "wall_s": 4.766598800008069,
+      "dipole": "GFN2-xTB (xtb)",
+      "route": "hybrid",
+      "timings": {
+        "forces": 1.6647924999997485,
+        "dipoles": 2.364586600000621,
+        "final_opt": 0.4231763999996474
+      },
+      "n_disp": 24,
+      "gpu_peak_mb": null,
+      "matches": [
+        {
+          "mode": "NH sym. stretch",
+          "symmetry": "A1",
+          "exp_cm": 3337,
+          "calc_cm": 3502.3442272693574,
+          "calc_intensity": 0.24142400910839376,
+          "exp_intensity": 7.1,
+          "ir_active": true,
+          "error_cm": 165.34422726935736
+        },
+        {
+          "mode": "sym. deformation (umbrella)",
+          "symmetry": "A1",
+          "exp_cm": 950,
+          "calc_cm": 1045.7930890387402,
+          "calc_intensity": 198.5741569958689,
+          "exp_intensity": 138.0,
+          "ir_active": true,
+          "error_cm": 95.79308903874016
+        },
+        {
+          "mode": "NH deg. stretch",
+          "symmetry": "E",
+          "exp_cm": 3444,
+          "calc_cm": 3563.7218520814313,
+          "calc_intensity": 11.893391732281628,
+          "exp_intensity": 4.3,
+          "ir_active": true,
+          "error_cm": 119.72185208143128
+        },
+        {
+          "mode": "deg. deformation",
+          "symmetry": "E",
+          "exp_cm": 1627,
+          "calc_cm": 1605.9535574682634,
+          "calc_intensity": 56.30761996621996,
+          "exp_intensity": 28.2,
+          "ir_active": true,
+          "error_cm": -21.046442531736602
+        }
+      ],
+      "n_imag": 0,
+      "stats": {
+        "mae_cm": 100.47640273031635,
+        "max_abs_cm": 165.34422726935736,
+        "mse_cm": 89.95318146444805,
+        "mape_pct": 4.952044341899483
+      },
+      "gas_bands": {
+        "umbrella": 1045.7930890387402
+      },
+      "converged": true
+    },
+    {
+      "calculator": "pet-mad",
+      "molecule": "CO2",
+      "wall_s": 9.915686600012123,
+      "dipole": "GFN2-xTB (xtb)",
+      "route": "hybrid",
+      "timings": {
+        "forces": 1.011251199990511,
+        "dipoles": 2.282892000002903,
+        "final_opt": 0.1538011000084225
+      },
+      "n_disp": 18,
+      "gpu_peak_mb": null,
+      "matches": [
+        {
+          "mode": "sym. stretch",
+          "symmetry": "Sigma_g",
+          "exp_cm": 1333,
+          "calc_cm": 1313.3193581488124,
+          "calc_intensity": 0.011307564425002553,
+          "exp_intensity": null,
+          "ir_active": false,
+          "error_cm": -19.680641851187602
+        },
+        {
+          "mode": "asym. stretch",
+          "symmetry": "Sigma_u",
+          "exp_cm": 2349,
+          "calc_cm": 2299.4009759726355,
+          "calc_intensity": 1000.8233783309935,
+          "exp_intensity": 665.0,
+          "ir_active": true,
+          "error_cm": -49.59902402736452
+        },
+        {
+          "mode": "bend",
+          "symmetry": "Pi_u",
+          "exp_cm": 667,
+          "calc_cm": 563.0284723819975,
+          "calc_intensity": 131.1287513174201,
+          "exp_intensity": 54.2,
+          "ir_active": true,
+          "error_cm": -103.97152761800248
+        }
+      ],
+      "n_imag": 0,
+      "stats": {
+        "mae_cm": 57.750397832184866,
+        "max_abs_cm": 103.97152761800248,
+        "mse_cm": -57.750397832184866,
+        "mape_pct": 6.391949231337516
+      },
+      "gas_bands": {
+        "C-O stretch": 2299.4009759726355
+      },
+      "converged": true
+    }
+  ],
+  "adsorbates": [
+    {
+      "calculator": "pet-omol",
+      "system": "CO/Pt(111)",
+      "wall_s": 56.07467479999468,
+      "dipole": "GFN2-xTB (xtb) on adsorbate fragment",
+      "route": "hybrid",
+      "model": "cluster",
+      "n_atoms": 12,
+      "gpu_peak_mb": null,
+      "band": "C-O stretch",
+      "ref_ads_cm": 2068,
+      "ref_gas_cm": 2143,
+      "ref_verified": false,
+      "band_cm": 1795.026810167749,
+      "band_intensity": 24.215281343339722,
+      "calc_shift_cm": -443.6250189462587,
+      "ref_shift_cm": -75,
+      "flags": [
+        "not_converged",
+        "site_changed"
+      ],
+      "site": {
+        "site": "bridge",
+        "anchor": "C",
+        "anchor_index": 11,
+        "n_metal": 2,
+        "distances": [
+          1.9801371318243275,
+          1.995756512614114
+        ],
+        "min_distance": 1.9801371318243275,
+        "cutoff": 2.7560000000000002,
+        "label": "bridge 1.98/2.00",
+        "requested": "ontop",
+        "site_changed": true,
+        "source": "runs/20261113-020717_validation/ads_CO_Pt111_pet-omol",
+        "final_fmax": 1.221465
+      }
+    },
+    {
+      "calculator": "pet-omol",
+      "system": "NH3/Pt(111)",
+      "wall_s": 49.996832300006645,
+      "dipole": "GFN2-xTB (xtb) on adsorbate fragment",
+      "route": "hybrid",
+      "model": "cluster",
+      "n_atoms": 14,
+      "gpu_peak_mb": null,
+      "band": "sym. deformation (umbrella)",
+      "ref_ads_cm": 1090,
+      "ref_gas_cm": 950,
+      "ref_verified": false,
+      "band_cm": 1031.7687187422139,
+      "band_intensity": 235.13194776692256,
+      "calc_shift_cm": 6.654692823459072,
+      "ref_shift_cm": 140,
+      "flags": [],
+      "site": {
+        "site": "ontop",
+        "anchor": "N",
+        "anchor_index": 10,
+        "n_metal": 1,
+        "distances": [
+          2.425407624324594
+        ],
+        "min_distance": 2.425407624324594,
+        "cutoff": 2.6910000000000003,
+        "label": "ontop 2.43",
+        "requested": "ontop",
+        "site_changed": false,
+        "source": "runs/20261113-020717_validation/ads_NH3_Pt111_pet-omol",
+        "final_fmax": 0.008974
+      }
+    },
+    {
+      "calculator": "pet-omol",
+      "system": "CO/Au(111)",
+      "wall_s": 27.411626699991757,
+      "dipole": "GFN2-xTB (xtb) on adsorbate fragment",
+      "route": "hybrid",
+      "model": "cluster",
+      "n_atoms": 12,
+      "gpu_peak_mb": null,
+      "band": "C-O stretch",
+      "ref_ads_cm": null,
+      "ref_gas_cm": 2143,
+      "ref_verified": false,
+      "band_cm": 2111.3230389888336,
+      "band_intensity": 26.954886204705414,
+      "calc_shift_cm": -127.32879012517424,
+      "flags": [],
+      "site": {
+        "site": "ontop",
+        "anchor": "C",
+        "anchor_index": 11,
+        "n_metal": 1,
+        "distances": [
+          2.2114445604755817
+        ],
+        "min_distance": 2.2114445604755817,
+        "cutoff": 2.7560000000000002,
+        "label": "ontop 2.21",
+        "requested": "ontop",
+        "site_changed": false,
+        "source": "runs/20261113-020717_validation/ads_CO_Au111_pet-omol",
+        "final_fmax": 0.00661
+      }
+    },
+    {
+      "calculator": "pet-omol",
+      "system": "NH3/Au(111)",
+      "wall_s": 35.369232099998044,
+      "dipole": "GFN2-xTB (xtb) on adsorbate fragment",
+      "route": "hybrid",
+      "model": "cluster",
+      "n_atoms": 14,
+      "gpu_peak_mb": null,
+      "band": "sym. deformation (umbrella)",
+      "ref_ads_cm": null,
+      "ref_gas_cm": 950,
+      "ref_verified": false,
+      "band_cm": 1014.0294523947781,
+      "band_intensity": 233.02613869158753,
+      "calc_shift_cm": -11.084573523976701,
+      "flags": [],
+      "site": {
+        "site": "ontop",
+        "anchor": "N",
+        "anchor_index": 10,
+        "n_metal": 1,
+        "distances": [
+          2.4245767745489446
+        ],
+        "min_distance": 2.4245767745489446,
+        "cutoff": 2.6910000000000003,
+        "label": "ontop 2.42",
+        "requested": "ontop",
+        "site_changed": false,
+        "source": "runs/20261113-020717_validation/ads_NH3_Au111_pet-omol",
+        "final_fmax": 0.00997
+      }
+    },
+    {
+      "calculator": "pet-mad",
+      "system": "CO/Pt(111)",
+      "wall_s": 13.157080099990708,
+      "dipole": "GFN2-xTB (xtb) on adsorbate fragment",
+      "route": "hybrid",
+      "model": "surface",
+      "n_atoms": 29,
+      "gpu_peak_mb": null,
+      "band": "C-O stretch",
+      "ref_ads_cm": 2068,
+      "ref_gas_cm": 2143,
+      "ref_verified": false,
+      "band_cm": 2090.5310709272903,
+      "band_intensity": 26.661512183292068,
+      "calc_shift_cm": -117.84392226301316,
+      "ref_shift_cm": -75,
+      "flags": [],
+      "site": {
+        "site": "ontop",
+        "anchor": "C",
+        "anchor_index": 28,
+        "n_metal": 1,
+        "distances": [
+          1.8458513209308802
+        ],
+        "min_distance": 1.8458513209308802,
+        "cutoff": 2.7560000000000002,
+        "label": "ontop 1.85",
+        "requested": "ontop",
+        "site_changed": false,
+        "source": "runs/20261113-020717_validation/ads_CO_Pt111_pet-mad",
+        "final_fmax": 0.007288
+      }
+    },
+    {
+      "calculator": "pet-mad",
+      "system": "NH3/Pt(111)",
+      "wall_s": 23.290198400005465,
+      "dipole": "GFN2-xTB (xtb) on adsorbate fragment",
+      "route": "hybrid",
+      "model": "surface",
+      "n_atoms": 31,
+      "gpu_peak_mb": null,
+      "band": "sym. deformation (umbrella)",
+      "ref_ads_cm": 1090,
+      "ref_gas_cm": 950,
+      "ref_verified": false,
+      "band_cm": 1140.6346468174625,
+      "band_intensity": 241.3408527953873,
+      "calc_shift_cm": 94.84155777872229,
+      "ref_shift_cm": 140,
+      "flags": [],
+      "site": {
+        "site": "ontop",
+        "anchor": "N",
+        "anchor_index": 27,
+        "n_metal": 1,
+        "distances": [
+          2.1127327441404464
+        ],
+        "min_distance": 2.1127327441404464,
+        "cutoff": 2.6910000000000003,
+        "label": "ontop 2.11",
+        "requested": "ontop",
+        "site_changed": false,
+        "source": "runs/20261113-020717_validation/ads_NH3_Pt111_pet-mad",
+        "final_fmax": 0.009626
+      }
+    },
+    {
+      "calculator": "pet-mad",
+      "system": "CO/Au(111)",
+      "wall_s": 16.11724080001295,
+      "dipole": "GFN2-xTB (xtb) on adsorbate fragment",
+      "route": "hybrid",
+      "model": "surface",
+      "n_atoms": 29,
+      "gpu_peak_mb": null,
+      "band": "C-O stretch",
+      "ref_ads_cm": null,
+      "ref_gas_cm": 2143,
+      "ref_verified": false,
+      "band_cm": 2137.7221935452803,
+      "band_intensity": 26.839679197741866,
+      "calc_shift_cm": -70.65279964502315,
+      "flags": [],
+      "site": {
+        "site": "ontop",
+        "anchor": "C",
+        "anchor_index": 28,
+        "n_metal": 1,
+        "distances": [
+          1.9896084483706191
+        ],
+        "min_distance": 1.9896084483706191,
+        "cutoff": 2.7560000000000002,
+        "label": "ontop 1.99",
+        "requested": "ontop",
+        "site_changed": false,
+        "source": "runs/20261113-020717_validation/ads_CO_Au111_pet-mad",
+        "final_fmax": 0.00921
+      }
+    },
+    {
+      "calculator": "pet-mad",
+      "system": "NH3/Au(111)",
+      "wall_s": 24.039873799993074,
+      "dipole": "GFN2-xTB (xtb) on adsorbate fragment",
+      "route": "hybrid",
+      "model": "surface",
+      "n_atoms": 31,
+      "gpu_peak_mb": null,
+      "band": "sym. deformation (umbrella)",
+      "ref_ads_cm": null,
+      "ref_gas_cm": 950,
+      "ref_verified": false,
+      "band_cm": 1051.013862625164,
+      "band_intensity": 238.5394149750181,
+      "calc_shift_cm": 5.220773586423775,
+      "flags": [],
+      "site": {
+        "site": "ontop",
+        "anchor": "N",
+        "anchor_index": 27,
+        "n_metal": 1,
+        "distances": [
+          2.387437179270019
+        ],
+        "min_distance": 2.387437179270019,
+        "cutoff": 2.6910000000000003,
+        "label": "ontop 2.39",
+        "requested": "ontop",
+        "site_changed": false,
+        "source": "runs/20261113-020717_validation/ads_NH3_Au111_pet-mad",
+        "final_fmax": 0.008421
+      }
+    }
+  ],
+  "skipped": {}
+}

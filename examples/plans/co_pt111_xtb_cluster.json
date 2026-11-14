@@ -1,0 +1,7 @@
+{
+  "adsorbate": "CO",
+  "calculator": "xtb",
+  "surface": {"metal": "Pt", "structure": "fcc", "facet": "111", "site": "ontop", "model": "cluster"},
+  "dipole_method": "auto",
+  "task": "CO on a Pt10 cluster model of Pt(111) with GFN2-xTB (native dipoles, MSSR)"
+}

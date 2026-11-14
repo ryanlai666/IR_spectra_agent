@@ -1,701 +1,363 @@
-# IR_agent_conda 
-LangGraph Computational Chemistry Agent for OPT and IR calculation
+# IR Spectra Agent
 
+An AI agent that turns a plain-language request ("IR spectrum of CO on Pt(111) with UMA") into a
+complete vibrational-spectroscopy calculation for molecules and adsorbates on metal, silicon and
+silica surfaces, using machine-learned interatomic potentials (Meta UMA, Orb, PET) and GFN-xTB. Every
+result is checked against measured spectra (NIST gas-phase data and a curated table of published
+surface IR/HREELS bands).
 
-## 1. INTRODUCTION
-This project implements a multi-agent workflow using LangGraph to automate computational chemistry simulations with the Atomic Simulation Environment (ASE). The system is designed to take a high-level, natural-language task (e.g., "Run a fast IR spectrum simulation for water on Au(111)") and execute a full pipeline:
+[![ci](https://github.com/ryanlai666/IR_spectra_agent/actions/workflows/ci.yml/badge.svg)](.github/workflows/ci.yml)
 
-1.  **Plan:** An LLM (Gemini) parses the request to determine simulation parameters.
+![Adsorption-induced C-O and NH3-umbrella band shifts on Pt(111) and Au(111) for six methods, against literature values with their consistency windows](docs/figures/adsorbate_shifts.png)
 
-2.  **Execute:** A series of tools build the atomic structures, run optimizations, and calculate vibrational frequencies using various calculators with ASE package. (includes EMT, xTB, TBLite, GPAW, DFTB+, VASP).   
-    - Notice: xtb is not supported for adsorption system, and VASP ase wrapper are not tested, and will be future project
+*Adsorption-induced band shifts of CO and NH3 on Pt(111) and Au(111) for six methods (cluster models
+left, periodic slabs right) against the literature value and its consistency window; hatched bars
+were flagged by the agent's critic and are not used for conclusions. The UMA-S 1.2.1 rows are in the
+tables below.*
 
-3.  **Analyze:** The system generates plots for the structures and spectra, and a final LLM-powered agent provides a human-readable summary of the results.
+## Results at a glance
 
-This framework is built to be a modular and extensible platform for automating repetitive computational tasks in materials science and chemistry.
+| Result | Value | Takeaway |
+|---|---|---|
+| Gas phase, error vs experimental *harmonic* frequencies (4 modes) | UMA omol 34, OrbMol-v2 31, PET-OMol-L 32 cm⁻¹ MAE (mean signed +3 cm⁻¹) | OMol25-trained models reproduce harmonic DFT; their ~90 cm⁻¹ offset from measured bands is anharmonicity |
+| Gas phase, error vs measured fundamentals (11 modes) | UMA oc20 29, UMA omat 30 cm⁻¹ MAE | Best raw score, but 118-131 cm⁻¹ below the harmonic values: GGA softness cancels the anharmonicity |
+| CO/Pt(111) C-O shift, UMA slabs | oc20 -55, omat -81 cm⁻¹ vs -75 to -54 cm⁻¹ measured (UHV IRAS, unverified) | Consistent with experiment; an omol gas reference instead of the same-task one would give -213 cm⁻¹ |
+| CO/Cu(111) C-O shift | UMA omol / oc20 / omat -90 / -116 / -103 cm⁻¹ vs -66 cm⁻¹ measured (verified) | UMA over-binds CO on Cu; GFN1-xTB barely binds it (-7 cm⁻¹) |
+| H/Si(100)-2x1 Si-H stretch, sym / asym | UMA oc20 2092 / 2081, omat 2106 / 2094 cm⁻¹ vs 2099 / 2088 cm⁻¹ measured | On the measured bands with the right splitting, again by error cancellation (harmonic estimate 2189 / 2178) |
+| Isolated silanol O-H stretch | UMA omol 3896 cm⁻¹ vs harmonic estimate 3925 cm⁻¹ (measured 3747 cm⁻¹, verified; gap 178 cm⁻¹) | Stating the anharmonic gap explicitly changes which method looks right |
+| CO site on Pt(111), UMA oc20 / omat | fcc 0.12 / 0.31 eV below atop; C-O ≈ 2030 / 1830 / 1745 cm⁻¹ atop / bridge / fcc | UMA prefers the wrong site (the GGA "CO/Pt(111) puzzle"), and the site moves the band by ~200-300 cm⁻¹ |
+| Agent | 20/20 exact plans on 20 labelled prompts; 24-case UMA matrix in 1.7 min at 1.62 GiB on a laptop RTX 3070 | Reliable on routine requests; runs on a laptop GPU |
 
-<!-- ![langgraph_flowchart](langgraph_structures_v3.png) -->
-<p align="center">
-  <img src="IR_agent_flowchart.png" alt="Network Architecture" width="88%">
-</p>
+## Key findings
 
-## 2. CORE FEATURES
+- **Right for the right reason.** Models trained on OMol25 (UMA omol, OrbMol-v2, PET-OMol-L) behave
+  like harmonic DFT. GGA-level models (UMA oc20/omat, Orb-OMat, PET-MAD) match measured bands mainly
+  because their soft bonds cancel the missing anharmonicity. Stating the measured-vs-harmonic gap
+  explicitly, instead of folding it into a scale factor, exposes this.
+- **References must come from the same model task.** An adsorption shift is only meaningful if the
+  gas-phase reference uses the same UMA task: mixing tasks moves the CO/Pt shift from -55 to
+  -213 cm⁻¹.
+- **The adsorption site matters more than the method.** For the atop C-O band on Pt(111) the
+  uncertainty ranks site (~200-300 cm⁻¹) > cluster vs slab (~80) > UMA task (~27) > coverage (4-7)
+  > finite-difference step (<= 3), and UMA puts CO in the wrong site.
+- **Limitation:** only 2 of the 9 measured surface references (CO/Cu, silanol) could be verified in
+  the primary papers, and all calculations are harmonic, 0 K and at one dilute coverage, so the
+  comparisons are consistency checks, not a ranking of methods.
 
-* Natural Language Interface: Control complex simulations with simple text prompts.
-* Multi-Calculator Support: Easily switch between different computational methods:
-    * `'fast'`: **EMT** (Effective Medium Theory) - A very fast, low-accuracy mock calculator.
-    * `'xtb'`: **GFN2-xTB** (via `xtb_ase`) - A fast, semi-empirical tight-binding method.
-    * `'tblite'`: **GFN1-xTB** (via `tblite`) - An alternative semi-empirical method.
-    * `'dftb+'`: **DFTB+** (via `ase.calculators.dftb`) - A semi-empirical density-functional tight-binding method.
-    * `'gpaw'`: **GPAW** - A grid-based DFT calculator.
-    * `'NWChem'`: **GPAW** - A gaussain type / plane-wave DFT calculator.
-    * `'default'`/`'accurate'`: **VASP** - A high-accuracy, plane-wave DFT code (requires proper environment setup).
-* Automated Structure Generation:
-    * Surfaces: Supports fcc, bcc, and hcp slabs with common facets (e.g., fcc111, bcc110, hcp0001).
-    * Adsorption: Automatically places molecules on slabs with appropriate constraints.
-    * Molecules: Handles isolated molecules in a vacuum box.
-* End-to-End Calculations: Performs a full geometry optimization (BFGSLineSearch) followed by a vibrational frequency analysis.
-* Automatic Reporting: Generates and saves comparison plots of atomic structures and (mock) IR spectra.
-* AI-Powered Analysis: An agent provides a final text summary of the numerical results.
+The full technical record (methods, every table, caveats, negative results, compute used) is in
+[REPORT.md](REPORT.md).
 
+## Skills demonstrated
 
-### 3. HOW IT WORKS: AGENT ARCHITECTURE
+- **Agentic workflows for simulation.** An LLM planner (Gemini, pydantic-validated structured
+  output with retries and model fallbacks) turns a request into a typed plan; a LangGraph workflow
+  executes it; a critic node checks every calculation and retries or flags it; a 20-prompt harness
+  measures planner accuracy. `--no-llm` makes the whole agent testable without an API key.
+- **Materials foundation models (MLIPs).** Presets for Meta UMA-S 1.2.1 (`uma-omol`, `uma-oc20`,
+  `uma-omat`: one fairchem task for the adsorbate *and* its gas reference), OrbMol-v2, Orb-v3-OMat,
+  PET-OMol-L and PET-MAD-1.6, all validated on the same tables; displaced geometries are batched
+  on the GPU.
+- **Computational spectroscopy.** Harmonic vibrational analysis with exact rigid-body projection,
+  IR intensities from dipole derivatives, the metal-surface selection rule, cluster vs slab models,
+  and an explicit measured-vs-harmonic (anharmonic) gap.
+- **Scientific validation.** NIST gas-phase data, a curated table of measured surface bands with
+  technique, coverage, temperature, DOI and evidence level, site/coverage/step-size sensitivity, and
+  an uncertainty budget for one band.
+- **Engineering.** src-layout package, typed YAML config, logging, per-run output directories,
+  MLflow tracking, ~110 pytest tests, ruff, CI, and a Colab launcher.
 
-This repository is split into five main components: `simulation_tools.py`, `postprocess_tools.py`, `planner.py`, `build_graph.py`, and `test_endtoend.py`.
+## How it works
 
----
-
-### `simulation_tools.py` (The "DFTB/DFT Tools")
-
-This file contains a library of Python functions decorated with `@tool` that wrap complex **ASE (Atomic Simulation Environment)** operations into simple, discrete steps.
-
-* **Calculator Selection (`_get_calculator`)**: A robust helper function that selects and initializes an ASE calculator based on a preset.
-    * `'fast'`: **EMT** (Effective Medium Theory) - A very fast, low-accuracy mock calculator.
-    * `'xtb'`: **GFN2-xTB** (via `xtb_ase`) - A fast, semi-empirical tight-binding method.
-    * `'tblite'`: **GFN1-xTB** (via `tblite`) - An alternative semi-empirical method.
-    * `'dftb+'`: **DFTB+** (via `ase.calculators.dftb`) - A semi-empirical density-functional tight-binding method.
-    * `'gpaw'`: **GPAW** - A grid-based DFT calculator.
-    * `'nwchem'`: **NWChem** - A high-performance computational chemistry package.
-    * `'default'`/`'accurate'`: **VASP** - A high-accuracy, plane-wave DFT code (requires proper environment setup).
-* **Structure Building**:
-    * `setup_slab_tool`: Constructs `fcc`, `bcc`, and `hcp` metal slabs with specified facets.
-    * `setup_molecule_tool`: Creates an isolated molecule in a vacuum box.
-    * `setup_adsorbate_tool`: Places a molecule on a slab and applies `FixAtoms` constraints to the bottom layers.
-* **Calculation Execution**:
-    * `run_opt_tool`: Performs geometry optimization using the `BFGSLineSearch` algorithm.
-    * `run_opt_freq_tool`: Runs a final, high-force-tolerance optimization (`LBFGS`) followed by a `Vibrations` analysis to get frequencies.
-
----
-
-### `postprocess_tools.py` (The "Analysis/Visualization Tools")
-
-This file contains the tools responsible for plotting and visualizing the results from the simulation.
-
-* **`extract_and_plot_spectra_tool`**: Extracts vibrational frequencies, converts them to `cm⁻¹`, and plots a broadened Gaussian IR spectrum. **(Note: Intensities are mocked)** for calculators that don't provide dipole moments.
-* **`plot_structure_comparison_tool`**: Generates a 2x4 comparison plot showing the system at four key stages (initial slab, relaxed slab, adsorbate added, final system) from both side and top-down views.
-
----
-
-### `planner.py` (The "Agent Nodes")
-
-This file defines the "memory" and all the individual "agent" functions (nodes) for the LangGraph workflow.
-
-* **`SimulationState`**: A `TypedDict` that acts as the shared state for the graph, passing atom objects, calculator settings, and results between nodes.
-* **LLM Integration**:
-    * Uses `ChatGoogleGenerG` (Gemini) for its agentic components.
-    * A `structured_llm` is bound to a Pydantic model (`PlannerOutput`) to force the planning LLM to return a clean, parsable JSON object.
-* **Agent Nodes**: Each step in the workflow is a function that modifies the state.
-    1.  **`planner_node`**: The entry point. Takes the user's `task` string and uses the `structured_llm` to extract `calculator_level`, `surface_metal`, `adsorbate_formula`, etc.
-    2.  **`geometry_node`**: Uses the plan from the state to call the correct `simulation_tools` functions to build and pre-optimize the slab/adsorbate system. It includes logic to handle "pure molecule" calculations if the metal is set to 'None'.
-    3.  **`calculation_node`**: Takes the final geometry and runs the `run_opt_freq_tool` to perform the computationally expensive frequency calculation.
-    4.  **`plot_geometry_node`**: Calls `postprocess_tools.plot_structure_comparison_tool` to generate and save the structure comparison plot.
-    5.  **`spectra_node`**: Calls `postprocess_tools.extract_and_plot_spectra_tool` to generate and save the IR spectrum plot.
-    6.  **`analysis_node`**: Takes the final numerical frequency data, packages it, and sends it to an LLM to generate a final, human-readable summary, which it saves to a text file.
-
----
-
-### `build_graph.py` (The "Agent Orchestrator")
-
-This file imports the nodes from `planner.py` and wires them together into a `StateGraph`.
-
-* **Graph Definition**: The nodes are wired into a fixed, linear sequence:
-    `PLANNER` → `GEOMETRY` → `CALCULATION` → `PLOT_GEOMETRY` → `SPECTRA` → `ANALYSIS` → `END`
-* **Compilation**: It compiles this graph into a runnable `app` object, which is then imported by `test_endtoend.py`.
-
----
-
-### `test_endtoend.py` (The "Main")
-
-This is the main executable file to run the entire workflow.
-
-* **Imports**: It imports the compiled `app` object from `build_graph.py`.
-* **Task Definition**: A user's task (e.g., "Run a IR spectrum simulation for N2 on Au(111)...") is defined as the `initial_task` string.
-* **Execution**: It initializes the graph with this task and uses `app.stream()` to run all the nodes in the defined sequence.
-* **Output**: It prints the final `analysis_report` from the graph's state upon completion.
-
-
-
-
-
-
-## 4. INSTALLATION AND SETUP
-
-This guide assumes a Linux-based environment.
-
-Prerequisites
-
-* Anaconda or Miniconda
-* Git
-* (For Linux) A GCC compiler (e.g., `module load GCC/12.3.0` on a cluster)
-
-## Step 1: Conda Environment Setup
-
-
-### Clone this repo
-    git clone https://github.com/ryanlai666/IR_agent_conda.git [This_REPO_URL]
-    cd IR_agent_conda
-
-
-###  Create the conda environment
-
-It is recommended to set up a conda environment and installing dependency through conda-forge.
-
-- Anaconda version used in this project is `Anaconda3/2024.02-1` 
-
-Type following command in Anaconda_prompt or in activate conda base to create  new conda enviroment. `IR_agent_conda` are the new created conda enviroment that can be changed.
-```bash
-conda create --name IR_agent_conda python=3.11
-conda activate IR_agent_conda
+```mermaid
+flowchart LR
+  U[User request] --> P[planner<br/>Gemini structured output<br/>pydantic validation + retries]
+  J[JSON plan<br/>--no-llm] --> P
+  P --> G[geometry<br/>molecule / slab / cluster]
+  G --> C[calculation]
+  C --> K{critic<br/>convergence, imaginary modes,<br/>relaxed site}
+  K -- retry: follow imaginary mode / re-relax --> C
+  K -- ok or flagged --> PG[plot_geometry] --> S[spectra] --> A[analysis<br/>NIST + literature + critic flags]
+  P & G & C & K & PG & S & A -.error.-> F[failure report]
+  subgraph C[calculation: hybrid IR]
+    direction TB
+    D[6N displaced geometries] --> FE[force method<br/>UMA / Orb / PET batched on GPU, or xTB]
+    D --> DE[dipole method<br/>GFN2-xTB / GFN1-xTB<br/>on adsorbate fragment]
+    FE --> H[Hessian -> normal modes<br/>Eckart projection for molecules]
+    DE --> M[dmu/dQ -> intensities<br/>MSSR on metals]
+    H --> M
+  end
 ```
 
-- ### windows (vscode & git bash)
+Any node that fails routes to a failure report instead of crashing. The method in brief (details
+and equations: REPORT.md §1-§2):
 
-Add the following path to your windows environment variable 
-``` 
-# for windows
-C:\ProgramData\anaconda3
-C:\ProgramData\anaconda3\Scripts
-C:\ProgramData\anaconda3\Library\bin
-```
-Conda init should add the will add the coressponding bash enviroment 
-```bash
-# for windows
-conda init bash
-conda activate IR_agent_conda
-```
+1. **Hessian** by central finite differences of the forces (δ = 0.01 Å) over the adsorbate atoms
+   (partial Hessian on surfaces) or all atoms (molecules), with all displaced geometries batched
+   through the MLIP on the GPU. The `xtb`/`xtb-gfn1` presets use xtb's own `--hess` Hessian,
+   because finite differences of xtb 6.7.1's gradient split degenerate modes.
+2. **Normal modes** from the mass-weighted Hessian, with exact projection of rigid-body modes for
+   free molecules.
+3. **IR intensities** `I_k = 42.2561 · |dμ/dQ_k|²` km/mol from dipole derivatives at the same
+   displaced geometries: native dipoles where the method has them (xTB), otherwise GFN2-xTB on the
+   isolated adsorbate fragment (hybrid route).
+4. **Metal-surface selection rule:** on metals only the surface-normal component of dμ/dQ is IR
+   active (Greenler 1966).
+5. **Surface models:** periodic slabs for periodic methods; a frozen 10-atom cluster (Pt10, Au10,
+   Cu10, Ru10) or an H-capped Si9H12 cluster for non-periodic methods.
+6. **Critic:** convergence (retry: FIRE re-relaxation), imaginary modes (retry: follow the mode),
+   site change, weak binding; anything still wrong is flagged in the report, not hidden.
 
-- ### linux
-You can activate the environment from bash
-```bash 
-conda env list
-conda init ## will add corresponding export path to .vimrc
-conda activate IR_agent_conda
-```
+## Results in detail
 
+All numbers come from saved run outputs in `docs/validation/` (provenance:
+[docs/validation/README.md](docs/validation/README.md)). Shifts are adsorbed band minus the gas band
+of the *same* method (and the same UMA task). Bold = inside the "consistent" window of a reference;
+⚑ = flagged by the critic and not used for conclusions.
 
+**Gas phase and CO/NH3 on Pt** (REPORT.md §5-§8):
 
+| Result | UMA omol | UMA oc20 | UMA omat | OrbMol-v2 | PET-OMol-L | Orb-v3-OMat | PET-MAD-1.6-S | GFN2-xTB | GFN1-xTB | Reference |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---|
+| Gas phase, 11 fundamentals: MAE (cm⁻¹) | 90 | 29 | 30 | 92 | 92 | 61 | 76 | 93 | 99 | NIST CCCBDB |
+| Gas phase vs experimental *harmonic* frequencies, 4 modes: MAE (cm⁻¹) | **34** | 131 | 118 | **31** | **32** | 85 | 72 | 161 | 148 | CCCBDB (H2O, CO) |
+| CO/Pt(111) C-O shift (cm⁻¹) | -148 | **-55** | **-81** | **-44** | n.c. ⚑ | **-35** | -118 ⚑ | -164 | **-78** | -75 to -54 (UHV IRAS, unverified); window -105..-24 |
+| NH3/Pt(111) umbrella shift (cm⁻¹) | +202 ⚑ | **+120** | +134 ⚑ | **+160** | +7 | +249 | **+95** | -224 | **+192** | +140 (EELS, unverified); window +65..+220 |
+| Model for adsorbates | Pt10 cluster | slab | slab | cluster | cluster | slab | slab | cluster | cluster | |
 
-### Step 2: Install Python Dependencies
+Flags: UMA ⚑ = a small imaginary mode of a rigid-body motion (NH3 rotating about the metal-N axis),
+not of the band shown. PET-OMol-L CO/Pt did not converge and moved to a bridge site (n.c.). PET-MAD
+CO uses a gas reference that stopped at fmax 0.025 eV/Å. Au rows (qualitative only) are in REPORT.md §6-§7.
 
-- ####  Install the core packages requirement through conda-forge 
-```bash 
-conda install matplotlib
-conda install conda-forge::ase
+**Semiconductor-process adsorbates** (REPORT.md §10). Measured values from
+[data/reference/experimental_surface_ir.csv](data/reference/experimental_surface_ir.csv); "harm.
+est." = measured fundamental + the anharmonic gap from
+[anharmonicity.csv](data/reference/anharmonicity.csv) (Si-H +90, O-H +178 cm⁻¹).
 
-```
+| system, band (cm⁻¹) | GFN1-xTB | UMA omol | UMA oc20 | UMA omat | measured | harm. est. |
+|---|---:|---:|---:|---:|---:|---:|
+| CO/Cu(111), C-O shift | -7 ⚑ | **-90** | -116 | -103 | -66 (RAIRS 80 K, lowest dose; verified) | -66..-56 |
+| CO/Ru(0001), C-O shift | **-148** | **-180** | **-160** | **-178** | -167 (lowest coverage; unverified) | -157 |
+| H/Si(100)-2x1, Si-H sym / asym | 2040 / 2038 | 2235 / 2227 | 2092 / 2081 | 2106 / 2094 | 2099 / 2088 (unverified) | 2189 / 2178 |
+| NH2+H/Si(100), Si-H / NH2 scissor | 2032 / 1507 | 2212 / 1566 | 2067 / 1512 | 2089 / 1508 | 2077 / 1534 (porous Si; unverified) | 2167 / - |
+| isolated SiOH, O-H | 3883 | 3896 | 3747 | 3838 | 3747 (verified) | 3925 |
 
-- #### Install  LangChain / LangGraph and Gemini API
+GFN1-xTB ⚑ on CO/Cu: CO is barely bound (Cu-C 2.50 Å) and has imaginary modes.
 
-```bash 
-conda install -c https://prefix.dev/conda-forge python-dotenv
-conda install conda-forge::langchain-core 
-conda install conda-forge::langgraph
+**CO site x UMA task x coverage on Pt(111)** (REPORT.md §11):
 
-# I only have access of Gemini API, so I use gemini, other API should be easier to swap with.
-conda install conda-forge::langchain-google-genai
-```
+| UMA task, cell | CO atop | CO bridge | CO fcc | E_fcc - E_atop | NH3 atop shift |
+|---|---:|---:|---:|---:|---:|
+| oc20, 3x3 / 4x4 | 2031 / 2027 | 1829 / 1823 | 1740 / 1732 | -0.12 / -0.13 eV | +120 / +136 |
+| omat, 3x3 / 4x4 | 2037 / 2031 | 1835 / 1832 | 1751 / 1747 | -0.31 / -0.31 eV | +133 ⚑ / +136 ⚑ |
 
-### Step 3: Set Up API Key
+Bands in cm⁻¹. All sites hold during relaxation; the fcc preference is the GGA "CO/Pt(111) puzzle"
+(Feibelman et al. 2001), inherited from the RPBE/PBE training data.
 
-Create a `.env` file in the root directory of the project and add your Google API key:
+**Agent.** The planner produced 20/20 exact plans on 20 labelled prompts with 0 validator
+rejections; the configured `gemini-3.8-flash` was overloaded, so its fallback models answered
+([docs/planner_eval](docs/planner_eval/gemini-3.8-flash.md)). Batching the displaced geometries
+makes the Hessian step 3.5-7.7x faster (random-weight UMA-S proxy benchmark, REPORT.md §7).
 
-    GOOGLE_API_KEY="YOUR_API_KEY_HERE"
+## Calculators
 
+`ir-agent calculators` prints what is usable on the current machine.
 
+| preset | method | periodic | dipoles | GPU | notes |
+|---|---|:-:|:-:|:-:|---|
+| `uma-omol` | Meta UMA-S 1.2.1, omol task (fairchem 2.21, local checkpoint) | cluster model | hybrid | yes | gated weights (see below) |
+| `uma-oc20`, `uma-omat` | UMA-S 1.2.1, oc20 / omat task | yes | hybrid | yes | gas reference with the same task as the slab |
+| `uma` | UMA-S 1.2.1, omol for molecules, oc20 for slabs | yes | hybrid | yes | slab shifts referenced to `uma-oc20` gas |
+| `orb-mol` | OrbMol-v2 (OMol25 + OPoly26, conservative) | cluster model | hybrid | yes | Apache-2.0; own venv (`.venv-orb`) |
+| `orb-omat` | Orb-v3 conservative-inf-OMat (OMat24) | yes | hybrid | yes | Apache-2.0; molecules are out of distribution |
+| `pet-omol` | PET-OMol-L v1.0.0 (OMol25) | cluster model | hybrid | yes | BSD-3-Clause; own venv (`.venv-pet`) |
+| `pet-mad` | PET-MAD-1.6-S (r2SCAN, incl. surfaces) | yes | hybrid | yes | BSD-3-Clause |
+| `xtb` | GFN2-xTB, `xtb` executable (`--hess` Hessian) | cluster model | native | - | SCC fails for metallic Au clusters |
+| `xtb-gfn1` | GFN1-xTB, `xtb` executable (`--hess` Hessian) | cluster model | native | - | converges for Au, Pt, Cu, Ru clusters |
+| `tblite` | GFN2-xTB, Python API | yes | native | - | Linux (conda-forge) |
+| `dxtb` | GFN1-xTB in PyTorch | - | Mulliken-charge dipole* | yes | molecules only (diverges on metal clusters) |
+| `dftb+`, `gpaw`, `nwchem` | DFTB+ / plane-wave DFT | yes | native / hybrid | - | Linux/WSL, not re-tested |
+| `vasp`, `vasp-accurate` | VASP PBE | yes | native | - | licensed, untested |
+| `emt` | ASE EMT | yes | hybrid | - | toy potential for workflow tests only |
 
-### Step 4: Install External Calculators (DFT/DFTB packages Installation)
+\* dxtb's field-derivative dipole needs `tad-libcint` (Linux only); without it the dipole is Σqᵢrᵢ.
 
-This agent *orchestrates* calculators; it does not *include* them. You must install the ones you intend to use.
-To make it simipe, I mainly selected ASE calculator supported package as start. 
-The Supported calculators of ASE could be checked in following link: [Supported calculators of ASE](https://ase-lib.org/ase/calculators/calculators.html)
+A missing calculator raises `CalculatorUnavailableError` with install instructions.
 
-However, most of packages listed are not easily accessible through conda install, and very few supported PBC system. Therefoere, this project merely includes:
+## Install
 
-- **1. EMT** : EMT is built-in with ASE. No installation is needed.  (bad performance)
-
-- **2. DFTB+ (Recommended)**: We recommend installing via `mamba` for easier dependency resolution.
-
-- **3. GPAW**: Install via `conda-forge`
-
-- **4. xTB (For Molecules Only)**: Note: The `xtb_ase` wrapper does not support Periodic Boundary Conditions (PBC) and will fail for slab systems. It is suitable for isolated molecule calculations.
-
-- **5. NWChem** Install via `micromamba`:
-
-- **6. tblite**  (version contradict with stable DFTB+ version, so skipped for now)
-## 
-
-
-As for Vasp Wrap through ASE python wrapper should be the next step plan that integrate with the HPC system.
-
-Besides, to satisify the requirement of the project:
-
-**All computation must be reproducible on a standard laptop**. 
-
-And, I don't have the Vasp pacakges available locally due to license policy, so I am unable to test to integrate it to obtain better accracy IR, and the mocked calculation is not worth to represent the accracy, so I didn't try out working with VASP. However, it sould be more strightfoward to incoperate VASP pacakge first in practical HPC usage.
-
-### 2-a. DFTB+ Installation through conda (failed)
-Followed website DFTB+ website but failed. https://dftbplus.org/download/stable.html
-```bash 
-# Failed installation route through conda
-# 
-conda install -c conda-forge gsl  (2.5.0 version will be too new, not worked)
-conda install gsl=2.7.0 #(add this dependency but still failed)
-conda install conda-forge::dftbplus=24.1=nompi_*       #(failed)
-# supported package
-conda install conda-forge::dftbplus-tools=24.1  (not sure)
-conda install conda-forge::dftbplus-python=24.1 (not sure)
-```
-### 2-b. DFTB+ Installation through mamba (success)
-Install DFTB+ by mamba as [Introduction — DFTB+ Recipes](https://dftbplus-recipes.readthedocs.io/en/latest/introduction.html) suggested:
-```bash
-conda install conda-forge::mamba  # install mamba through conda
-
-# below is non-mpi version, but mpi version is also avialable
-mamba install 'dftbplus=*=nompi_*'  # then utilzie mamba install dftbplus
-mamba install dftbplus-tools dftbplus-python
-```
-Then, add the DFTB+ path like `~/.conda/envs/IR_agent_conda/bin/dftb+` enviroment to your .vimrc and refresh the bash.
-
-For the parameters of Slater-Koster files needed for differnt required elements, please downlaod from https://www.dftb.org/parameters/download.html, and check https://dftb.org/parameters/introduction.html for further details.
-
-For compatibility, also the old variable can be used, and the resulting command will be . Before each DFTB+ calculation, also make sure that the variable points to the directory where the Slater-Koster files are kept. 
-Please check https://ase-lib.org/ase/calculators/dftb.html for more details on its enviorments setup.
-
-For current DFTB parameter used. please change the DFTB+ prefex in your .vimrc to export the correct parameters path.
-3ob-3.1.0, auorgap zips are included.
-```bash
-export DFTB_PREFIX= YOUR_PARAMETERS_PATH/IR_agent_conda/3ob-3.1.0/skfiles/
-```
-For this adsorption project, these two paraneters set are already included in the root diretories, please exported the needed parameters
-- auorgap : includes Au - Au,H,C,N,O,S,P (gold-thiolate compounds + extension of auorg with P)  ## current dftb+ results
-
-- 3ob : includes Br-C-Ca-Cl-F-H-I-K-Mg-N-Na-O-P-S-Zn (DFTB3 files for bio and organic molecules) 
-
-notice
-
-### 3. NWChem Installation
-Follow below instruction from NWChem website: 
-[How to download and install NWChem - NWChem](https://nwchemgit.github.io/Download.html#example-of-nwchem-rpm-installation-under-redhatcentos-7-x86_64)
-
-and install through conda and micromamba as following:
-```bash
-conda install -c conda-forge micromamba
-micromamba install -c conda-forge nwchem
-```
-
-### 4. xtb Installation (not supported for PBC system)
-more on xtb: https://wires.onlinelibrary.wiley.com/doi/10.1002/wcms.1493
-
-Make sure you have GCC compiler and GFortain installed or loaded
-```bash
-conda install -c conda-forge libgfortran5  (xtb seems require GFORTRAN_10)
-conda install -c conda-forge xtb
-```
-Install the python wrapper of your selected. ([xtb-python](https://xtb-python.readthedocs.io/en/latest/)/ [xtb_ase](https://andrew-s-rosen.github.io/xtb_ase/user_guide/parameters.html))
-```bash
-# xtb-python  # (not used for this project, but should work as well)
-conda install conda-forge::xtb-python  
- 
-# xtb_ase (seems to be better xtb ase wrapper) (used for this project)
-pip install git+https://github.com/Quantum-Accelerators/xtb_ase.git
-
-```
-
-### 5. GPAW Installation 
-Follow below instruction from GPAW website: 
-[How to download and install GPAW](https://gpaw.readthedocs.io/install.html)
-Instead of using pip, using conda install conda-forge channel to ensure dependency
-```bash
-conda install conda-forge::gpaw
-```
-
-### 6. tblite Installation
-Follow below instruction from tabite repo and install with mamba: 
-[tblite repo](https://github.com/tblite/tblite)
-
-If the conda-forge channel is not yet enabled, add it to your channels with
-```bash
-mamba config --add channels conda-forge
-mamba config --set channel_priority strict
-```
-Once the conda-forge channel has been enabled, this project can be installed with:
-```bash
-mamba install tblite
-# If you want to enable the Python API as well install
-mamba install tblite-python
-```
-However, the installed dftbplus is 24.1, and tbilte utlized 20.2.1 version, so install of tblite will downgrade the dftplus version, which might casues dependency issue\\
-. Therefore, I did not expand the tblite wrapper in this project.
-
-
-### Step 5: Verify Installation
-
-
-Test scripts for each calculator are provided in the `package_tester/` directory. Run them to ensure your environment and calculators are correctly configured.
-
-    # Example for DFTB+
-    python package_tester/dftbplus/dftbplus_test.py
-
-    # Example for GPAW
-    python package_tester/GPAW/gpaw_test.py
-
-
-
-## 5. USAGE
-
-
-To run the agent, execute the `test_endtoend.py` script. The script will prompt you to enter your simulation task.
-
-    # Make sure your conda environment is active, and include GCC compiler
-    conda activate IR_agent_conda
-
-    # Run the IR agent
-    python test_endtoend.py
-
-
-You will then be prompted in your terminal:  (if set `Take_task_from_user`=`True` in `test_endtoend.py` )
-
-    Enter your intend IR simulation, Notice: currently the molecule will be on attached on top site.:
-
-Example Prompts:
+Tested on Windows 11 (Python 3.11, RTX 3070 Laptop, CUDA 12.8 driver) and in Linux CI.
 
 ```bash
-## slab with adsorbate
-* "Run a fast IR spectrum simulation for water on Au(111)"
-* "Get the optimized structure and IR for water on Au(100) using the dftb+ calculator"  ### take ~ 10 mins
-* "Get the optimized structure and NH3 for NH3 on Au(111) using the dftb+ calculator"  ### take ~ 15 mins 
-* "Get the optimized structure and IR for N2 on Au(100) using the dftb+ calculator"     ### take ~ few mins
-
-## pure molecule
-* "Calculate the frequencies for an isolated H2O molecule using xtb"
+git clone https://github.com/ryanlai666/IR_spectra_agent.git && cd IR_spectra_agent
+uv venv .venv --python 3.11 && source .venv/bin/activate     # Windows: .venv\Scripts\activate
+uv pip install torch==2.8.0 --index-url https://download.pytorch.org/whl/cu128
+uv pip install --override requirements/ci-overrides.txt -e ".[llm,dev,tracking,dxtb,uma]"
+# xtb 6.7.1 executable: conda-forge ...
+conda create -y -p ./.tools/xtb -c conda-forge xtb=6.7.1
+# ... or the release archive from https://github.com/grimme-lab/xtb/releases/tag/v6.7.1, then set IR_AGENT_XTB_BIN
+ir-agent calculators
+ir-agent run --no-llm --plan examples/plans/h2o_gas_xtb.json
 ```
 
-
-
-- Example of slab with adsorbate:
-  
-![Example of slab with adsorbate](Usage1.gif)
-
-- Example of pure molecule:
-  
-![Example of pure molecule](Usage2.gif)
-
-###  Notice:
-
-If set `Take_task_from_user`=`False` in `test_endtoend.py`, initial_task = "XXXXXX" in main function will be use as argument
-
-
-
-
-
-### 📈 Calculator Performance Summary: Single-Core Benchmark. 
-
-The following table summarizes the approximate performance of implemented calculators for a **single-core run** on a test system of approximately 30 atoms. (~350 electrons).
-
-| Calculator | Implemented? | Speed | Slab Opt. Accuracy | Molecule Opt. Accuracy | IR Accuracy |
-| :--- | :---: | :--- | :--- | :--- | :--- |
-| `'fast'` (EMT) | ✅ | Very Fast | Bad ~ OK | Bad ~ OK | Very Bad |
-| `'xtb'` (GFN2-xTB) | ✅ | Very Fast | Bad | OK | Very Bad ~ Bad |
-| `'dftb+'` (DFTB+) | ✅ | Medium | OK | OK | Bad |
-| `'gpaw'` (GPAW) | ✅ | Slow | Good | Good | ? (Too long) |
-| `'NWChem'` | ✅ | Very Slow | Good | Good | ? (Too long) |
-| `'default'`/`'accurate'` (VASP) | Partial | Very Slow | Good | Good | Medium ~ good |
-| `'tb-Lite'` | ❌ | ? | ? | ? | ? |
-
-### Important Notes and Limitations
-
-* **Coarse Results:** This table provides only a very coarse idea of performance. The VASP results are based on past experience, not this specific benchmark.
-* **Rough IR Results:** Current example results provides coarse vibration calculations, which did not include the dipole moment induced IR active/inactive on Intensities. Therefore, all vibrations mode will be considered as IR.
-* **No Parallel Processing:** The current DFT/DFTB package installations do not include MPI/OpenMP support, or it is not enabled in the ASE calculator settings.
-* **Performance Bottleneck:** As a result of being limited to a single core, completing calculations with computationally demanding packages like **GPAW** and **NWChem** is very difficult.
-* **xTB Limitations:** The current `xtb` calculator implementation only supports molecular calculations (it does not support Periodic Boundary Conditions, or PBC, for slabs).
-
-
-
-
-Output
-
-The agent will stream its progress to the console. Final results, including plots and trajectories, will be saved in the `results/` directory.
-
-* [system_name]_structures.png: A comparison of the initial and final atomic structures.
-* [system_name]_ir.png: The calculated IR spectrum. (current result should be quite inaccurate (fast(EMT), dftb+, xtb result.))
-* [system_name]_report.txt: summary from AI agent.
-* Log files and trajectories: (e.g., `.log`, `.traj`) are saved in the root directory for debugging shown in root directory.
-* [system_name]_slab.xyz : (e.g., `.xyz`) optimized structure  are saved in the root directory for further examination or usage.
-
-
-- #### N2_on_Au_fcc_111_fast(EMT)
-- Example of EMT(fast) [system_name]_structures.png :
-
-![Example of pure molecule](results/N2_on_Au_fcc_111_fast_structures.png)
-
-- Example of EMT(fast) [system_name]_ir.png :
-
-![Example of pure molecule](results/N2_on_Au_fcc_111_by_fast_ir.png)
-
-
-- #### NH3_on_Au_fcc_111_dftb+
-- Example of dftb+ [system_name]_structures.png :
-![Example of pure molecule](results/NH3_on_Au_fcc_111_dftb+_structures.png)
-
-- Example of dftb+ [system_name]_ir.png :
-![Example of pure molecule](results/NH3_on_Au_fcc_111_by_dftb+_ir.png)
-
-
-- #### H2O_on_Au_fcc_100_dftb+
-- Example of dftb+ [system_name]_structures.png :
-![Example of pure molecule](results/H2O_on_Au_fcc_100_dftb+_structures.png)
-
-- Example of dftb+ [system_name]_ir.png :
-![Example of pure molecule](results/H2O_on_Au_fcc_100_by_dftb+_ir.png)
-
----
-
-### ASE DFT geometry optimizers selection recommendation
-
-
-Based on the observation from https://doublelayer.eu/vilab/tag/gpaw/ from Vladislav Ivanistsev's research blog.
-
-- Observation 1. QuasiNewton outperforms all other optimizers. Point. I have run a standard GPAW/DFT/PBE/PW optimization with various optimizers:
-
-- Observation 2. Pre-optimizing the slab with a cheaper method does not reduce the number of optimization steps. I have preoptimized the geometry with TBLITE/DFTB/GFN1-xTB to continue with GPAW/DFT/PBE/PW. Preoptimization takes just some minutes and the obtained geometry looks similar to the DFT one but that does not reduce the number of DFT optimization steps.
-
-Therefore, as QuasiNewton are selected as default and fix parameters for ase calculator to simply the process.
-
-
-Notice:
-In ASE documentaion, https://ase-lib.org/ase/optimize.html#ase.optimize.QuasiNewton
-
-In many of the examples, tests, exercises and tutorials, QuasiNewton is used – it is a synonym for BFGSLineSearch.
-Therefore we use BFGSLineSearch as default calculator
-
-
-
-
-
-
--------
-
-
-## 6.  SCOPE, LIMITATIONS & FUTURE WORK
-
-### Scope
-* **Intended Use**: This project is intended for rapid prototyping, and automating simple, repetitive screening tasks (e.g., "what does the spectrum of molecule X look like on metal Y with a fast calculator?").
-* **Supported Calculations**: Geometry Optimization and Vibrational Frequency Analysis (for IR spectra). (Finite Difference method)
-* **Supported Systems**:
-    * Single-molecule adsorption on `fcc`, `bcc`, or `hcp` metal surfaces. 
-        * single molecule: includes ASE molecule collections.
-        * metal surface and facets includes: 
-            * fcc: fcc100, fcc110, fcc111, fcc211
-            * bcc: bcc100, bcc110, bcc111 
-            * hcp: hcp0001, hcp10m10 
-    * Isolated molecules in a vacuum. 
-
-    **Notice:**  xtb calculator generally failed for molecule adsorption task, but should be good for Isolate molecule task.
-
----
-
-### Limitations
-
-* **Mock IR Intensities**: This is the most significant scientific limitation. The `extract_and_plot_spectra_tool` **does not calculate real IR intensities** (which require dipole moment calculations, e.g., `LEPSILON=.TRUE.` in VASP). It mocks intensities as uniform, so the plot only shows peak *positions* based on the each calculators.
-* **Calculator Dependencies**: This code *orchestrates* calculators but does not *include* them. You must have `xtb_ase`, `tblite`, `gpaw`, `dftbplus`, or VASP installed and correctly configured in your environment for those presets to work.
-* **VASP Setup**: To use the `'default'` or `'accurate'` VASP presets, you must have VASP compiled and set the `VASP_COMMAND` and `VASP_PP_PATH` environment variables.  (not fully implement yet)
-* **Simple Workflow**: The LangGraph workflow is linear for now and does not include error handling or conditional branching (e.t., "if optimization fails, change parameters and retry").
-* **Convergence Issues**: As noted in the code, semi-empirical methods like xTB can struggle with convergence for periodic boundary condition (PBC) / slab systems. The `fast` (EMT), `dftb` (dftb-level), `gpaw` (DFT, planewave, XC) presets are more stable for slabs.
-
-
-## Proposed LLM Functionality
-**Automated Parameter Determination:** Use the LLM to intelligently select the appropriate computational parameters for different calculators (e.g., VASP, Gaussian) based on the user's input system.
-
-**Intelligent Error Handling:** Develop an automated debugging loop where the LLM parses the log files from a terminated calculation, identifies the error, and reiterates by resubmitting a corrected job.
-
-**Automated Report Generation:** Automatically generate a summarized HTML report from the final calculation outputs, highlighting key results and convergence data.
-
-**Parallel Calculation Management / Slurm file generation:** Enable the LLM to manage and orchestrate the execution of multiple calculations in parallel for high-throughput workflows.
-
-## Proposed Features for Improved IR Spectrum Accuracy
-**Calculator Integration:** Implement full support for Quantum Espresso and VASP to serve as the engines for vibrational calculations.
-
-**DFPT Support:** Integrate Density Functional Perturbation Theory (DFPT) capabilities to enable the accurate and efficient calculation of phonon modes.
-
-**Phonopy Package Implementation:** Integrate the Phonopy package for post-processing the vibrational calculations (e.g., from VASP or QE) to analyze phonon modes, density of states, and generate the final IR spectrum.
-
-
-### Possible Future API/package worth trying or integrating
-
-[g-xTB](https://github.com/stefanbringuier/g-xtb-ase?tab=readme-ov-file) : A General-Purpose Extended Tight-Binding Electronic Structure Method For the Elements H to Lr (Z=1–103) -> Seems show better accary than xtb, but not support PBC, but IR caluclation are included as well.
-
-[THeSeuSS](https://ariadni20.github.io/THeSeuSS/) :  IR calculation -Automated Python Tool for Modeling IR and Raman Vibrational Spectra of Molecules and Solids. ->  (no compatiable version with python 3.11)
-
-
-[GASpy](https://github.com/Ariadni20/THeSeuSS) : Generalized Adsorption Simulator for Python
-
-
-[orca-ir](https://github.com/radi0sus/orca_ir) : Plots IR spectra from from ORCA 
-output files
-
-[THeSeuSS]() : A Journey With THeSeuSS: Automated Python Tool for Modeling IR and Raman Vibrational Spectra of Molecules and Solids.
-
-
-[Phonopy-Spectroscopy](https://github.com/skelton-group/Phonopy-Spectroscopy) -> Previous Raman method through caluclation of force 3rd constant from hessian extracted from phonony and Vasp that I used to follow.
-
-
-## 7. REPOSITORY STRUCTURE
+`requirements/ci-overrides.txt` lets dxtb's `numpy<2` pin coexist with fairchem (numpy 2 works);
+`requirements/overrides.txt` is the Windows dev variant (torch 2.11), and `requirements-lock*.txt`
+freeze the tested environments.
+
+**Orb and PET** need Python >= 3.12 and conflicting `nvalchemi-toolkit-ops` pins, so each gets its
+own venv:
 
 ```bash
-.
-### dftb+ parameters set start
-├── 3ob-3.1.0 
-├── 3ob-3.1.0.zip
-├── auorgap-1.1.0  # ( & all other .skf)
-├── auorgap-1.1.0.zip
-├── mio-1.1.0
-├── mio-1.1.0.zip
-### dftb+ parameters set end
-├── langgraph_structures_v3.png ### graph and planner strucuture 
-#### Adsorption test optimzied strucutre with differnt calculator (geom.xyz that required)  
-├── N2_on_Au_fcc_111_dftb+_slab.xyz
-├── N2_on_Au_fcc_111_fast_slab.xyz  # EMT()
-├── N2_on_Au_fcc_111_gpaw_slab.xyz
-├── H2O_xtb_molecule.xyz
-#### end of 
-├── package_tester  # XXXXXXX_test.py code could be used to test the whether installation of package is sucessful
-│   ├── dftbplus
-│   │   ├── band.out
-│   │   ├── detailed.out
-│   │   ├── dftb_in.hsd
-│   │   ├── dftb_pin.hsd
-│   │   ├── dftbplus_test.py  ## tester
-│   │   ├── final.xyz
-│   │   ├── geo_end.gen
-│   │   ├── h2o.out
-│   │   └── test.traj
-│   ├── GPAW
-│   │   └── gpaw_test.py ## tester
-│   ├── NWChem
-│   │   ├── H2.xyz
-│   │   ├── nwchem
-│   │   │   ├── nwchem.db
-│   │   │   └── nwchem.movecs
-│   │   ├── nwchem.nwi
-│   │   ├── nwchem.nwo
-│   │   └── test_NWChem.py  ## tester
-│   ├── pyscf
-│   │   ├── __pycache__
-│   │   │   └── pyscf.cpython-311.pyc
-│   │   ├── pyscf_raman_test.py
-│   │   └── pyscf_test.py  ## tester
-│   ├── tblite
-│   │   └── tblite_test.py ## tester
-│   └── xtb
-│       ├── charges
-│       ├── coord.engrad
-│       ├── coord.xyz
-│       ├── energy
-│       ├── gradient
-│       ├── test_xtb.py  ## tester
-│       ├── wbo
-│       ├── xtb.inp
-│       ├── xtb.out
-│       ├── xtbout.json
-│       ├── xtbrestart
-│       └── xtbtopo.mol
-├── __pycache__
-│   └── simulation_tools.cpython-311.pyc
-├── results
-│   ├── H2O_mol_ir.png
-│   ├── H2O_xtb_structures.png
-│   ├── N2_on_Au_fcc_111_by_dftb+_ir.png
-│   ├── N2_on_Au_fcc_111_by_fast_ir.png
-│   ├── N2_on_Au_fcc_111_by_gpaw_ir.png
-│   ├── N2_on_Au_fcc_111_dftb+_structures.png
-│   ├── N2_on_Au_fcc_111_fast_structures.png
-│   └── N2_on_Au_fcc_111_gpaw_structures.png
-#### start of the log and trajectry file of ase.calculator in xtb, gpaw, dftb+,  
-├── results_H2O_xtb_molecule_opt.log
-├── results_H2O_xtb_molecule_opt.traj
-├── results_H2O_xtb_opt_freq_opt_freq.log
-├── results_N2_on_Au_fcc_111_dftb+_bare_slab_opt.log
-├── results_N2_on_Au_fcc_111_dftb+_bare_slab_opt.traj
-├── results_N2_on_Au_fcc_111_dftb+_opt_freq_opt_freq.log
-├── results_N2_on_Au_fcc_111_dftb+_slab_ads_opt.log
-├── results_N2_on_Au_fcc_111_dftb+_slab_ads_opt.traj
-├── results_N2_on_Au_fcc_111_fast_bare_slab_opt.log
-├── results_N2_on_Au_fcc_111_fast_bare_slab_opt.traj
-├── results_N2_on_Au_fcc_111_fast_opt_freq_opt_freq.log
-├── results_N2_on_Au_fcc_111_fast_slab_ads_opt.log
-├── results_N2_on_Au_fcc_111_fast_slab_ads_opt.traj
-├── results_N2_on_Au_fcc_111_gpaw_bare_slab_opt.log
-├── results_N2_on_Au_fcc_111_gpaw_bare_slab_opt.traj
-├── results_N2_on_Au_fcc_111_gpaw_opt_freq_opt_freq.log
-├── results_N2_on_Au_fcc_111_gpaw_slab_ads_opt.log
-├── results_N2_on_Au_fcc_111_gpaw_slab_ads_opt.traj
-#### end of the log and trajectry file of ase.calculator in xtb, gpaw, dftb+,  
-#### Start of all py files ####
-├── build_graph.py  # This file imports the nodes from `planner.py` and wires them together into a `StateGraph`.
-├── planner.py  # This file defines the "memory" and all the individual "agent" functions (nodes) for the LangGraph workflow.
-├── postprocess_tools.py  ## # Library of all ASE-based and DFT/DFTB api wrapper tools
-├── simulation_tools.py  ## This file contains a library of Python functions decorated with `@tool` that wrap complex operations into simple, discrete steps.
-├── test_endtoend.py ## # This is the main executable file to run the entire workflow.
-#### end of all py files  ####
-├── vib  # #### the caches of the vibration joson file
-│   ├── cache.0x+.json
-#### below are Log file of different calculators ####
-├── results.tag
-├── test.out
-├── wbo
-├── xtb.inp
-├── xtbopt.log
-├── xtbopt.xyz
-├── xtb.out
-├── xtbout.json
-├── xtbrestart
-├── xtbtopo.mol
-├── band.out
-├── charges
-├── coord.engrad
-├── coord.xyz
-├── detailed.out
-├── dftb_in.hsd
-├── dftb.out
-├── dftb_pin.hsd
-├── energy
-├── geo_end.gen
-├── geo_end.xyz
-├── gradient
-#### end of log file and the output file of different caluclator ####
-└── README.md                   # This README.md file
+uv venv .venv-orb --python 3.12 && source .venv-orb/bin/activate
+uv pip install torch==2.8.0 --index-url https://download.pytorch.org/whl/cu128
+uv pip install orb-models==0.7.0 -e ".[dev]" && deactivate
+uv venv .venv-pet --python 3.12 && source .venv-pet/bin/activate
+uv pip install torch==2.8.0 --index-url https://download.pytorch.org/whl/cu128
+uv pip install upet==0.3.1 -e ".[dev]" && deactivate
 ```
 
+Checkpoints (no authentication): Orb from its public S3 bucket into `data/raw/orb/`, PET from
+<https://huggingface.co/lab-cosmo/upet> into `data/raw/pet/`. URLs and SHA-256 hashes are in
+[DATA.md](DATA.md).
 
-## 8. DEVELOPMENT NOTES & ACKNOWLEDGEMENTS
-### Environment & Compatibility
-This project was developed on the TAMU HPRC (High-Performance Research Computing) login node because many required packages need a Linux environment, which was not set up on my local machine.
+**UMA (gated).** Request access at <https://huggingface.co/facebook/UMA> and accept its licence,
+download `checkpoints/uma-s-1p2p1.pt` (UMA-S 1.2.1, 2.33 GB), check that its MD5 is
+`3497615fd30a24c5b35cd3b41a682e6e`, and place it at `data/checkpoints/uma-s-1p2p1.pt` (gitignored).
+The preset loads the local file with fairchem's `load_predict_unit` and needs no Hugging Face access
+at run time; a wrong MD5 is a hard error. Set `calculators.uma.allow_hub_download: true` to use the
+gated hub download instead.
 
-The build utilized the following environment modules provided by HPRC:
-```bash
-module load Anaconda3/2024.02-1 
-module load GCC/12.3.0
-```
-All other packages were installed manually. The resulting environment should be compatible with most Linux systems.
-### Account Usage 
+**Colab:** [notebooks/colab_launcher.ipynb](notebooks/colab_launcher.ipynb) clones the repo,
+installs fairchem/tblite/xtb, runs the real-UMA GPU test and the validation matrix with `--resume`
+on Google Drive.
 
-Development was performed using the HPRC account of yuhsuanho. This was necessary for two reasons:
-
-1. My personal HPRC account has nearly reached its file number (inode) limit.
-
-2. Conda installations are known to generate a very large number of files.
-
-As I am about to graduate, I chose not to request an increase in my account limits. Therefore, you may see file paths in the project referencing this user, such as:
+## Usage
 
 ```bash
-/scratch/user/yuhsuanho/IR_agent_conda
+ir-agent run "Compute the IR spectrum of NH3 on Pt(111) with xtb"     # LLM planner (needs GOOGLE_API_KEY)
+ir-agent run --no-llm --plan examples/plans/co_pt111_uma.json          # no API key needed
+ir-agent validate --calculators xtb,xtb-gfn1 --surfaces CO/Pt/111,CO/Pt/111/bridge
+ir-agent graph                                                          # mermaid diagram of the LangGraph
 ```
-Thanks for the understanding.
 
+`--surfaces` takes `MOL/METAL/FACET[/SITE]` (site ontop by default). Every run writes
+`runs/<timestamp>_<label>/` with the plan, log, structures, optimizer logs, `plots/ir_spectrum.png`,
+`ir_result.json`, `spectrum.json` and `report.md`; parameters and metrics also go to MLflow.
+Configuration lives in [configs/default.yaml](configs/default.yaml); keys are read from the
+environment or `.env` (copy [.env.example](.env.example)).
 
-## 9. LICENSE
+The LLM defaults to `gemini-3.8-flash`, falling back to `gemini-3.6-flash` and
+`gemini-3.5-flash-lite`. Planner output is validated by pydantic (molecule name, facet, element,
+calculator); on failure the validator message is fed back for up to 3 retries per model.
 
-This project is licensed under the MIT License. The LICENSE file will be uploaded.
+## Reproduce the results
 
+```bash
+pytest -q                                                    # CPU tests (~2 min)
+ir-agent validate --calculators xtb,xtb-gfn1                 # xTB matrix (~5 min CPU)
+.venv-orb/bin/ir-agent validate --calculators orb-mol,orb-omat   # Orb matrix (~7 min CPU)
+.venv-pet/bin/ir-agent validate --calculators pet-omol,pet-mad   # PET matrix (~7 min CPU)
+python scripts/run_uma_run_a.py      # Run A: UMA-S 1.2.1 on the gas + Pt/Au matrix (GPU, ~2 min)
+python scripts/run_uma_run_b.py      # Run B: CO site x UMA task x coverage (GPU, ~5 min)
+python scripts/site_energies.py      # Run B CO site energies (GPU)
+python scripts/run_c.py --cpu        # Run C, GFN1-xTB part (CPU, ~2 min)
+python scripts/run_c.py --gpu        # Run C, UMA part (GPU, ~4 min)
+python scripts/benchmark_uma_proxy.py    # random-weight UMA-S proxy timing benchmark (GPU)
+python scripts/classify_sites.py runs/<run dir> ...       # relaxed sites + convergence from saved runs
+python scripts/make_report_figures.py                     # figures + summary_tables.md from saved JSON
+python scripts/eval_planner.py                            # planner accuracy (needs GOOGLE_API_KEY)
+```
 
+Windows paths use `.venv\Scripts\...`. On a shared GPU, set `GPU_GUARD` to the path of a GPU guard
+script and the run scripts launch their CUDA jobs through it (`python $GPU_GUARD run --agent
+ir-agent --gb <GB> -- <command>`; see `src/ir_agent/gpu.py`). Without `GPU_GUARD` they run directly.
+Validation runs accept `--resume RUN_DIR` and checkpoint each case.
+
+## Data sources and licences
+
+| Data / model | Use | Licence and attribution |
+|---|---|---|
+| NIST CCCBDB experimental vibrational frequencies (SRD 101) | gas-phase fundamentals, intensities and harmonic frequencies | US Government work; values from Shimanouchi (NSRDS-NBS 39, 1972) and Huber & Herzberg (1979) as cited on each page |
+| Measured surface bands and anharmonic gaps ([data/reference/](data/reference/)) | adsorbate references | numbers from the cited literature (citation and DOI per row) |
+| Meta UMA-S 1.2.1 (`facebook/UMA`) | `uma*` presets | gated; licence terms on the Hugging Face page (not redistributed here). Wood *et al.*, arXiv:2506.23971 |
+| Orb models (OrbMol-v2, Orb-v3-OMat) | `orb-*` presets | Apache-2.0; Rhodes *et al.*, arXiv:2504.06231 |
+| UPET / PET models (PET-OMol-L, PET-MAD-1.6-S) | `pet-*` presets | BSD-3-Clause; lab-cosmo/upet |
+| xtb 6.7.1 | GFN1/GFN2-xTB | LGPL-3.0; Bannwarth *et al.* 2019, Grimme *et al.* 2017 |
+| DFTB+ Slater-Koster sets (optional) | `dftb+` preset | terms on dftb.org (not redistributed) |
+
+No training data is used: all structures are generated with ASE. Details, file sizes and hashes:
+[DATA.md](DATA.md).
+
+## Limitations
+
+- **Harmonic, 0 K, small models.** One adsorbate per cell at dilute coverage; clusters are tiny and
+  frozen (10 metal atoms) and outside the OMol models' training data; Orb-OMat is out of
+  distribution for molecules.
+- **One UMA checkpoint (UMA-S 1.2.1).** Both UMA tasks prefer the wrong CO site on Pt(111); the NH3
+  rows keep a soft axial-rotor imaginary mode.
+- **Few verified experimental numbers.** Only CO/Cu(111) and the isolated silanol were read in the
+  primary papers; CO/Pt, CO/Ru, H/Si and NH2+H/Si (porous Si) values are secondary or abstract-only;
+  the NH3/Pt value may come from an NH3-NO co-adsorption study; Au has no number. The comparisons
+  are consistency checks, not rankings.
+- **MLIP intensities come from GFN2-xTB fragment dipoles** (hybrid route), not from the MLIPs, and
+  neglect metal screening and charge transfer: RAIRS intensities are relative, not quantitative.
+- **GFN2-xTB SCC does not converge** for Au10 clusters (GFN1 does); dxtb diverges on metal
+  clusters.
+- The planner table measures the deployed fallback chain, not `gemini-3.8-flash` alone, on 20
+  prompts.
+- DFTB+, GPAW and NWChem presets are Linux/WSL-only and were not re-tested; VASP is untested.
+
+The full technical report, with every table, caveat and negative result, is [REPORT.md](REPORT.md).
+
+## Repository layout
+
+```
+src/ir_agent/
+  agent/        plan.py (plan schema), llm.py (Gemini + retries), nodes.py, graph.py, planner_eval.py
+  calculators/  registry.py (presets), uma.py, orb.py, pet.py, xtb_binary.py, dxtb_calc.py
+  vibrations/   finite_diff.py, normal_modes.py, intensities.py (MSSR), evaluators.py, ir.py
+  validation/   reference.py, experimental.py, run.py (validation matrix), run_c.py
+  critic.py  sites.py  semis.py (Si/SiO2 models)  structures.py  spectrum.py  analysis.py
+  pipeline.py  plotting.py  tracking.py  gpu.py  config.py  cli.py
+configs/default.yaml     data/reference/*.csv     examples/plans/*.json     examples/planner_eval/
+scripts/   run_uma_run_a.py, run_uma_run_b.py, run_c.py, site_energies.py, benchmark_uma_proxy.py,
+           smoke_mlip_gpu.py, make_report_figures.py, classify_sites.py, eval_planner.py, package_tester/
+docs/      figures/, validation/ (run outputs), benchmarks/, planner_eval/
+tests/     notebooks/colab_launcher.ipynb     REPORT.md     DATA.md
+```
+
+## Development
+
+```bash
+pytest -q                     # CPU tests (unit + integration)
+pytest -m "gpu and uma"       # real UMA on CUDA (needs the checkpoint)
+ruff check src tests
+```
+
+## References
+
+- B. M. Wood *et al.*, "UMA: A Family of Universal Models for Atoms", [arXiv:2506.23971](https://arxiv.org/abs/2506.23971) (2025).
+- B. Rhodes *et al.*, "Orb-v3: atomistic simulation at scale", [arXiv:2504.06231](https://arxiv.org/abs/2504.06231) (2025); orb-models <https://github.com/orbital-materials/orb-models> (OrbMol-v2 is described in its MODELS.md).
+- UPET / PET models: <https://huggingface.co/lab-cosmo/upet>, <https://github.com/lab-cosmo/upet>. PET-MAD-1.6: [arXiv:2603.02089](https://arxiv.org/abs/2603.02089); UPET architecture: F. Bigi *et al.*, [arXiv:2601.16195](https://arxiv.org/abs/2601.16195).
+- FAIR Chemistry, `fairchem`: <https://github.com/facebookresearch/fairchem>; checkpoints <https://huggingface.co/facebook/UMA>.
+- C. Bannwarth, S. Ehlert, S. Grimme, "GFN2-xTB", *J. Chem. Theory Comput.* 15, 1652 (2019), [doi:10.1021/acs.jctc.8b01176](https://doi.org/10.1021/acs.jctc.8b01176).
+- S. Grimme, C. Bannwarth, P. Shushkov, "GFN1-xTB", *J. Chem. Theory Comput.* 13, 1989 (2017), [doi:10.1021/acs.jctc.7b00118](https://doi.org/10.1021/acs.jctc.7b00118).
+- C. Bannwarth *et al.*, "Extended tight-binding quantum chemistry methods", *WIREs Comput. Mol. Sci.* 11, e01493 (2020), [doi:10.1002/wcms.1493](https://doi.org/10.1002/wcms.1493).
+- M. Friede *et al.*, "dxtb – an efficient and fully differentiable framework for extended tight-binding", *J. Chem. Phys.* 161, 062501 (2024), [doi:10.1063/5.0216715](https://doi.org/10.1063/5.0216715).
+- A. Hjorth Larsen *et al.*, "The atomic simulation environment – a Python library for working with atoms", *J. Phys.: Condens. Matter* 29, 273002 (2017), [doi:10.1088/1361-648X/aa680e](https://doi.org/10.1088/1361-648X/aa680e).
+- R. G. Greenler, "Infrared study of adsorbed molecules on metal surfaces by reflection techniques", *J. Chem. Phys.* 44, 310 (1966), [doi:10.1063/1.1726462](https://doi.org/10.1063/1.1726462).
+- P. J. Feibelman *et al.*, "The CO/Pt(111) Puzzle", *J. Phys. Chem. B* 105, 4018 (2001), [doi:10.1021/jp002302t](https://doi.org/10.1021/jp002302t).
+- NIST CCCBDB, experimental vibrational frequencies (SRD 101): <https://cccbdb.nist.gov>.
+- Measured surface bands (main sources; every row with its DOI is in [experimental_surface_ir.csv](data/reference/experimental_surface_ir.csv)):
+  - B. E. Hayden, A. M. Bradshaw, *Surf. Sci.* 125, 787 (1983), [doi:10.1016/S0039-6028(83)80060-0](https://doi.org/10.1016/S0039-6028(83)80060-0) and R. Tüshaus *et al.*, *J. Electron Spectrosc. Relat. Phenom.* 44, 305 (1987), [doi:10.1016/0368-2048(87)87031-7](https://doi.org/10.1016/0368-2048(87)87031-7) (CO/Pt(111), UHV IRAS; values seen as quotes only).
+  - D. Zhang *et al.*, *J. Phys. Chem. C* 126, 13114 (2022), [doi:10.1021/acs.jpcc.2c02541](https://doi.org/10.1021/acs.jpcc.2c02541) (CO/Cu(111), RAIRS; verified).
+  - P. Jakob, *Phys. Rev. Lett.* 77, 4229 (1996), [doi:10.1103/PhysRevLett.77.4229](https://doi.org/10.1103/PhysRevLett.77.4229) (CO/Ru(0001) overtone and anharmonicity).
+  - Y. J. Chabal, K. Raghavachari, *Phys. Rev. Lett.* 53, 282 (1984), [doi:10.1103/PhysRevLett.53.282](https://doi.org/10.1103/PhysRevLett.53.282) (H/Si(100)-2x1).
+  - P. Guyot-Sionnest, *Phys. Rev. Lett.* 67, 2323 (1991), [doi:10.1103/PhysRevLett.67.2323](https://doi.org/10.1103/PhysRevLett.67.2323) (Si-H hot band, anharmonicity).
+  - A. C. Dillon *et al.*, *MRS Proc.* 204, 339 (1990), [doi:10.1557/PROC-204-339](https://doi.org/10.1557/PROC-204-339) (NH3 on porous Si).
+  - M. Werghi *et al.*, *Chem. Sci.* 9, 3531 (2018), [doi:10.1039/C7SC05200F](https://doi.org/10.1039/C7SC05200F) (isolated silanol 3747 cm⁻¹; verified).
+  - J. L. Gland, B. A. Sexton, *J. Catal.* 68, 286 (1981), [doi:10.1016/0021-9517(81)90098-1](https://doi.org/10.1016/0021-9517(81)90098-1) (NH3/Pt(111) 1090 cm⁻¹; not verified, the paper concerns an NH3·NO complex).
+
+## License
+
+MIT (see [LICENSE](LICENSE)). Third-party models and parameter sets keep their own licences (see
+[DATA.md](DATA.md)).

@@ -1,0 +1,7 @@
+{
+  "adsorbate": "H2O",
+  "calculator": "xtb",
+  "surface": null,
+  "dipole_method": "auto",
+  "task": "IR spectrum of an isolated water molecule with GFN2-xTB"
+}

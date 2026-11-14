@@ -1,0 +1,42 @@
+name: ci
+
+on:
+  push:
+    branches: [main, "polish/**"]
+  pull_request:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+      - run: uvx ruff@0.8.6 check src tests
+      - run: uvx ruff@0.8.6 format --check src tests || true  # formatting is advisory
+
+  test-cpu:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.11", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+      - name: Create env (CPU torch, no GPU, no LLM key, no UMA token)
+        run: |
+          uv venv --python ${{ matrix.python-version }}
+          uv pip install torch==2.8.0 --index-url https://download.pytorch.org/whl/cpu
+          uv pip install --override requirements/ci-overrides.txt -e ".[dev,llm,dxtb,uma]"
+      - name: Install the xtb 6.7.1 binary (GitHub release) for the GFN2 integration test
+        run: |
+          curl -fsSL -o xtb.tar.xz https://github.com/grimme-lab/xtb/releases/download/v6.7.1/xtb-6.7.1-linux-x86_64.tar.xz
+          mkdir -p .tools/xtb-release && tar -xf xtb.tar.xz -C .tools/xtb-release
+          XTB=$(find "$PWD/.tools/xtb-release" -type f -name xtb -path "*bin*" | head -1)
+          echo "IR_AGENT_XTB_BIN=$XTB" >> "$GITHUB_ENV"
+          "$XTB" --version | head -5
+      - name: Unit + integration tests (CPU, < 2 min)
+        env:
+          MPLBACKEND: Agg
+        run: uv run --no-sync pytest -q -m "not gpu and not slow"

@@ -1,0 +1,202 @@
+[
+  {
+    "point": "uma-oc20_c3x3_d0.01",
+    "preset": "uma-oc20",
+    "cell": 3,
+    "delta": 0.01,
+    "exit": 0,
+    "bands": {
+      "CO/Pt(111)": {
+        "band_cm": 2030.7061948811927,
+        "calc_shift_cm": -54.97577377984976,
+        "site": "ontop 1.85",
+        "flags": [],
+        "error": null
+      },
+      "CO/Pt(111)/bridge": {
+        "band_cm": 1829.4240848179757,
+        "calc_shift_cm": -256.2578838430668,
+        "site": "bridge 2.02/2.02",
+        "flags": [],
+        "error": null
+      },
+      "CO/Pt(111)/fcc": {
+        "band_cm": 1739.9870910424063,
+        "calc_shift_cm": -345.69487761863616,
+        "site": "fcc 2.12/2.12/2.12",
+        "flags": [],
+        "error": null
+      },
+      "NH3/Pt(111)": {
+        "band_cm": 1142.4730669013484,
+        "calc_shift_cm": 119.5119096441988,
+        "site": "ontop 2.14",
+        "flags": [],
+        "error": null
+      }
+    }
+  },
+  {
+    "point": "uma-oc20_c4x4_d0.01",
+    "preset": "uma-oc20",
+    "cell": 4,
+    "delta": 0.01,
+    "exit": 0,
+    "bands": {
+      "CO/Pt(111)": {
+        "band_cm": 2026.9435331313687,
+        "calc_shift_cm": -58.73843552967378,
+        "site": "ontop 1.85",
+        "flags": [],
+        "error": null
+      },
+      "CO/Pt(111)/bridge": {
+        "band_cm": 1822.5408705719024,
+        "calc_shift_cm": -263.1410980891401,
+        "site": "bridge 2.02/2.02",
+        "flags": [],
+        "error": null
+      },
+      "CO/Pt(111)/fcc": {
+        "band_cm": 1731.6784665706548,
+        "calc_shift_cm": -354.00350209038766,
+        "site": "fcc 2.12/2.12/2.12",
+        "flags": [],
+        "error": null
+      },
+      "NH3/Pt(111)": {
+        "band_cm": 1159.4275650493182,
+        "calc_shift_cm": 136.4667994264115,
+        "site": "ontop 2.14",
+        "flags": [],
+        "error": null
+      }
+    }
+  },
+  {
+    "point": "uma-omat_c3x3_d0.01",
+    "preset": "uma-omat",
+    "cell": 3,
+    "delta": 0.01,
+    "exit": 0,
+    "bands": {
+      "CO/Pt(111)": {
+        "band_cm": 2036.9598598702153,
+        "calc_shift_cm": -81.2749983256765,
+        "site": "ontop 1.84",
+        "flags": [],
+        "error": null
+      },
+      "CO/Pt(111)/bridge": {
+        "band_cm": 1835.2475211397195,
+        "calc_shift_cm": -282.98733705617224,
+        "site": "bridge 2.02/2.02",
+        "flags": [],
+        "error": null
+      },
+      "CO/Pt(111)/fcc": {
+        "band_cm": 1751.1490224272172,
+        "calc_shift_cm": -367.08583576867454,
+        "site": "fcc 2.11/2.11/2.11",
+        "flags": [],
+        "error": null
+      },
+      "NH3/Pt(111)": {
+        "band_cm": 1138.9844636404507,
+        "calc_shift_cm": 133.47035963532142,
+        "site": "ontop 2.12",
+        "flags": [
+          "imaginary_modes"
+        ],
+        "error": null
+      }
+    }
+  },
+  {
+    "point": "uma-omat_c4x4_d0.01",
+    "preset": "uma-omat",
+    "cell": 4,
+    "delta": 0.01,
+    "exit": 0,
+    "bands": {
+      "CO/Pt(111)": {
+        "band_cm": 2030.60145081967,
+        "calc_shift_cm": -87.63340737622184,
+        "site": "ontop 1.84",
+        "flags": [],
+        "error": null
+      },
+      "CO/Pt(111)/bridge": {
+        "band_cm": 1831.9480959015782,
+        "calc_shift_cm": -286.2867622943136,
+        "site": "bridge 2.01/2.01",
+        "flags": [],
+        "error": null
+      },
+      "CO/Pt(111)/fcc": {
+        "band_cm": 1747.4027985902794,
+        "calc_shift_cm": -370.83205960561236,
+        "site": "fcc 2.11/2.11/2.11",
+        "flags": [],
+        "error": null
+      },
+      "NH3/Pt(111)": {
+        "band_cm": 1141.1164922091027,
+        "calc_shift_cm": 135.60263466651065,
+        "site": "ontop 2.12",
+        "flags": [
+          "imaginary_modes"
+        ],
+        "error": null
+      }
+    }
+  },
+  {
+    "point": "uma-oc20_c3x3_d0.02",
+    "preset": "uma-oc20",
+    "cell": 3,
+    "delta": 0.02,
+    "exit": 0,
+    "bands": {
+      "CO/Pt(111)": {
+        "band_cm": 2032.9111877425155,
+        "calc_shift_cm": -55.38836710524788,
+        "site": "ontop 1.85",
+        "flags": [],
+        "error": null
+      },
+      "NH3/Pt(111)": {
+        "band_cm": 1141.6372791764531,
+        "calc_shift_cm": 120.01060526894958,
+        "site": "ontop 2.14",
+        "flags": [],
+        "error": null
+      }
+    }
+  },
+  {
+    "point": "uma-omat_c3x3_d0.02",
+    "preset": "uma-omat",
+    "cell": 3,
+    "delta": 0.02,
+    "exit": 0,
+    "bands": {
+      "CO/Pt(111)": {
+        "band_cm": 2038.6794108161332,
+        "calc_shift_cm": -82.2763587942652,
+        "site": "ontop 1.84",
+        "flags": [],
+        "error": null
+      },
+      "NH3/Pt(111)": {
+        "band_cm": 1138.1810693009982,
+        "calc_shift_cm": 134.10528988899318,
+        "site": "ontop 2.12",
+        "flags": [
+          "imaginary_modes"
+        ],
+        "error": null
+      }
+    }
+  }
+]

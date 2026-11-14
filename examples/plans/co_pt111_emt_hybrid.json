@@ -1,0 +1,7 @@
+{
+  "adsorbate": "CO",
+  "calculator": "emt",
+  "surface": {"metal": "Pt", "structure": "fcc", "facet": "111", "site": "ontop", "model": "slab"},
+  "dipole_method": "auto",
+  "task": "CO on Pt(111): EMT Hessian on a periodic slab, xTB dipoles on the adsorbate, MSSR"
+}

@@ -1,0 +1,9 @@
+{
+  "adsorbate": "NH3",
+  "calculator": "uma-oc20",
+  "surface": {"metal": "Au", "structure": "fcc", "facet": "111", "site": "ontop", "model": "auto"},
+  "dipole_method": "auto",
+  "charge": 0,
+  "spin_multiplicity": null,
+  "task": "NH3 on Au(111), uma-oc20: Run A case flagged by the critic (imaginary modes); CPU rerun with the critic retry"
+}

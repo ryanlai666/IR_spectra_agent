@@ -1,0 +1,447 @@
+{
+ "CO/Au(111)|dxtb": {
+  "site": "physisorbed",
+  "anchor": "C",
+  "anchor_index": 11,
+  "n_metal": 0,
+  "distances": [],
+  "min_distance": 2.9985688914400943,
+  "cutoff": 2.7560000000000002,
+  "label": "physisorbed 3.00",
+  "requested": "ontop",
+  "site_changed": true,
+  "source": "runs/20261113-003214_validation/ads_CO_Au111_dxtb",
+  "final_fmax": 0.140727
+ },
+ "CO/Au(111)|emt": {
+  "site": "ontop",
+  "anchor": "C",
+  "anchor_index": 28,
+  "n_metal": 1,
+  "distances": [
+   2.106918870000001
+  ],
+  "min_distance": 2.106918870000001,
+  "cutoff": 2.7560000000000002,
+  "label": "ontop 2.11",
+  "requested": "ontop",
+  "site_changed": false,
+  "source": "runs/20261113-003214_validation/ads_CO_Au111_emt",
+  "final_fmax": 0.003562
+ },
+ "CO/Au(111)|xtb-gfn1": {
+  "site": "physisorbed",
+  "anchor": "C",
+  "anchor_index": 11,
+  "n_metal": 0,
+  "distances": [],
+  "min_distance": 2.9775274599557795,
+  "cutoff": 2.7560000000000002,
+  "label": "physisorbed 2.98",
+  "requested": "ontop",
+  "site_changed": true,
+  "source": "runs/20261113-032834_validation/ads_CO_Au111_xtb-gfn1",
+  "final_fmax": 0.001477
+ },
+ "CO/Pt(111)|emt": {
+  "site": "ontop",
+  "anchor": "C",
+  "anchor_index": 28,
+  "n_metal": 1,
+  "distances": [
+   2.0708458800000002
+  ],
+  "min_distance": 2.0708458800000002,
+  "cutoff": 2.7560000000000002,
+  "label": "ontop 2.07",
+  "requested": "ontop",
+  "site_changed": false,
+  "source": "runs/20261113-003214_validation/ads_CO_Pt111_emt",
+  "final_fmax": 0.00786
+ },
+ "CO/Pt(111)|xtb": {
+  "site": "ontop",
+  "anchor": "C",
+  "anchor_index": 11,
+  "n_metal": 1,
+  "distances": [
+   1.8164909254313144
+  ],
+  "min_distance": 1.8164909254313144,
+  "cutoff": 2.7560000000000002,
+  "label": "ontop 1.82",
+  "requested": "ontop",
+  "site_changed": false,
+  "source": "runs/20261113-032834_validation/ads_CO_Pt111_xtb",
+  "final_fmax": 0.006733
+ },
+ "CO/Pt(111)|xtb-gfn1": {
+  "site": "ontop",
+  "anchor": "C",
+  "anchor_index": 11,
+  "n_metal": 1,
+  "distances": [
+   1.89061656477831
+  ],
+  "min_distance": 1.89061656477831,
+  "cutoff": 2.7560000000000002,
+  "label": "ontop 1.89",
+  "requested": "ontop",
+  "site_changed": false,
+  "source": "runs/20261113-032834_validation/ads_CO_Pt111_xtb-gfn1",
+  "final_fmax": 0.005772
+ },
+ "NH3/Au(111)|dxtb": {
+  "site": "ontop",
+  "anchor": "N",
+  "anchor_index": 10,
+  "n_metal": 1,
+  "distances": [
+   2.6758946782066704
+  ],
+  "min_distance": 2.6758946782066704,
+  "cutoff": 2.6910000000000003,
+  "label": "ontop 2.68",
+  "requested": "ontop",
+  "site_changed": false,
+  "source": "runs/20261113-003214_validation/ads_NH3_Au111_dxtb",
+  "final_fmax": 0.00674
+ },
+ "NH3/Au(111)|emt": {
+  "site": "ontop",
+  "anchor": "N",
+  "anchor_index": 27,
+  "n_metal": 1,
+  "distances": [
+   1.9125032700009823
+  ],
+  "min_distance": 1.9125032700009823,
+  "cutoff": 2.6910000000000003,
+  "label": "ontop 1.91",
+  "requested": "ontop",
+  "site_changed": false,
+  "source": "runs/20261113-003214_validation/ads_NH3_Au111_emt",
+  "final_fmax": 0.008645
+ },
+ "NH3/Au(111)|xtb-gfn1": {
+  "site": "ontop",
+  "anchor": "N",
+  "anchor_index": 10,
+  "n_metal": 1,
+  "distances": [
+   2.6712241347213928
+  ],
+  "min_distance": 2.6712241347213928,
+  "cutoff": 2.6910000000000003,
+  "label": "ontop 2.67",
+  "requested": "ontop",
+  "site_changed": false,
+  "source": "runs/20261113-032834_validation/ads_NH3_Au111_xtb-gfn1",
+  "final_fmax": 0.003083
+ },
+ "NH3/Pt(111)|emt": {
+  "site": "ontop",
+  "anchor": "N",
+  "anchor_index": 27,
+  "n_metal": 1,
+  "distances": [
+   1.9222201400000969
+  ],
+  "min_distance": 1.9222201400000969,
+  "cutoff": 2.6910000000000003,
+  "label": "ontop 1.92",
+  "requested": "ontop",
+  "site_changed": false,
+  "source": "runs/20261113-003214_validation/ads_NH3_Pt111_emt",
+  "final_fmax": 0.008841
+ },
+ "NH3/Pt(111)|xtb": {
+  "site": "ontop",
+  "anchor": "N",
+  "anchor_index": 10,
+  "n_metal": 1,
+  "distances": [
+   2.4677367155780243
+  ],
+  "min_distance": 2.4677367155780243,
+  "cutoff": 2.6910000000000003,
+  "label": "ontop 2.47",
+  "requested": "ontop",
+  "site_changed": false,
+  "source": "runs/20261113-032834_validation/ads_NH3_Pt111_xtb",
+  "final_fmax": 0.004853
+ },
+ "NH3/Pt(111)|xtb-gfn1": {
+  "site": "ontop",
+  "anchor": "N",
+  "anchor_index": 10,
+  "n_metal": 1,
+  "distances": [
+   2.010290840100485
+  ],
+  "min_distance": 2.010290840100485,
+  "cutoff": 2.6910000000000003,
+  "label": "ontop 2.01",
+  "requested": "ontop",
+  "site_changed": false,
+  "source": "runs/20261113-032834_validation/ads_NH3_Pt111_xtb-gfn1",
+  "final_fmax": 0.005524
+ },
+ "CO/Au(111)|orb-mol": {
+  "site": "ontop",
+  "anchor": "C",
+  "anchor_index": 11,
+  "n_metal": 1,
+  "distances": [
+   2.290699050507012
+  ],
+  "min_distance": 2.290699050507012,
+  "cutoff": 2.7560000000000002,
+  "label": "ontop 2.29",
+  "requested": "ontop",
+  "site_changed": false,
+  "source": "runs/20261113-020635_validation/ads_CO_Au111_orb-mol",
+  "final_fmax": 0.004402
+ },
+ "CO/Au(111)|orb-omat": {
+  "site": "ontop",
+  "anchor": "C",
+  "anchor_index": 28,
+  "n_metal": 1,
+  "distances": [
+   1.9786418499770837
+  ],
+  "min_distance": 1.9786418499770837,
+  "cutoff": 2.7560000000000002,
+  "label": "ontop 1.98",
+  "requested": "ontop",
+  "site_changed": false,
+  "source": "runs/20261113-020635_validation/ads_CO_Au111_orb-omat",
+  "final_fmax": 0.005327
+ },
+ "CO/Pt(111)|orb-mol": {
+  "site": "ontop",
+  "anchor": "C",
+  "anchor_index": 11,
+  "n_metal": 1,
+  "distances": [
+   2.05154542908131
+  ],
+  "min_distance": 2.05154542908131,
+  "cutoff": 2.7560000000000002,
+  "label": "ontop 2.05",
+  "requested": "ontop",
+  "site_changed": false,
+  "source": "runs/20261113-020635_validation/ads_CO_Pt111_orb-mol",
+  "final_fmax": 0.005656
+ },
+ "CO/Pt(111)|orb-omat": {
+  "site": "ontop",
+  "anchor": "C",
+  "anchor_index": 28,
+  "n_metal": 1,
+  "distances": [
+   1.8424647084858903
+  ],
+  "min_distance": 1.8424647084858903,
+  "cutoff": 2.7560000000000002,
+  "label": "ontop 1.84",
+  "requested": "ontop",
+  "site_changed": false,
+  "source": "runs/20261113-020635_validation/ads_CO_Pt111_orb-omat",
+  "final_fmax": 0.006149
+ },
+ "NH3/Au(111)|orb-mol": {
+  "site": "ontop",
+  "anchor": "N",
+  "anchor_index": 10,
+  "n_metal": 1,
+  "distances": [
+   2.3740498929994374
+  ],
+  "min_distance": 2.3740498929994374,
+  "cutoff": 2.6910000000000003,
+  "label": "ontop 2.37",
+  "requested": "ontop",
+  "site_changed": false,
+  "source": "runs/20261113-020635_validation/ads_NH3_Au111_orb-mol",
+  "final_fmax": 0.009099
+ },
+ "NH3/Au(111)|orb-omat": {
+  "site": "ontop",
+  "anchor": "N",
+  "anchor_index": 27,
+  "n_metal": 1,
+  "distances": [
+   2.5018575358172974
+  ],
+  "min_distance": 2.5018575358172974,
+  "cutoff": 2.6910000000000003,
+  "label": "ontop 2.50",
+  "requested": "ontop",
+  "site_changed": false,
+  "source": "runs/20261113-020635_validation/ads_NH3_Au111_orb-omat",
+  "final_fmax": 0.005144
+ },
+ "NH3/Pt(111)|orb-mol": {
+  "site": "ontop",
+  "anchor": "N",
+  "anchor_index": 10,
+  "n_metal": 1,
+  "distances": [
+   2.14308822474814
+  ],
+  "min_distance": 2.14308822474814,
+  "cutoff": 2.6910000000000003,
+  "label": "ontop 2.14",
+  "requested": "ontop",
+  "site_changed": false,
+  "source": "runs/20261113-020635_validation/ads_NH3_Pt111_orb-mol",
+  "final_fmax": 0.004211
+ },
+ "NH3/Pt(111)|orb-omat": {
+  "site": "ontop",
+  "anchor": "N",
+  "anchor_index": 27,
+  "n_metal": 1,
+  "distances": [
+   2.081769996816336
+  ],
+  "min_distance": 2.081769996816336,
+  "cutoff": 2.6910000000000003,
+  "label": "ontop 2.08",
+  "requested": "ontop",
+  "site_changed": false,
+  "source": "runs/20261113-020635_validation/ads_NH3_Pt111_orb-omat",
+  "final_fmax": 0.008768
+ },
+ "CO/Au(111)|pet-mad": {
+  "site": "ontop",
+  "anchor": "C",
+  "anchor_index": 28,
+  "n_metal": 1,
+  "distances": [
+   1.9896084483706191
+  ],
+  "min_distance": 1.9896084483706191,
+  "cutoff": 2.7560000000000002,
+  "label": "ontop 1.99",
+  "requested": "ontop",
+  "site_changed": false,
+  "source": "runs/20261113-020717_validation/ads_CO_Au111_pet-mad",
+  "final_fmax": 0.00921
+ },
+ "CO/Au(111)|pet-omol": {
+  "site": "ontop",
+  "anchor": "C",
+  "anchor_index": 11,
+  "n_metal": 1,
+  "distances": [
+   2.2114445604755817
+  ],
+  "min_distance": 2.2114445604755817,
+  "cutoff": 2.7560000000000002,
+  "label": "ontop 2.21",
+  "requested": "ontop",
+  "site_changed": false,
+  "source": "runs/20261113-020717_validation/ads_CO_Au111_pet-omol",
+  "final_fmax": 0.00661
+ },
+ "CO/Pt(111)|pet-mad": {
+  "site": "ontop",
+  "anchor": "C",
+  "anchor_index": 28,
+  "n_metal": 1,
+  "distances": [
+   1.8458513209308802
+  ],
+  "min_distance": 1.8458513209308802,
+  "cutoff": 2.7560000000000002,
+  "label": "ontop 1.85",
+  "requested": "ontop",
+  "site_changed": false,
+  "source": "runs/20261113-020717_validation/ads_CO_Pt111_pet-mad",
+  "final_fmax": 0.007288
+ },
+ "CO/Pt(111)|pet-omol": {
+  "site": "bridge",
+  "anchor": "C",
+  "anchor_index": 11,
+  "n_metal": 2,
+  "distances": [
+   1.9801371318243275,
+   1.995756512614114
+  ],
+  "min_distance": 1.9801371318243275,
+  "cutoff": 2.7560000000000002,
+  "label": "bridge 1.98/2.00",
+  "requested": "ontop",
+  "site_changed": true,
+  "source": "runs/20261113-020717_validation/ads_CO_Pt111_pet-omol",
+  "final_fmax": 1.221465
+ },
+ "NH3/Au(111)|pet-mad": {
+  "site": "ontop",
+  "anchor": "N",
+  "anchor_index": 27,
+  "n_metal": 1,
+  "distances": [
+   2.387437179270019
+  ],
+  "min_distance": 2.387437179270019,
+  "cutoff": 2.6910000000000003,
+  "label": "ontop 2.39",
+  "requested": "ontop",
+  "site_changed": false,
+  "source": "runs/20261113-020717_validation/ads_NH3_Au111_pet-mad",
+  "final_fmax": 0.008421
+ },
+ "NH3/Au(111)|pet-omol": {
+  "site": "ontop",
+  "anchor": "N",
+  "anchor_index": 10,
+  "n_metal": 1,
+  "distances": [
+   2.4245767745489446
+  ],
+  "min_distance": 2.4245767745489446,
+  "cutoff": 2.6910000000000003,
+  "label": "ontop 2.42",
+  "requested": "ontop",
+  "site_changed": false,
+  "source": "runs/20261113-020717_validation/ads_NH3_Au111_pet-omol",
+  "final_fmax": 0.00997
+ },
+ "NH3/Pt(111)|pet-mad": {
+  "site": "ontop",
+  "anchor": "N",
+  "anchor_index": 27,
+  "n_metal": 1,
+  "distances": [
+   2.1127327441404464
+  ],
+  "min_distance": 2.1127327441404464,
+  "cutoff": 2.6910000000000003,
+  "label": "ontop 2.11",
+  "requested": "ontop",
+  "site_changed": false,
+  "source": "runs/20261113-020717_validation/ads_NH3_Pt111_pet-mad",
+  "final_fmax": 0.009626
+ },
+ "NH3/Pt(111)|pet-omol": {
+  "site": "ontop",
+  "anchor": "N",
+  "anchor_index": 10,
+  "n_metal": 1,
+  "distances": [
+   2.425407624324594
+  ],
+  "min_distance": 2.425407624324594,
+  "cutoff": 2.6910000000000003,
+  "label": "ontop 2.43",
+  "requested": "ontop",
+  "site_changed": false,
+  "source": "runs/20261113-020717_validation/ads_NH3_Pt111_pet-omol",
+  "final_fmax": 0.008974
+ }
+}

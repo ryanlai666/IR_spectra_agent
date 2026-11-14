@@ -1,0 +1,158 @@
+{
+  "meta": {
+    "device": "cuda",
+    "gpu": "NVIDIA GeForce RTX 3070 Laptop GPU",
+    "torch": "2.11.0+cu128",
+    "params_total_M": 146.198561,
+    "hyperparameters": {
+      "num_experts": 32,
+      "sphere_channels": 128,
+      "lmax": 2,
+      "mmax": 2,
+      "num_layers": 4,
+      "num_distance_basis": 64,
+      "cutoff": 6.0,
+      "max_neighbors": 300,
+      "hidden_channels": 128,
+      "edge_channels": 128
+    },
+    "total_wall_s": 96.89371100001154,
+    "note": "random weights: timing/VRAM proxy only",
+    "gpu_guard_gb": 3.5,
+    "torch_memory_fraction": 0.43752670451077336
+  },
+  "rows": [
+    {
+      "system": "H2O gas (omol)",
+      "n_atoms": 3,
+      "n_displaced_atoms": 3,
+      "n_images": 18,
+      "batch_size": 1,
+      "forward_passes": 18,
+      "hessian_wall_s": 3.157972199995129,
+      "per_image_ms": 175.44289999972938,
+      "peak_vram_mb": 596.01513671875
+    },
+    {
+      "system": "H2O gas (omol)",
+      "n_atoms": 3,
+      "n_displaced_atoms": 3,
+      "n_images": 18,
+      "batch_size": 6,
+      "forward_passes": 3,
+      "hessian_wall_s": 0.6817762000064249,
+      "per_image_ms": 37.87645555591249,
+      "peak_vram_mb": 703.037109375
+    },
+    {
+      "system": "H2O gas (omol)",
+      "n_atoms": 3,
+      "n_displaced_atoms": 3,
+      "n_images": 18,
+      "batch_size": 12,
+      "forward_passes": 2,
+      "hessian_wall_s": 0.5824342499909108,
+      "per_image_ms": 32.35745833282837,
+      "peak_vram_mb": 822.5673828125
+    },
+    {
+      "system": "H2O gas (omol)",
+      "n_atoms": 3,
+      "n_displaced_atoms": 3,
+      "n_images": 18,
+      "batch_size": 24,
+      "forward_passes": 1,
+      "hessian_wall_s": 0.40698245000385214,
+      "per_image_ms": 22.61013611132512,
+      "peak_vram_mb": 951.2158203125
+    },
+    {
+      "system": "NH3 gas (omol)",
+      "n_atoms": 4,
+      "n_displaced_atoms": 4,
+      "n_images": 24,
+      "batch_size": 1,
+      "forward_passes": 24,
+      "hessian_wall_s": 4.993233199995302,
+      "per_image_ms": 208.05138333313758,
+      "peak_vram_mb": 598.08837890625
+    },
+    {
+      "system": "NH3 gas (omol)",
+      "n_atoms": 4,
+      "n_displaced_atoms": 4,
+      "n_images": 24,
+      "batch_size": 6,
+      "forward_passes": 4,
+      "hessian_wall_s": 1.3955600000044797,
+      "per_image_ms": 58.148333333519986,
+      "peak_vram_mb": 715.4599609375
+    },
+    {
+      "system": "NH3 gas (omol)",
+      "n_atoms": 4,
+      "n_displaced_atoms": 4,
+      "n_images": 24,
+      "batch_size": 12,
+      "forward_passes": 2,
+      "hessian_wall_s": 0.9871386499944492,
+      "per_image_ms": 41.13077708310205,
+      "peak_vram_mb": 847.4990234375
+    },
+    {
+      "system": "NH3 gas (omol)",
+      "n_atoms": 4,
+      "n_displaced_atoms": 4,
+      "n_images": 24,
+      "batch_size": 24,
+      "forward_passes": 1,
+      "hessian_wall_s": 0.6852805000016815,
+      "per_image_ms": 28.553354166736728,
+      "peak_vram_mb": 1126.712890625
+    },
+    {
+      "system": "CO/Pt(111) 3x3x3 (oc20)",
+      "n_atoms": 29,
+      "n_displaced_atoms": 2,
+      "n_images": 12,
+      "batch_size": 1,
+      "forward_passes": 12,
+      "hessian_wall_s": 3.054628400001093,
+      "per_image_ms": 254.55236666675773,
+      "peak_vram_mb": 904.02490234375
+    },
+    {
+      "system": "CO/Pt(111) 3x3x3 (oc20)",
+      "n_atoms": 29,
+      "n_displaced_atoms": 2,
+      "n_images": 12,
+      "batch_size": 6,
+      "forward_passes": 2,
+      "hessian_wall_s": 0.8570288500050083,
+      "per_image_ms": 71.4190708337507,
+      "peak_vram_mb": 2516.87158203125
+    },
+    {
+      "system": "NH3/Pt(111) 3x3x3 (oc20)",
+      "n_atoms": 31,
+      "n_displaced_atoms": 4,
+      "n_images": 24,
+      "batch_size": 1,
+      "forward_passes": 24,
+      "hessian_wall_s": 6.303904250002233,
+      "per_image_ms": 262.6626770834264,
+      "peak_vram_mb": 929.88330078125
+    },
+    {
+      "system": "CO/Pt(111) 4x4x4 (oc20)",
+      "n_atoms": 66,
+      "n_displaced_atoms": 2,
+      "n_images": 12,
+      "batch_size": 1,
+      "forward_passes": 12,
+      "hessian_wall_s": 3.264323300005344,
+      "per_image_ms": 272.026941667112,
+      "peak_vram_mb": 1351.4384765625
+    }
+  ]
+}

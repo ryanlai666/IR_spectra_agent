@@ -1,0 +1,75 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ir-agent"
+version = "0.2.0"
+description = "LangGraph agent that plans and runs IR-spectrum simulations of molecules and adsorbates (ASE, xTB, Meta UMA)."
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.11,<3.14"
+authors = [{ name = "IR_spectra_agent contributors" }]
+dependencies = [
+  "ase>=3.26",
+  "numpy>=1.26",
+  "scipy>=1.11",
+  "matplotlib>=3.8",
+  "pyyaml>=6.0",
+  "pydantic>=2.6",
+  "python-dotenv>=1.0",
+  "langgraph>=0.6",
+  "langchain-core>=0.3",
+]
+
+[project.optional-dependencies]
+# Gemini planner / analyst (not needed for --no-llm runs)
+llm = ["langchain-google-genai>=2.1"]
+# Meta UMA via fairchem. 2.21.0 is the newest release pinned to torch~=2.8.
+uma = ["fairchem-core==2.21.0"]
+# Open MLIPs (each needs its own Python >= 3.12 env: their nvalchemi-toolkit-ops pins conflict)
+orb = ["orb-models==0.7.0; python_version >= '3.12'"]
+pet = ["upet==0.3.1; python_version >= '3.12'"]
+# GFN1-xTB in PyTorch (CPU/GPU, works on Windows). GFN2 in dxtb needs libcint (Linux only).
+dxtb = ["dxtb>=0.4"]
+# GFN2-xTB python API. PyPI wheels exist for Linux/macOS only; on Windows use conda-forge.
+tblite = ["tblite>=0.4"]
+tracking = ["mlflow>=2.14"]
+dev = ["pytest>=8", "pytest-timeout>=2.3", "ruff>=0.6"]
+
+[project.scripts]
+ir-agent = "ir_agent.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+ir_agent = ["py.typed"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra -m 'not gpu and not slow'"
+markers = [
+  "gpu: needs a CUDA device (deselected by default; run with -m gpu)",
+  "uma: needs fairchem-core and access to the gated facebook/UMA checkpoints",
+  "slow: longer than a few seconds",
+  "integration: end-to-end pipeline test",
+]
+timeout = 300
+filterwarnings = [
+  "ignore::DeprecationWarning",
+  "ignore::FutureWarning",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+src = ["src", "tests"]
+extend-exclude = ["scripts/package_tester", "notebooks"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "SIM", "NPY"]
+ignore = ["E501", "B008", "SIM108"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["B011"]

@@ -1,0 +1,752 @@
+{
+  "dir": "runs/20261113-032834_validation",
+  "gas": [
+    {
+      "calculator": "xtb",
+      "molecule": "H2O",
+      "task": null,
+      "wall_s": 5.663606700007222,
+      "force_method": "GFN2-xTB (xtb --hess)",
+      "dipole": "GFN2-xTB (native)",
+      "route": "xtb-hessian",
+      "timings": {
+        "dipoles": 3.8646432000095956,
+        "xtb_hessian": 0.2586621000082232,
+        "final_opt": 0.3028288000059547
+      },
+      "n_disp": 18,
+      "gpu_peak_mb": null,
+      "converged": true,
+      "n_imag": 0,
+      "flags": [],
+      "issues": [],
+      "matches": [
+        {
+          "mode": "OH sym. stretch",
+          "symmetry": "A1",
+          "exp_cm": 3657,
+          "calc_cm": 3642.385673645219,
+          "calc_intensity": 6.756322780764868,
+          "exp_intensity": 2.9,
+          "ir_active": true,
+          "error_cm": -14.614326354781042
+        },
+        {
+          "mode": "bend",
+          "symmetry": "A1",
+          "exp_cm": 1595,
+          "calc_cm": 1539.5671907066517,
+          "calc_intensity": 133.2299679598666,
+          "exp_intensity": 62.5,
+          "ir_active": true,
+          "error_cm": -55.43280929334833
+        },
+        {
+          "mode": "OH asym. stretch",
+          "symmetry": "B2",
+          "exp_cm": 3756,
+          "calc_cm": 3650.5370076142954,
+          "calc_intensity": 16.640161077990758,
+          "exp_intensity": 41.7,
+          "ir_active": true,
+          "error_cm": -105.46299238570464
+        }
+      ],
+      "stats": {
+        "mae_cm": 58.503376011278,
+        "max_abs_cm": 105.46299238570464,
+        "mse_cm": -58.503376011278,
+        "mape_pct": 2.2276304116677337
+      }
+    },
+    {
+      "calculator": "xtb",
+      "molecule": "CO",
+      "task": null,
+      "wall_s": 4.541721200002939,
+      "force_method": "GFN2-xTB (xtb --hess)",
+      "dipole": "GFN2-xTB (native)",
+      "route": "xtb-hessian",
+      "timings": {
+        "dipoles": 2.511448899997049,
+        "xtb_hessian": 0.23046449999674223,
+        "final_opt": 0.33037290000356734
+      },
+      "n_disp": 12,
+      "gpu_peak_mb": null,
+      "converged": true,
+      "n_imag": 0,
+      "flags": [],
+      "issues": [],
+      "matches": [
+        {
+          "mode": "C-O stretch",
+          "symmetry": "Sigma",
+          "exp_cm": 2143,
+          "calc_cm": 2222.355719597069,
+          "calc_intensity": 26.923120057231184,
+          "exp_intensity": null,
+          "ir_active": true,
+          "error_cm": 79.35571959706886
+        }
+      ],
+      "stats": {
+        "mae_cm": 79.35571959706886,
+        "max_abs_cm": 79.35571959706886,
+        "mse_cm": 79.35571959706886,
+        "mape_pct": 3.7030200465267784
+      },
+      "gas_bands": {
+        "C-O stretch": 2222.355719597069
+      }
+    },
+    {
+      "calculator": "xtb",
+      "molecule": "NH3",
+      "task": null,
+      "wall_s": 8.646278000000166,
+      "force_method": "GFN2-xTB (xtb --hess)",
+      "dipole": "GFN2-xTB (native)",
+      "route": "xtb-hessian",
+      "timings": {
+        "dipoles": 6.447538100008387,
+        "xtb_hessian": 0.22456959998817183,
+        "final_opt": 0.5505969999940135
+      },
+      "n_disp": 24,
+      "gpu_peak_mb": null,
+      "converged": true,
+      "n_imag": 0,
+      "flags": [],
+      "issues": [],
+      "matches": [
+        {
+          "mode": "NH sym. stretch",
+          "symmetry": "A1",
+          "exp_cm": 3337,
+          "calc_cm": 3426.0922933926063,
+          "calc_intensity": 0.1962831376421635,
+          "exp_intensity": 7.1,
+          "ir_active": true,
+          "error_cm": 89.09229339260628
+        },
+        {
+          "mode": "sym. deformation (umbrella)",
+          "symmetry": "A1",
+          "exp_cm": 950,
+          "calc_cm": 1160.257351631418,
+          "calc_intensity": 211.2622974783392,
+          "exp_intensity": 138.0,
+          "ir_active": true,
+          "error_cm": 210.25735163141803
+        },
+        {
+          "mode": "NH deg. stretch",
+          "symmetry": "E",
+          "exp_cm": 3444,
+          "calc_cm": 3478.0525410265964,
+          "calc_intensity": 10.936380222118043,
+          "exp_intensity": 4.3,
+          "ir_active": true,
+          "error_cm": 34.05254102659637
+        },
+        {
+          "mode": "deg. deformation",
+          "symmetry": "E",
+          "exp_cm": 1627,
+          "calc_cm": 1593.0752029129726,
+          "calc_intensity": 55.04678327839164,
+          "exp_intensity": 28.2,
+          "ir_active": true,
+          "error_cm": -33.9247970870274
+        }
+      ],
+      "stats": {
+        "mae_cm": 91.83174578441202,
+        "max_abs_cm": 210.25735163141803,
+        "mse_cm": 74.86934724089832,
+        "mape_pct": 6.969012014129139
+      },
+      "gas_bands": {
+        "umbrella": 1160.257351631418
+      }
+    },
+    {
+      "calculator": "xtb",
+      "molecule": "CO2",
+      "task": null,
+      "wall_s": 10.013650799999596,
+      "force_method": "GFN2-xTB (xtb --hess)",
+      "dipole": "GFN2-xTB (native)",
+      "route": "xtb-hessian",
+      "timings": {
+        "dipoles": 6.9578971000009915,
+        "xtb_hessian": 0.8103132999967784,
+        "final_opt": 0.9961058000044432
+      },
+      "n_disp": 18,
+      "gpu_peak_mb": null,
+      "converged": true,
+      "n_imag": 0,
+      "flags": [],
+      "issues": [],
+      "matches": [
+        {
+          "mode": "sym. stretch",
+          "symmetry": "Sigma_g",
+          "exp_cm": 1333,
+          "calc_cm": 1424.8000754073762,
+          "calc_intensity": 1.712375935563939e-11,
+          "exp_intensity": null,
+          "ir_active": false,
+          "error_cm": 91.8000754073762
+        },
+        {
+          "mode": "asym. stretch",
+          "symmetry": "Sigma_u",
+          "exp_cm": 2349,
+          "calc_cm": 2593.063377619351,
+          "calc_intensity": 1046.6711199930626,
+          "exp_intensity": 665.0,
+          "ir_active": true,
+          "error_cm": 244.06337761935083
+        },
+        {
+          "mode": "bend",
+          "symmetry": "Pi_u",
+          "exp_cm": 667,
+          "calc_cm": 600.3084622253841,
+          "calc_intensity": 137.34284438261255,
+          "exp_intensity": 54.2,
+          "ir_active": true,
+          "error_cm": -66.69153777461588
+        }
+      ],
+      "stats": {
+        "mae_cm": 134.18499693378098,
+        "max_abs_cm": 244.06337761935083,
+        "mse_cm": 89.72397175070371,
+        "mape_pct": 9.091851866387383
+      },
+      "gas_bands": {
+        "C-O stretch": 2593.063377619351
+      }
+    },
+    {
+      "calculator": "xtb-gfn1",
+      "molecule": "H2O",
+      "task": null,
+      "wall_s": 8.011831700001494,
+      "force_method": "GFN1-xTB (xtb --hess)",
+      "dipole": "GFN1-xTB (native)",
+      "route": "xtb-hessian",
+      "timings": {
+        "dipoles": 5.23986899999727,
+        "xtb_hessian": 0.2548040999972727,
+        "final_opt": 0.7796772000001511
+      },
+      "n_disp": 18,
+      "gpu_peak_mb": null,
+      "converged": true,
+      "n_imag": 0,
+      "flags": [],
+      "issues": [],
+      "matches": [
+        {
+          "mode": "OH sym. stretch",
+          "symmetry": "A1",
+          "exp_cm": 3657,
+          "calc_cm": 3675.987778258688,
+          "calc_intensity": 47.29479127573316,
+          "exp_intensity": 2.9,
+          "ir_active": true,
+          "error_cm": 18.987778258688195
+        },
+        {
+          "mode": "bend",
+          "symmetry": "A1",
+          "exp_cm": 1595,
+          "calc_cm": 1438.089903749357,
+          "calc_intensity": 240.1304835492019,
+          "exp_intensity": 62.5,
+          "ir_active": true,
+          "error_cm": -156.91009625064294
+        },
+        {
+          "mode": "OH asym. stretch",
+          "symmetry": "B2",
+          "exp_cm": 3756,
+          "calc_cm": 3787.588515015255,
+          "calc_intensity": 50.69632840952278,
+          "exp_intensity": 41.7,
+          "ir_active": true,
+          "error_cm": 31.58851501525487
+        }
+      ],
+      "stats": {
+        "mae_cm": 69.16212984152867,
+        "max_abs_cm": 156.91009625064294,
+        "mse_cm": -35.44460099223329,
+        "mape_pct": 3.7326185699448224
+      }
+    },
+    {
+      "calculator": "xtb-gfn1",
+      "molecule": "CO",
+      "task": null,
+      "wall_s": 6.229510100005427,
+      "force_method": "GFN1-xTB (xtb --hess)",
+      "dipole": "GFN1-xTB (native)",
+      "route": "xtb-hessian",
+      "timings": {
+        "dipoles": 3.5008739000040805,
+        "xtb_hessian": 0.27610550000099465,
+        "final_opt": 0.387507799998275
+      },
+      "n_disp": 12,
+      "gpu_peak_mb": null,
+      "converged": true,
+      "n_imag": 0,
+      "flags": [],
+      "issues": [],
+      "matches": [
+        {
+          "mode": "C-O stretch",
+          "symmetry": "Sigma",
+          "exp_cm": 2143,
+          "calc_cm": 2241.13150261219,
+          "calc_intensity": 107.9329257920514,
+          "exp_intensity": null,
+          "ir_active": true,
+          "error_cm": 98.13150261219016
+        }
+      ],
+      "stats": {
+        "mae_cm": 98.13150261219016,
+        "max_abs_cm": 98.13150261219016,
+        "mse_cm": 98.13150261219016,
+        "mape_pct": 4.579164844245924
+      },
+      "gas_bands": {
+        "C-O stretch": 2241.13150261219
+      }
+    },
+    {
+      "calculator": "xtb-gfn1",
+      "molecule": "NH3",
+      "task": null,
+      "wall_s": 11.370514399997774,
+      "force_method": "GFN1-xTB (xtb --hess)",
+      "dipole": "GFN1-xTB (native)",
+      "route": "xtb-hessian",
+      "timings": {
+        "dipoles": 6.945021199993789,
+        "xtb_hessian": 0.6435226000030525,
+        "final_opt": 0.9505500000086613
+      },
+      "n_disp": 24,
+      "gpu_peak_mb": null,
+      "converged": true,
+      "n_imag": 0,
+      "flags": [],
+      "issues": [],
+      "matches": [
+        {
+          "mode": "NH sym. stretch",
+          "symmetry": "A1",
+          "exp_cm": 3337,
+          "calc_cm": 3463.2403235276015,
+          "calc_intensity": 9.015825322502032,
+          "exp_intensity": 7.1,
+          "ir_active": true,
+          "error_cm": 126.2403235276015
+        },
+        {
+          "mode": "sym. deformation (umbrella)",
+          "symmetry": "A1",
+          "exp_cm": 950,
+          "calc_cm": 1049.5784547698433,
+          "calc_intensity": 376.8084489628772,
+          "exp_intensity": 138.0,
+          "ir_active": true,
+          "error_cm": 99.57845476984335
+        },
+        {
+          "mode": "NH deg. stretch",
+          "symmetry": "E",
+          "exp_cm": 3444,
+          "calc_cm": 3571.4024997458146,
+          "calc_intensity": 1.381896096661522,
+          "exp_intensity": 4.3,
+          "ir_active": true,
+          "error_cm": 127.40249974581457
+        },
+        {
+          "mode": "deg. deformation",
+          "symmetry": "E",
+          "exp_cm": 1627,
+          "calc_cm": 1610.7726993521005,
+          "calc_intensity": 126.10354130342455,
+          "exp_intensity": 28.2,
+          "ir_active": true,
+          "error_cm": -16.227300647899483
+        }
+      ],
+      "stats": {
+        "mae_cm": 92.36214467278973,
+        "max_abs_cm": 127.40249974581457,
+        "mse_cm": 84.24849434883998,
+        "mape_pct": 4.7404065280286085
+      },
+      "gas_bands": {
+        "umbrella": 1049.5784547698433
+      }
+    },
+    {
+      "calculator": "xtb-gfn1",
+      "molecule": "CO2",
+      "task": null,
+      "wall_s": 8.48208230000455,
+      "force_method": "GFN1-xTB (xtb --hess)",
+      "dipole": "GFN1-xTB (native)",
+      "route": "xtb-hessian",
+      "timings": {
+        "dipoles": 5.452356900001178,
+        "xtb_hessian": 0.4951436000119429,
+        "final_opt": 1.0310301999998046
+      },
+      "n_disp": 18,
+      "gpu_peak_mb": null,
+      "converged": true,
+      "n_imag": 0,
+      "flags": [],
+      "issues": [],
+      "matches": [
+        {
+          "mode": "sym. stretch",
+          "symmetry": "Sigma_g",
+          "exp_cm": 1333,
+          "calc_cm": 1446.486766281596,
+          "calc_intensity": 4.387309628032158e-29,
+          "exp_intensity": null,
+          "ir_active": false,
+          "error_cm": 113.48676628159592
+        },
+        {
+          "mode": "asym. stretch",
+          "symmetry": "Sigma_u",
+          "exp_cm": 2349,
+          "calc_cm": 2611.303415684965,
+          "calc_intensity": 1128.3502599486606,
+          "exp_intensity": 665.0,
+          "ir_active": true,
+          "error_cm": 262.3034156849649
+        },
+        {
+          "mode": "bend",
+          "symmetry": "Pi_u",
+          "exp_cm": 667,
+          "calc_cm": 628.2745888615409,
+          "calc_intensity": 270.115156796582,
+          "exp_intensity": 54.2,
+          "ir_active": true,
+          "error_cm": -38.725411138459094
+        }
+      ],
+      "stats": {
+        "mae_cm": 138.17186436833995,
+        "max_abs_cm": 262.3034156849649,
+        "mse_cm": 112.35492360936723,
+        "mape_pct": 8.495381272268464
+      },
+      "gas_bands": {
+        "C-O stretch": 2611.303415684965
+      }
+    }
+  ],
+  "adsorbates": [
+    {
+      "calculator": "xtb",
+      "system": "CO/Pt(111)",
+      "site_requested": "ontop",
+      "wall_s": 28.48982070000784,
+      "force_method": "GFN2-xTB (xtb --hess)",
+      "dipole": "GFN2-xTB (xtb) on adsorbate fragment",
+      "route": "xtb-hessian",
+      "model": "cluster",
+      "n_atoms": 12,
+      "task": null,
+      "gas_ref_calculator": "xtb",
+      "gpu_peak_mb": null,
+      "converged": true,
+      "n_imag": 0,
+      "site": {
+        "site": "ontop",
+        "anchor": "C",
+        "anchor_index": 11,
+        "n_metal": 1,
+        "distances": [
+          1.8164909256348325
+        ],
+        "min_distance": 1.8164909256348325,
+        "cutoff": 2.7560000000000002,
+        "label": "ontop 1.82",
+        "requested": "ontop"
+      },
+      "flags": [],
+      "issues": [],
+      "band": "C-O stretch",
+      "ref_ads_cm": 2068,
+      "ref_gas_cm": 2143,
+      "ref_verified": false,
+      "band_cm": 2058.832930496228,
+      "band_intensity": 26.29408390802041,
+      "band_intensity_alt": {
+        "whole-cluster dipole (GFN2-xTB)": 1010.2638294931598
+      },
+      "gas_ref_cm": 2222.355719597069,
+      "calc_shift_cm": -163.52278910084078,
+      "ref_shift_cm": -75
+    },
+    {
+      "calculator": "xtb",
+      "system": "NH3/Pt(111)",
+      "site_requested": "ontop",
+      "wall_s": 49.46024800000305,
+      "force_method": "GFN2-xTB (xtb --hess)",
+      "dipole": "GFN2-xTB (xtb) on adsorbate fragment",
+      "route": "xtb-hessian",
+      "model": "cluster",
+      "n_atoms": 14,
+      "task": null,
+      "gas_ref_calculator": "xtb",
+      "gpu_peak_mb": null,
+      "converged": true,
+      "n_imag": 0,
+      "site": {
+        "site": "ontop",
+        "anchor": "N",
+        "anchor_index": 10,
+        "n_metal": 1,
+        "distances": [
+          2.4677367215250996
+        ],
+        "min_distance": 2.4677367215250996,
+        "cutoff": 2.6910000000000003,
+        "label": "ontop 2.47",
+        "requested": "ontop"
+      },
+      "flags": [],
+      "issues": [],
+      "band": "sym. deformation (umbrella)",
+      "ref_ads_cm": 1090,
+      "ref_gas_cm": 950,
+      "ref_verified": false,
+      "band_cm": 936.2746856080042,
+      "band_intensity": 273.09469317681084,
+      "band_intensity_alt": {
+        "whole-cluster dipole (GFN2-xTB)": 438.8858474907577
+      },
+      "gas_ref_cm": 1160.257351631418,
+      "calc_shift_cm": -223.9826660234138,
+      "ref_shift_cm": 140
+    },
+    {
+      "calculator": "xtb",
+      "system": "CO/Au(111)",
+      "site_requested": "ontop",
+      "error": "CalculatorError: xtb failed (exit 1). SCC did not converge (seen for metallic Au clusters with GFN2-xTB; the xtb-gfn1 preset converges there). *** convergence criteria cannot be satisfied within 250 iterations *** | [ERROR] Program stopped due to fatal error | -1- scf: Self consistent charge iterator did not converge | abnormal termination of xtb",
+      "wall_s": 3.226562299998477
+    },
+    {
+      "calculator": "xtb",
+      "system": "NH3/Au(111)",
+      "site_requested": "ontop",
+      "error": "CalculatorError: xtb failed (exit 1). SCC did not converge (seen for metallic Au clusters with GFN2-xTB; the xtb-gfn1 preset converges there). *** convergence criteria cannot be satisfied within 250 iterations *** | [ERROR] Program stopped due to fatal error | -1- scf: Self consistent charge iterator did not converge | abnormal termination of xtb",
+      "wall_s": 3.018927099998109
+    },
+    {
+      "calculator": "xtb-gfn1",
+      "system": "CO/Pt(111)",
+      "site_requested": "ontop",
+      "wall_s": 25.38749910000479,
+      "force_method": "GFN1-xTB (xtb --hess)",
+      "dipole": "GFN2-xTB (xtb) on adsorbate fragment",
+      "route": "xtb-hessian",
+      "model": "cluster",
+      "n_atoms": 12,
+      "task": null,
+      "gas_ref_calculator": "xtb-gfn1",
+      "gpu_peak_mb": null,
+      "converged": true,
+      "n_imag": 0,
+      "site": {
+        "site": "ontop",
+        "anchor": "C",
+        "anchor_index": 11,
+        "n_metal": 1,
+        "distances": [
+          1.890616566015549
+        ],
+        "min_distance": 1.890616566015549,
+        "cutoff": 2.7560000000000002,
+        "label": "ontop 1.89",
+        "requested": "ontop"
+      },
+      "flags": [],
+      "issues": [],
+      "band": "C-O stretch",
+      "ref_ads_cm": 2068,
+      "ref_gas_cm": 2143,
+      "ref_verified": false,
+      "band_cm": 2162.671716443715,
+      "band_intensity": 26.873472924065325,
+      "band_intensity_alt": {
+        "whole-cluster dipole (GFN1-xTB)": 1533.8365998044203
+      },
+      "gas_ref_cm": 2241.13150261219,
+      "calc_shift_cm": -78.45978616847515,
+      "ref_shift_cm": -75
+    },
+    {
+      "calculator": "xtb-gfn1",
+      "system": "NH3/Pt(111)",
+      "site_requested": "ontop",
+      "wall_s": 42.105332799997996,
+      "force_method": "GFN1-xTB (xtb --hess)",
+      "dipole": "GFN2-xTB (xtb) on adsorbate fragment",
+      "route": "xtb-hessian",
+      "model": "cluster",
+      "n_atoms": 14,
+      "task": null,
+      "gas_ref_calculator": "xtb-gfn1",
+      "gpu_peak_mb": null,
+      "converged": true,
+      "n_imag": 0,
+      "site": {
+        "site": "ontop",
+        "anchor": "N",
+        "anchor_index": 10,
+        "n_metal": 1,
+        "distances": [
+          2.010290847087983
+        ],
+        "min_distance": 2.010290847087983,
+        "cutoff": 2.6910000000000003,
+        "label": "ontop 2.01",
+        "requested": "ontop"
+      },
+      "flags": [],
+      "issues": [],
+      "band": "sym. deformation (umbrella)",
+      "ref_ads_cm": 1090,
+      "ref_gas_cm": 950,
+      "ref_verified": false,
+      "band_cm": 1241.1645331138727,
+      "band_intensity": 262.19155957395867,
+      "band_intensity_alt": {
+        "whole-cluster dipole (GFN1-xTB)": 230.97796030142064
+      },
+      "gas_ref_cm": 1049.5784547698433,
+      "calc_shift_cm": 191.58607834402937,
+      "ref_shift_cm": 140
+    },
+    {
+      "calculator": "xtb-gfn1",
+      "system": "CO/Au(111)",
+      "site_requested": "ontop",
+      "wall_s": 22.558838099997956,
+      "force_method": "GFN1-xTB (xtb --hess)",
+      "dipole": "GFN2-xTB (xtb) on adsorbate fragment",
+      "route": "xtb-hessian",
+      "model": "cluster",
+      "n_atoms": 12,
+      "task": null,
+      "gas_ref_calculator": "xtb-gfn1",
+      "gpu_peak_mb": null,
+      "converged": true,
+      "n_imag": 2,
+      "site": {
+        "site": "physisorbed",
+        "anchor": "C",
+        "anchor_index": 11,
+        "n_metal": 0,
+        "distances": [],
+        "min_distance": 2.9775274630305977,
+        "cutoff": 2.7560000000000002,
+        "label": "physisorbed 2.98",
+        "requested": "ontop"
+      },
+      "flags": [
+        "imaginary_modes",
+        "weakly_bound"
+      ],
+      "issues": [
+        {
+          "code": "imaginary_modes",
+          "action": "retry",
+          "message": "2 imaginary mode(s) below -50 cm^-1 (lowest -59 cm^-1)"
+        },
+        {
+          "code": "weakly_bound",
+          "action": "flag",
+          "message": "adsorbate physisorbed: shortest C-metal contact 2.98 A > bonding cutoff 2.76 A"
+        }
+      ],
+      "band": "C-O stretch",
+      "ref_ads_cm": null,
+      "ref_gas_cm": 2143,
+      "ref_verified": false,
+      "band_cm": 2270.9913088103763,
+      "band_intensity": 27.04059559853436,
+      "band_intensity_alt": {
+        "whole-cluster dipole (GFN1-xTB)": 174.8328279398699
+      },
+      "gas_ref_cm": 2241.13150261219,
+      "calc_shift_cm": 29.859806198186106
+    },
+    {
+      "calculator": "xtb-gfn1",
+      "system": "NH3/Au(111)",
+      "site_requested": "ontop",
+      "wall_s": 40.16191280000203,
+      "force_method": "GFN1-xTB (xtb --hess)",
+      "dipole": "GFN2-xTB (xtb) on adsorbate fragment",
+      "route": "xtb-hessian",
+      "model": "cluster",
+      "n_atoms": 14,
+      "task": null,
+      "gas_ref_calculator": "xtb-gfn1",
+      "gpu_peak_mb": null,
+      "converged": true,
+      "n_imag": 0,
+      "site": {
+        "site": "ontop",
+        "anchor": "N",
+        "anchor_index": 10,
+        "n_metal": 1,
+        "distances": [
+          2.671224135977631
+        ],
+        "min_distance": 2.671224135977631,
+        "cutoff": 2.6910000000000003,
+        "label": "ontop 2.67",
+        "requested": "ontop"
+      },
+      "flags": [],
+      "issues": [],
+      "band": "sym. deformation (umbrella)",
+      "ref_ads_cm": null,
+      "ref_gas_cm": 950,
+      "ref_verified": false,
+      "band_cm": 1123.7001175429457,
+      "band_intensity": 227.6492532691151,
+      "band_intensity_alt": {
+        "whole-cluster dipole (GFN1-xTB)": 371.61476860365286
+      },
+      "gas_ref_cm": 1049.5784547698433,
+      "calc_shift_cm": 74.12166277310234
+    }
+  ],
+  "skipped": {}
+}

@@ -1,0 +1,7 @@
+# uv overrides used for the Windows/RTX-3070 dev env.
+# 1) fairchem-core 2.21.0 pins torch~=2.8.0; the dev env reuses a cached torch 2.11.0+cu128 wheel.
+#    Elsewhere install torch 2.8 and drop this override.
+torch==2.11.0
+# 2) dxtb 0.4.0 -> tad-dftd3==0.6.0 declares numpy<2, fairchem needs numpy>=2. tad-dftd3 works with
+#    numpy 2 in our checks (tests/test_dxtb.py compares dxtb dipoles/frequencies to references).
+numpy>=2.0,<2.4

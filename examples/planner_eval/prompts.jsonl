@@ -1,0 +1,20 @@
+{"id": "h2o-gas-gfn2", "prompt": "IR spectrum of an isolated water molecule with GFN2-xTB", "expected": {"adsorbate": "H2O", "calculator": "xtb", "metal": null}}
+{"id": "co-pt-uma", "prompt": "Compute the IR spectrum of CO adsorbed on Pt(111) using the UMA machine-learning potential", "expected": {"adsorbate": "CO", "calculator": "uma", "metal": "Pt", "structure": "fcc", "facet": "111", "site": "ontop"}}
+{"id": "nh3-au-cheap", "prompt": "ammonia on gold 111, just a cheap test run", "expected": {"adsorbate": "NH3", "calculator": "emt", "metal": "Au", "facet": "111"}}
+{"id": "co2-gas-gfn1", "prompt": "Vibrational spectrum of carbon dioxide in vacuum with GFN1-xTB", "expected": {"adsorbate": "CO2", "calculator": ["xtb-gfn1", "dxtb"], "metal": null}}
+{"id": "co-pt-bridge-oc20", "prompt": "CO on the bridge site of Pt(111), UMA with the OC20 task", "expected": {"adsorbate": "CO", "calculator": "uma-oc20", "metal": "Pt", "facet": "111", "site": "bridge"}}
+{"id": "nh3-pt100-orbmol", "prompt": "NH3 adsorbed on Pt(100) with OrbMol", "expected": {"adsorbate": "NH3", "calculator": "orb-mol", "metal": "Pt", "facet": "100"}}
+{"id": "h2o-cu110-emt", "prompt": "Water on a Cu(110) surface using EMT", "expected": {"adsorbate": "H2O", "calculator": "emt", "metal": "Cu", "structure": "fcc", "facet": "110"}}
+{"id": "ch4-gas-pet", "prompt": "What does the IR spectrum of methane look like? Use PET-OMol.", "expected": {"adsorbate": "CH4", "calculator": "pet-omol", "metal": null}}
+{"id": "co-pt-fcc-petmad", "prompt": "CO in the fcc hollow site of Pt(111) with PET-MAD", "expected": {"adsorbate": "CO", "calculator": "pet-mad", "metal": "Pt", "facet": "111", "site": "fcc"}}
+{"id": "no-pd-cluster", "prompt": "NO on Pd(111) with GFN2-xTB, use a finite cluster model", "expected": {"adsorbate": "NO", "calculator": "xtb", "metal": "Pd", "facet": "111", "model": "cluster"}}
+{"id": "h2co-ag-orbomat", "prompt": "Formaldehyde on silver (111) with the Orb v3 OMat model", "expected": {"adsorbate": "H2CO", "calculator": "orb-omat", "metal": "Ag", "facet": "111"}}
+{"id": "c2h4-gas-dxtb", "prompt": "ethylene gas-phase IR, dxtb please", "expected": {"adsorbate": "C2H4", "calculator": "dxtb", "metal": null}}
+{"id": "nh3-ru-hcp", "prompt": "Ammonia adsorbed on Ru(0001) with GFN1-xTB", "expected": {"adsorbate": "NH3", "calculator": ["xtb-gfn1", "dxtb"], "metal": "Ru", "structure": "hcp", "facet": "0001"}}
+{"id": "co-au100-umaomol", "prompt": "CO on Au(100) with UMA using the omol task", "expected": {"adsorbate": "CO", "calculator": "uma-omol", "metal": "Au", "facet": "100"}}
+{"id": "h2o-pt-vasp-acc", "prompt": "Water on Pt(111) with high-accuracy DFT", "expected": {"adsorbate": "H2O", "calculator": "vasp-accurate", "metal": "Pt", "facet": "111"}}
+{"id": "co2-gas-tblite", "prompt": "CO2 molecule, not on a surface, with tblite", "expected": {"adsorbate": "CO2", "calculator": "tblite", "metal": null}}
+{"id": "hcn-ni-fast", "prompt": "HCN on nickel(111), fast mock calculation", "expected": {"adsorbate": "HCN", "calculator": "emt", "metal": "Ni", "facet": "111"}}
+{"id": "ch3oh-gas-orb", "prompt": "Gas-phase methanol IR spectrum with the Orb molecular model", "expected": {"adsorbate": "CH3OH", "calculator": "orb-mol", "metal": null}}
+{"id": "co-pt-xtb-dipole-none", "prompt": "CO on Pt(111) with GFN2-xTB, frequencies only, no dipoles", "expected": {"adsorbate": "CO", "calculator": "xtb", "metal": "Pt", "dipole_method": "none"}}
+{"id": "n2-fe-bcc", "prompt": "N2 on Fe(110) with EMT-like fast potential", "expected": {"adsorbate": "N2", "metal": "Fe", "structure": "bcc", "facet": "110"}}

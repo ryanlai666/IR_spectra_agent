@@ -1,0 +1,283 @@
+{
+  "dir": "runs/uma_run_b/uma-oc20_c3x3_d0.01/validation",
+  "gas": [
+    {
+      "calculator": "uma-oc20",
+      "molecule": "CO",
+      "task": "oc20",
+      "wall_s": 11.045876000003773,
+      "force_method": "uma[oc20] (batched x24)",
+      "dipole": "GFN2-xTB (xtb)",
+      "route": "hybrid",
+      "timings": {
+        "forces": 0.17508640000596642,
+        "dipoles": 0.7893930999998702,
+        "final_opt": 0.1277459999982966
+      },
+      "n_disp": 12,
+      "gpu_peak_mb": 1192.02685546875,
+      "converged": true,
+      "n_imag": 0,
+      "flags": [],
+      "issues": [],
+      "matches": [
+        {
+          "mode": "C-O stretch",
+          "symmetry": "Sigma",
+          "exp_cm": 2143,
+          "calc_cm": 2085.6819686610424,
+          "calc_intensity": 26.553424045094648,
+          "exp_intensity": null,
+          "ir_active": true,
+          "error_cm": -57.31803133895755
+        }
+      ],
+      "stats": {
+        "mae_cm": 57.31803133895755,
+        "max_abs_cm": 57.31803133895755,
+        "mse_cm": -57.31803133895755,
+        "mape_pct": 2.6746631516079122
+      },
+      "gas_bands": {
+        "C-O stretch": 2085.6819686610424
+      }
+    },
+    {
+      "calculator": "uma-oc20",
+      "molecule": "NH3",
+      "task": "oc20",
+      "wall_s": 2.6766819000040414,
+      "force_method": "uma[oc20] (batched x24)",
+      "dipole": "GFN2-xTB (xtb)",
+      "route": "hybrid",
+      "timings": {
+        "forces": 0.3111388999968767,
+        "dipoles": 1.6025182000012137,
+        "final_opt": 0.16324870000244118
+      },
+      "n_disp": 24,
+      "gpu_peak_mb": 1275.8173828125,
+      "converged": true,
+      "n_imag": 0,
+      "flags": [],
+      "issues": [],
+      "matches": [
+        {
+          "mode": "NH sym. stretch",
+          "symmetry": "A1",
+          "exp_cm": 3337,
+          "calc_cm": 3316.1183684541006,
+          "calc_intensity": 0.0013303866408019413,
+          "exp_intensity": 7.1,
+          "ir_active": true,
+          "error_cm": -20.88163154589938
+        },
+        {
+          "mode": "sym. deformation (umbrella)",
+          "symmetry": "A1",
+          "exp_cm": 950,
+          "calc_cm": 1022.9611572571496,
+          "calc_intensity": 181.72147253704088,
+          "exp_intensity": 138.0,
+          "ir_active": true,
+          "error_cm": 72.96115725714958
+        },
+        {
+          "mode": "NH deg. stretch",
+          "symmetry": "E",
+          "exp_cm": 3444,
+          "calc_cm": 3444.6937017068913,
+          "calc_intensity": 15.131756149970105,
+          "exp_intensity": 4.3,
+          "ir_active": true,
+          "error_cm": 0.693701706891261
+        },
+        {
+          "mode": "deg. deformation",
+          "symmetry": "E",
+          "exp_cm": 1627,
+          "calc_cm": 1610.8562780780208,
+          "calc_intensity": 50.80531019161312,
+          "exp_intensity": 28.2,
+          "ir_active": true,
+          "error_cm": -16.14372192197925
+        }
+      ],
+      "stats": {
+        "mae_cm": 27.670053107979868,
+        "max_abs_cm": 72.96115725714958,
+        "mse_cm": 9.157376374040552,
+        "mape_pct": 2.329565836521219
+      },
+      "gas_bands": {
+        "umbrella": 1022.9611572571496
+      }
+    }
+  ],
+  "adsorbates": [
+    {
+      "calculator": "uma-oc20",
+      "system": "CO/Pt(111)",
+      "site_requested": "ontop",
+      "wall_s": 5.457825799996499,
+      "force_method": "uma[oc20] (batched x24)",
+      "dipole": "GFN2-xTB (xtb) on adsorbate fragment",
+      "route": "hybrid",
+      "model": "surface",
+      "n_atoms": 29,
+      "task": "oc20",
+      "gas_ref_calculator": "uma-oc20",
+      "gpu_peak_mb": 1654.5732421875,
+      "converged": true,
+      "n_imag": 0,
+      "site": {
+        "site": "ontop",
+        "anchor": "C",
+        "anchor_index": 28,
+        "n_metal": 1,
+        "distances": [
+          1.8466829446146267
+        ],
+        "min_distance": 1.8466829446146267,
+        "cutoff": 2.7560000000000002,
+        "label": "ontop 1.85",
+        "requested": "ontop"
+      },
+      "flags": [],
+      "issues": [],
+      "band": "C-O stretch",
+      "ref_ads_cm": 2068,
+      "ref_gas_cm": 2143,
+      "ref_verified": false,
+      "band_cm": 2030.7061948811927,
+      "band_intensity": 26.226947063287763,
+      "gas_ref_cm": 2085.6819686610424,
+      "calc_shift_cm": -54.97577377984976,
+      "ref_shift_cm": -75
+    },
+    {
+      "calculator": "uma-oc20",
+      "system": "CO/Pt(111)/bridge",
+      "site_requested": "bridge",
+      "wall_s": 4.8901924999954645,
+      "force_method": "uma[oc20] (batched x24)",
+      "dipole": "GFN2-xTB (xtb) on adsorbate fragment",
+      "route": "hybrid",
+      "model": "surface",
+      "n_atoms": 29,
+      "task": "oc20",
+      "gas_ref_calculator": "uma-oc20",
+      "gpu_peak_mb": 1654.5732421875,
+      "converged": true,
+      "n_imag": 0,
+      "site": {
+        "site": "bridge",
+        "anchor": "C",
+        "anchor_index": 28,
+        "n_metal": 2,
+        "distances": [
+          2.0232179596247795,
+          2.024120768557478
+        ],
+        "min_distance": 2.0232179596247795,
+        "cutoff": 2.7560000000000002,
+        "label": "bridge 2.02/2.02",
+        "requested": "bridge"
+      },
+      "flags": [],
+      "issues": [],
+      "band": "C-O stretch",
+      "ref_ads_cm": 2068,
+      "ref_gas_cm": 2143,
+      "ref_verified": false,
+      "band_cm": 1829.4240848179757,
+      "band_intensity": 25.844097317057717,
+      "gas_ref_cm": 2085.6819686610424,
+      "calc_shift_cm": -256.2578838430668,
+      "ref_shift_cm": -75
+    },
+    {
+      "calculator": "uma-oc20",
+      "system": "CO/Pt(111)/fcc",
+      "site_requested": "fcc",
+      "wall_s": 5.116826200013747,
+      "force_method": "uma[oc20] (batched x24)",
+      "dipole": "GFN2-xTB (xtb) on adsorbate fragment",
+      "route": "hybrid",
+      "model": "surface",
+      "n_atoms": 29,
+      "task": "oc20",
+      "gas_ref_calculator": "uma-oc20",
+      "gpu_peak_mb": 1658.38232421875,
+      "converged": true,
+      "n_imag": 0,
+      "site": {
+        "site": "fcc",
+        "anchor": "C",
+        "anchor_index": 28,
+        "n_metal": 3,
+        "distances": [
+          2.119024895938893,
+          2.119024924375719,
+          2.1190254668522286
+        ],
+        "min_distance": 2.119024895938893,
+        "cutoff": 2.7560000000000002,
+        "label": "fcc 2.12/2.12/2.12",
+        "requested": "fcc"
+      },
+      "flags": [],
+      "issues": [],
+      "band": "C-O stretch",
+      "ref_ads_cm": 2068,
+      "ref_gas_cm": 2143,
+      "ref_verified": false,
+      "band_cm": 1739.9870910424063,
+      "band_intensity": 25.612204424192818,
+      "gas_ref_cm": 2085.6819686610424,
+      "calc_shift_cm": -345.69487761863616,
+      "ref_shift_cm": -75
+    },
+    {
+      "calculator": "uma-oc20",
+      "system": "NH3/Pt(111)",
+      "site_requested": "ontop",
+      "wall_s": 5.998161900002742,
+      "force_method": "uma[oc20] (batched x24)",
+      "dipole": "GFN2-xTB (xtb) on adsorbate fragment",
+      "route": "hybrid",
+      "model": "surface",
+      "n_atoms": 31,
+      "task": "oc20",
+      "gas_ref_calculator": "uma-oc20",
+      "gpu_peak_mb": 1658.38232421875,
+      "converged": true,
+      "n_imag": 0,
+      "site": {
+        "site": "ontop",
+        "anchor": "N",
+        "anchor_index": 27,
+        "n_metal": 1,
+        "distances": [
+          2.1389909907620557
+        ],
+        "min_distance": 2.1389909907620557,
+        "cutoff": 2.6910000000000003,
+        "label": "ontop 2.14",
+        "requested": "ontop"
+      },
+      "flags": [],
+      "issues": [],
+      "band": "sym. deformation (umbrella)",
+      "ref_ads_cm": 1090,
+      "ref_gas_cm": 950,
+      "ref_verified": false,
+      "band_cm": 1142.4730669013484,
+      "band_intensity": 224.3078670675077,
+      "gas_ref_cm": 1022.9611572571496,
+      "calc_shift_cm": 119.5119096441988,
+      "ref_shift_cm": 140
+    }
+  ],
+  "skipped": {}
+}

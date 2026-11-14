@@ -1,0 +1,85 @@
+# --- environments / toolchains ---
+.venv/
+.venv-*/
+.tools/
+.conda-env/
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+
+# --- secrets ---
+.env
+.env.*
+!.env.example
+
+# --- data and generated outputs ---
+# data/ holds checkpoints and raw downloads; data/reference/ (small curated tables) is tracked
+data/*
+!data/reference/
+runs/
+outputs/
+mlruns/
+mlartifacts/
+checkpoints/
+*.ckpt
+*.pt
+
+# calculator scratch files (ASE / xtb / DFTB+ / NWChem / GPAW / VASP)
+/vib/
+/vib_*/
+/ir_*/
+results_*.traj
+results_*.log
+*.traj
+xtbrestart
+xtbtopo.mol
+xtbout.json
+charges
+wbo
+dftb_in.hsd
+dftb_pin.hsd
+detailed.out
+band.out
+geo_end.*
+*.nwi
+*.nwo
+WAVECAR
+CHGCAR
+OUTCAR
+
+# --- tooling ---
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.ipynb_checkpoints/
+.coverage
+htmlcov/
+runs_*.log
+
+# secrets (never commit API keys or tokens)
+*.pem
+*.key
+secrets/
+
+# editor settings
+.vscode/
+.idea/
+
+# local working notes and archived material (not published)
+notes/
+
+# notebooks, logs, OS files
+*.log
+.DS_Store
+Thumbs.db
+
+# model weights and large binaries (see DATA.md / README to regenerate)
+*.pth
+*.onnx
+*.joblib
+*.safetensors
+*.h5
+*.zip
+*.tar.gz

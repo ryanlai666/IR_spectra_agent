@@ -1,0 +1,117 @@
+# Default configuration for ir-agent. Every key is optional; code defaults live in
+# src/ir_agent/config.py. Override with `ir-agent run --config my.yaml` or env vars
+# (IR_AGENT_LLM_MODEL, IR_AGENT_XTB_BIN, IR_AGENT_UMA_MODEL, IR_AGENT_DEVICE).
+
+run:
+  output_root: runs            # each run writes to runs/<timestamp>_<label>/
+  log_level: INFO
+
+llm:
+  provider: google
+  # gemini-2.5-flash (used by v0.1) is deprecated (shutdown 2026-12-01). Stable Flash models
+  # listed on ai.google.dev/aistudio docs on 2026-11-12: gemini-3.8-flash, gemini-3.6-flash.
+  model: gemini-3.8-flash
+  fallback_models: [gemini-3.6-flash, gemini-3.5-flash-lite]
+  temperature: 0.0
+  max_retries: 3               # structured-output validation retries per model
+  timeout_s: 60
+
+calculators:
+  default: emt
+  uma:
+    # UMA-S 1.2.1. Download checkpoints/uma-s-1p2p1.pt from the gated facebook/UMA repo and place
+    # it here; fairchem's load_predict_unit then loads it with no Hugging Face access (it skips
+    # the gated iso_atom/form_elem reference files, which IR does not need).
+    model_name: uma-s-1p2p1
+    checkpoint_path: data/checkpoints/uma-s-1p2p1.pt
+    checkpoint_md5: 3497615fd30a24c5b35cd3b41a682e6e   # verified before every load; mismatch = error
+    allow_hub_download: false  # true = get_predict_unit(model_name) (gated, needs hf auth login)
+    device: cuda               # auto-falls back to cpu if CUDA is unavailable
+    molecule_task: omol        # isolated molecules (needs charge + spin multiplicity)
+    surface_task: oc20         # adsorbates on metal slabs
+    inference_settings: default
+    batch_size: 24             # displaced geometries per GPU forward pass (upper bound)
+    max_atoms_per_batch: 180   # VRAM guard: ~2.46 GiB peak for a dense Pt slab (UMA-S-sized proxy)
+  orb:                         # open MLIP (Apache-2.0), needs Python >= 3.12 -> .venv-orb
+    molecule_model: orbmol-v2  # OMol25+OPoly26, conservative, needs charge+spin (atoms.info)
+    periodic_model: orb-v3-conservative-inf-omat   # OMat24 bulk (slabs: caution; molecules: OOD)
+    weights_dir: data/raw/orb  # local checkpoints (null = download on first use)
+    device: cpu                # validation on CPU; CUDA via gpu_guard
+    precision: float32-highest # orb README: use for 2nd-derivative properties; float64 no benefit
+    edge_method: auto          # knn_scipy on CPU / knn_brute_force on CUDA (no warp, no MSVC)
+    batch_size: 16
+    max_atoms_per_batch: 180
+  pet:                         # open MLIP (BSD-3-Clause), needs Python >= 3.12 -> .venv-pet
+    molecule_checkpoint: pet-omol-l-v1.0.0.ckpt    # OMol25 (wB97M-V); reads charge + spin
+    periodic_checkpoint: pet-mad-s-v1.6.0.ckpt     # PET-MAD-1.6 (r2SCAN, incl. catalytic surfaces)
+    models_dir: data/raw/pet
+    device: cpu
+    dtype: float32
+    batch_size: 16
+    max_atoms_per_batch: 180
+  xtb:
+    binary: null               # null = $IR_AGENT_XTB_BIN, then PATH, then ./.tools/xtb
+    method: gfn2
+    accuracy: 1.0
+    electronic_temperature: 300.0
+    timeout_s: 600
+  dxtb:
+    method: gfn1               # GFN2 in dxtb needs tad-libcint (Linux only)
+    device: cpu
+  dftb:
+    skf_dir: null              # defaults to $DFTB_PREFIX
+  gpaw:
+    pw_cutoff_ev: 200
+    xc: LDA
+
+geometry:
+  slab_size: [3, 3, 3]
+  vacuum: 10.0
+  adsorbate_height: 2.0
+  site: ontop
+  fix_bottom_layers: 2
+  molecule_vacuum: 8.0
+  cluster_radius: 3.0          # lateral cut-off (A) of the metal cluster for non-periodic methods
+  cluster_layers: 2            # e.g. Pt(111) ontop, r=3.0 -> Pt10 (7 + 3)
+  cluster_radius_nn: null      # if set: cut-off = this x nearest-neighbour distance (Run C: 1.083 -> M10 for Pt, Au, Cu, Ru)
+
+optimization:
+  # BFGS (1 force call per step). v0.1 used BFGSLineSearch (QuasiNewton); with noisy SCF forces
+  # (xTB on metal clusters) its line searches stalled at fmax ~0.012 using ~20 calls per step.
+  optimizer: BFGS
+  fmax_preopt: 0.05
+  fmax_final: 0.01
+  max_steps: 400
+  stall_steps: 30              # stop (flagged as not converged) if fmax stops improving
+
+vibrations:
+  delta: 0.01                  # Angstrom
+  nfree: 2                     # 2 = central differences, 4 = 4-point stencil
+  indices: adsorbate           # adsorbate | all
+  project_rigid_modes: true    # remove translations/rotations for gas-phase molecules
+  min_frequency_cm: 50.0
+
+critic:                        # checks after the calculation node (src/ir_agent/critic.py)
+  enabled: true
+  max_retries: 1               # retries for non-convergence / imaginary modes, then flag
+  imag_threshold_cm: 50.0      # modes below -50 cm^-1 count as imaginary
+  follow_amplitude: 0.05       # Angstrom, largest atomic step along an imaginary mode
+  retry_optimizer: FIRE
+
+ir:
+  dipole_method: auto          # auto | native | xtb | tblite | dxtb | none
+  surface_selection_rule: true # use only the surface-normal dipole derivative on slabs
+  image_dipole_factor: 1.0     # 4.0 adds the classical image-dipole enhancement
+
+spectrum:
+  lineshape: lorentzian        # lorentzian | gaussian
+  fwhm_cm: 20.0
+  x_min_cm: 400.0
+  x_max_cm: 4000.0
+  n_points: 3601
+  scale_factor: 1.0            # multiply harmonic frequencies (see README validation table)
+
+tracking:
+  mlflow: true                 # logs params/metrics if mlflow is installed
+  tracking_uri: mlruns
+  experiment: ir-agent

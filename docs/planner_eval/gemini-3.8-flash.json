@@ -1,0 +1,819 @@
+{
+ "model": "gemini-3.8-flash",
+ "fallbacks": [
+  "gemini-3.6-flash",
+  "gemini-3.5-flash-lite"
+ ],
+ "n": 20,
+ "rows": [
+  {
+   "id": "h2o-gas-gfn2",
+   "prompt": "IR spectrum of an isolated water molecule with GFN2-xTB",
+   "expected": {
+    "adsorbate": "H2O",
+    "calculator": "xtb",
+    "metal": null
+   },
+   "got": {
+    "adsorbate": "H2O",
+    "calculator": "xtb",
+    "metal": null,
+    "structure": null,
+    "facet": null,
+    "site": null,
+    "model": null,
+    "dipole_method": "auto"
+   },
+   "scores": {
+    "adsorbate": true,
+    "calculator": true,
+    "metal": true
+   },
+   "exact": true,
+   "valid": true,
+   "attempts": 2,
+   "model": "gemini-3.6-flash",
+   "error": null,
+   "api_errors": [
+    "gemini-3.8-flash#1: 503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': '",
+    "gemini-3.8-flash#2: 504 DEADLINE_EXCEEDED. {'error': {'code': 504, 'message': 'Deadline expired before operation could complete.', 'status': 'DEADLINE_EXCEEDED'}}",
+    "gemini-3.8-flash#3: 503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': '",
+    "gemini-3.6-flash#1: 503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': '"
+   ],
+   "latency_s": 150.0414266999869
+  },
+  {
+   "id": "co-pt-uma",
+   "prompt": "Compute the IR spectrum of CO adsorbed on Pt(111) using the UMA machine-learning potential",
+   "expected": {
+    "adsorbate": "CO",
+    "calculator": "uma",
+    "metal": "Pt",
+    "structure": "fcc",
+    "facet": "111",
+    "site": "ontop"
+   },
+   "got": {
+    "adsorbate": "CO",
+    "calculator": "uma",
+    "metal": "Pt",
+    "structure": "fcc",
+    "facet": "111",
+    "site": "ontop",
+    "model": "auto",
+    "dipole_method": "auto"
+   },
+   "scores": {
+    "adsorbate": true,
+    "calculator": true,
+    "metal": true,
+    "structure": true,
+    "facet": true,
+    "site": true
+   },
+   "exact": true,
+   "valid": true,
+   "attempts": 1,
+   "model": "gemini-3.6-flash",
+   "error": null,
+   "api_errors": [
+    "gemini-3.8-flash#1: 503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': '",
+    "gemini-3.8-flash#2: 503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': '",
+    "gemini-3.8-flash#3: 503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': '"
+   ],
+   "latency_s": 31.67783149999741
+  },
+  {
+   "id": "nh3-au-cheap",
+   "prompt": "ammonia on gold 111, just a cheap test run",
+   "expected": {
+    "adsorbate": "NH3",
+    "calculator": "emt",
+    "metal": "Au",
+    "facet": "111"
+   },
+   "got": {
+    "adsorbate": "NH3",
+    "calculator": "emt",
+    "metal": "Au",
+    "structure": "fcc",
+    "facet": "111",
+    "site": "ontop",
+    "model": "auto",
+    "dipole_method": "auto"
+   },
+   "scores": {
+    "adsorbate": true,
+    "calculator": true,
+    "metal": true,
+    "facet": true
+   },
+   "exact": true,
+   "valid": true,
+   "attempts": 1,
+   "model": "gemini-3.6-flash",
+   "error": null,
+   "api_errors": [
+    "gemini-3.8-flash#1: 503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': '",
+    "gemini-3.8-flash#2: 503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': '",
+    "gemini-3.8-flash#3: 503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': '"
+   ],
+   "latency_s": 57.35905490000732
+  },
+  {
+   "id": "co2-gas-gfn1",
+   "prompt": "Vibrational spectrum of carbon dioxide in vacuum with GFN1-xTB",
+   "expected": {
+    "adsorbate": "CO2",
+    "calculator": [
+     "xtb-gfn1",
+     "dxtb"
+    ],
+    "metal": null
+   },
+   "got": {
+    "adsorbate": "CO2",
+    "calculator": "xtb-gfn1",
+    "metal": null,
+    "structure": null,
+    "facet": null,
+    "site": null,
+    "model": null,
+    "dipole_method": "auto"
+   },
+   "scores": {
+    "adsorbate": true,
+    "calculator": true,
+    "metal": true
+   },
+   "exact": true,
+   "valid": true,
+   "attempts": 1,
+   "model": "gemini-3.6-flash",
+   "error": null,
+   "api_errors": [
+    "gemini-3.8-flash#1: 503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': '",
+    "gemini-3.8-flash#2: 503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': '",
+    "gemini-3.8-flash#3: 503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': '"
+   ],
+   "latency_s": 42.24000020000676
+  },
+  {
+   "id": "co-pt-bridge-oc20",
+   "prompt": "CO on the bridge site of Pt(111), UMA with the OC20 task",
+   "expected": {
+    "adsorbate": "CO",
+    "calculator": "uma-oc20",
+    "metal": "Pt",
+    "facet": "111",
+    "site": "bridge"
+   },
+   "got": {
+    "adsorbate": "CO",
+    "calculator": "uma-oc20",
+    "metal": "Pt",
+    "structure": "fcc",
+    "facet": "111",
+    "site": "bridge",
+    "model": "auto",
+    "dipole_method": "auto"
+   },
+   "scores": {
+    "adsorbate": true,
+    "calculator": true,
+    "metal": true,
+    "facet": true,
+    "site": true
+   },
+   "exact": true,
+   "valid": true,
+   "attempts": 1,
+   "model": "gemini-3.6-flash",
+   "error": null,
+   "api_errors": [
+    "gemini-3.8-flash#1: 503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': '",
+    "gemini-3.8-flash#2: 503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': '",
+    "gemini-3.8-flash#3: Error calling model 'gemini-3.8-flash' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and"
+   ],
+   "latency_s": 23.522114799998235
+  },
+  {
+   "id": "nh3-pt100-orbmol",
+   "prompt": "NH3 adsorbed on Pt(100) with OrbMol",
+   "expected": {
+    "adsorbate": "NH3",
+    "calculator": "orb-mol",
+    "metal": "Pt",
+    "facet": "100"
+   },
+   "got": {
+    "adsorbate": "NH3",
+    "calculator": "orb-mol",
+    "metal": "Pt",
+    "structure": "fcc",
+    "facet": "100",
+    "site": "ontop",
+    "model": "auto",
+    "dipole_method": "auto"
+   },
+   "scores": {
+    "adsorbate": true,
+    "calculator": true,
+    "metal": true,
+    "facet": true
+   },
+   "exact": true,
+   "valid": true,
+   "attempts": 1,
+   "model": "gemini-3.6-flash",
+   "error": null,
+   "api_errors": [
+    "gemini-3.8-flash#1: Error calling model 'gemini-3.8-flash' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and",
+    "gemini-3.8-flash#2: 503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': '",
+    "gemini-3.8-flash#3: 503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': '"
+   ],
+   "latency_s": 10.793349100000341
+  },
+  {
+   "id": "h2o-cu110-emt",
+   "prompt": "Water on a Cu(110) surface using EMT",
+   "expected": {
+    "adsorbate": "H2O",
+    "calculator": "emt",
+    "metal": "Cu",
+    "structure": "fcc",
+    "facet": "110"
+   },
+   "got": {
+    "adsorbate": "H2O",
+    "calculator": "emt",
+    "metal": "Cu",
+    "structure": "fcc",
+    "facet": "110",
+    "site": "ontop",
+    "model": "auto",
+    "dipole_method": "auto"
+   },
+   "scores": {
+    "adsorbate": true,
+    "calculator": true,
+    "metal": true,
+    "structure": true,
+    "facet": true
+   },
+   "exact": true,
+   "valid": true,
+   "attempts": 1,
+   "model": "gemini-3.6-flash",
+   "error": null,
+   "api_errors": [
+    "gemini-3.8-flash#1: Error calling model 'gemini-3.8-flash' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and",
+    "gemini-3.8-flash#2: Error calling model 'gemini-3.8-flash' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and",
+    "gemini-3.8-flash#3: Error calling model 'gemini-3.8-flash' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and"
+   ],
+   "latency_s": 3.7685777000006055
+  },
+  {
+   "id": "ch4-gas-pet",
+   "prompt": "What does the IR spectrum of methane look like? Use PET-OMol.",
+   "expected": {
+    "adsorbate": "CH4",
+    "calculator": "pet-omol",
+    "metal": null
+   },
+   "got": {
+    "adsorbate": "CH4",
+    "calculator": "pet-omol",
+    "metal": null,
+    "structure": null,
+    "facet": null,
+    "site": null,
+    "model": null,
+    "dipole_method": "auto"
+   },
+   "scores": {
+    "adsorbate": true,
+    "calculator": true,
+    "metal": true
+   },
+   "exact": true,
+   "valid": true,
+   "attempts": 2,
+   "model": "gemini-3.6-flash",
+   "error": null,
+   "api_errors": [
+    "gemini-3.8-flash#1: Error calling model 'gemini-3.8-flash' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and",
+    "gemini-3.8-flash#2: Error calling model 'gemini-3.8-flash' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and",
+    "gemini-3.8-flash#3: Error calling model 'gemini-3.8-flash' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and",
+    "gemini-3.6-flash#1: 503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': '"
+   ],
+   "latency_s": 4.1721583000035025
+  },
+  {
+   "id": "co-pt-fcc-petmad",
+   "prompt": "CO in the fcc hollow site of Pt(111) with PET-MAD",
+   "expected": {
+    "adsorbate": "CO",
+    "calculator": "pet-mad",
+    "metal": "Pt",
+    "facet": "111",
+    "site": "fcc"
+   },
+   "got": {
+    "adsorbate": "CO",
+    "calculator": "pet-mad",
+    "metal": "Pt",
+    "structure": "fcc",
+    "facet": "111",
+    "site": "fcc",
+    "model": "auto",
+    "dipole_method": "auto"
+   },
+   "scores": {
+    "adsorbate": true,
+    "calculator": true,
+    "metal": true,
+    "facet": true,
+    "site": true
+   },
+   "exact": true,
+   "valid": true,
+   "attempts": 1,
+   "model": "gemini-3.6-flash",
+   "error": null,
+   "api_errors": [
+    "gemini-3.8-flash#1: 503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': '",
+    "gemini-3.8-flash#2: Error calling model 'gemini-3.8-flash' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and",
+    "gemini-3.8-flash#3: Error calling model 'gemini-3.8-flash' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and"
+   ],
+   "latency_s": 20.479155700013507
+  },
+  {
+   "id": "no-pd-cluster",
+   "prompt": "NO on Pd(111) with GFN2-xTB, use a finite cluster model",
+   "expected": {
+    "adsorbate": "NO",
+    "calculator": "xtb",
+    "metal": "Pd",
+    "facet": "111",
+    "model": "cluster"
+   },
+   "got": {
+    "adsorbate": "NO",
+    "calculator": "xtb",
+    "metal": "Pd",
+    "structure": "fcc",
+    "facet": "111",
+    "site": "ontop",
+    "model": "cluster",
+    "dipole_method": "auto"
+   },
+   "scores": {
+    "adsorbate": true,
+    "calculator": true,
+    "metal": true,
+    "facet": true,
+    "model": true
+   },
+   "exact": true,
+   "valid": true,
+   "attempts": 2,
+   "model": "gemini-3.6-flash",
+   "error": null,
+   "api_errors": [
+    "gemini-3.8-flash#1: Error calling model 'gemini-3.8-flash' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and",
+    "gemini-3.8-flash#2: Error calling model 'gemini-3.8-flash' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and",
+    "gemini-3.8-flash#3: Error calling model 'gemini-3.8-flash' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and",
+    "gemini-3.6-flash#1: 503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': '"
+   ],
+   "latency_s": 9.115252099989448
+  },
+  {
+   "id": "h2co-ag-orbomat",
+   "prompt": "Formaldehyde on silver (111) with the Orb v3 OMat model",
+   "expected": {
+    "adsorbate": "H2CO",
+    "calculator": "orb-omat",
+    "metal": "Ag",
+    "facet": "111"
+   },
+   "got": {
+    "adsorbate": "H2CO",
+    "calculator": "orb-omat",
+    "metal": "Ag",
+    "structure": "fcc",
+    "facet": "111",
+    "site": "ontop",
+    "model": "auto",
+    "dipole_method": "auto"
+   },
+   "scores": {
+    "adsorbate": true,
+    "calculator": true,
+    "metal": true,
+    "facet": true
+   },
+   "exact": true,
+   "valid": true,
+   "attempts": 1,
+   "model": "gemini-3.5-flash-lite",
+   "error": null,
+   "api_errors": [
+    "gemini-3.8-flash#1: Error calling model 'gemini-3.8-flash' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and",
+    "gemini-3.6-flash#1: 503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': '",
+    "gemini-3.6-flash#2: Error calling model 'gemini-3.6-flash' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and",
+    "gemini-3.6-flash#3: Error calling model 'gemini-3.6-flash' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and"
+   ],
+   "latency_s": 3.958942700002808
+  },
+  {
+   "id": "c2h4-gas-dxtb",
+   "prompt": "ethylene gas-phase IR, dxtb please",
+   "expected": {
+    "adsorbate": "C2H4",
+    "calculator": "dxtb",
+    "metal": null
+   },
+   "got": {
+    "adsorbate": "C2H4",
+    "calculator": "dxtb",
+    "metal": null,
+    "structure": null,
+    "facet": null,
+    "site": null,
+    "model": null,
+    "dipole_method": "auto"
+   },
+   "scores": {
+    "adsorbate": true,
+    "calculator": true,
+    "metal": true
+   },
+   "exact": true,
+   "valid": true,
+   "attempts": 1,
+   "model": "gemini-3.5-flash-lite",
+   "error": null,
+   "api_errors": [
+    "gemini-3.8-flash#1: Error calling model 'gemini-3.8-flash' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and",
+    "gemini-3.6-flash#1: Error calling model 'gemini-3.6-flash' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and",
+    "gemini-3.6-flash#2: Error calling model 'gemini-3.6-flash' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and",
+    "gemini-3.6-flash#3: Error calling model 'gemini-3.6-flash' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and"
+   ],
+   "latency_s": 1.8508753999922192
+  },
+  {
+   "id": "nh3-ru-hcp",
+   "prompt": "Ammonia adsorbed on Ru(0001) with GFN1-xTB",
+   "expected": {
+    "adsorbate": "NH3",
+    "calculator": [
+     "xtb-gfn1",
+     "dxtb"
+    ],
+    "metal": "Ru",
+    "structure": "hcp",
+    "facet": "0001"
+   },
+   "got": {
+    "adsorbate": "NH3",
+    "calculator": "xtb-gfn1",
+    "metal": "Ru",
+    "structure": "hcp",
+    "facet": "0001",
+    "site": "ontop",
+    "model": "auto",
+    "dipole_method": "auto"
+   },
+   "scores": {
+    "adsorbate": true,
+    "calculator": true,
+    "metal": true,
+    "structure": true,
+    "facet": true
+   },
+   "exact": true,
+   "valid": true,
+   "attempts": 1,
+   "model": "gemini-3.5-flash-lite",
+   "error": null,
+   "api_errors": [
+    "gemini-3.8-flash#1: Error calling model 'gemini-3.8-flash' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and",
+    "gemini-3.8-flash#2: Error calling model 'gemini-3.8-flash' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and",
+    "gemini-3.8-flash#3: Error calling model 'gemini-3.8-flash' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and",
+    "gemini-3.6-flash#1: 503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': '",
+    "gemini-3.6-flash#2: 503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': '",
+    "gemini-3.6-flash#3: 503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': '"
+   ],
+   "latency_s": 4.875984400001471
+  },
+  {
+   "id": "co-au100-umaomol",
+   "prompt": "CO on Au(100) with UMA using the omol task",
+   "expected": {
+    "adsorbate": "CO",
+    "calculator": "uma-omol",
+    "metal": "Au",
+    "facet": "100"
+   },
+   "got": {
+    "adsorbate": "CO",
+    "calculator": "uma-omol",
+    "metal": "Au",
+    "structure": "fcc",
+    "facet": "100",
+    "site": "ontop",
+    "model": "auto",
+    "dipole_method": "auto"
+   },
+   "scores": {
+    "adsorbate": true,
+    "calculator": true,
+    "metal": true,
+    "facet": true
+   },
+   "exact": true,
+   "valid": true,
+   "attempts": 1,
+   "model": "gemini-3.5-flash-lite",
+   "error": null,
+   "api_errors": [
+    "gemini-3.8-flash#1: Error calling model 'gemini-3.8-flash' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and",
+    "gemini-3.8-flash#2: Error calling model 'gemini-3.8-flash' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and",
+    "gemini-3.8-flash#3: Error calling model 'gemini-3.8-flash' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and",
+    "gemini-3.6-flash#1: 503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': '",
+    "gemini-3.6-flash#2: 503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': '",
+    "gemini-3.6-flash#3: 503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': '"
+   ],
+   "latency_s": 15.309500100003788
+  },
+  {
+   "id": "h2o-pt-vasp-acc",
+   "prompt": "Water on Pt(111) with high-accuracy DFT",
+   "expected": {
+    "adsorbate": "H2O",
+    "calculator": "vasp-accurate",
+    "metal": "Pt",
+    "facet": "111"
+   },
+   "got": {
+    "adsorbate": "H2O",
+    "calculator": "vasp-accurate",
+    "metal": "Pt",
+    "structure": "fcc",
+    "facet": "111",
+    "site": "ontop",
+    "model": "auto",
+    "dipole_method": "auto"
+   },
+   "scores": {
+    "adsorbate": true,
+    "calculator": true,
+    "metal": true,
+    "facet": true
+   },
+   "exact": true,
+   "valid": true,
+   "attempts": 1,
+   "model": "gemini-3.5-flash-lite",
+   "error": null,
+   "api_errors": [
+    "gemini-3.8-flash#1: Error calling model 'gemini-3.8-flash' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and",
+    "gemini-3.8-flash#2: Error calling model 'gemini-3.8-flash' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and",
+    "gemini-3.8-flash#3: Error calling model 'gemini-3.8-flash' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and",
+    "gemini-3.6-flash#1: Error calling model 'gemini-3.6-flash' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and",
+    "gemini-3.6-flash#2: Error calling model 'gemini-3.6-flash' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and",
+    "gemini-3.6-flash#3: Error calling model 'gemini-3.6-flash' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and"
+   ],
+   "latency_s": 2.243680100000347
+  },
+  {
+   "id": "co2-gas-tblite",
+   "prompt": "CO2 molecule, not on a surface, with tblite",
+   "expected": {
+    "adsorbate": "CO2",
+    "calculator": "tblite",
+    "metal": null
+   },
+   "got": {
+    "adsorbate": "CO2",
+    "calculator": "tblite",
+    "metal": null,
+    "structure": null,
+    "facet": null,
+    "site": null,
+    "model": null,
+    "dipole_method": "auto"
+   },
+   "scores": {
+    "adsorbate": true,
+    "calculator": true,
+    "metal": true
+   },
+   "exact": true,
+   "valid": true,
+   "attempts": 1,
+   "model": "gemini-3.5-flash-lite",
+   "error": null,
+   "api_errors": [
+    "gemini-3.8-flash#1: Error calling model 'gemini-3.8-flash' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and",
+    "gemini-3.8-flash#2: Error calling model 'gemini-3.8-flash' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and",
+    "gemini-3.8-flash#3: Error calling model 'gemini-3.8-flash' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and",
+    "gemini-3.6-flash#1: Error calling model 'gemini-3.6-flash' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and",
+    "gemini-3.6-flash#2: Error calling model 'gemini-3.6-flash' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and",
+    "gemini-3.6-flash#3: Error calling model 'gemini-3.6-flash' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and"
+   ],
+   "latency_s": 3.151676599998609
+  },
+  {
+   "id": "hcn-ni-fast",
+   "prompt": "HCN on nickel(111), fast mock calculation",
+   "expected": {
+    "adsorbate": "HCN",
+    "calculator": "emt",
+    "metal": "Ni",
+    "facet": "111"
+   },
+   "got": {
+    "adsorbate": "HCN",
+    "calculator": "emt",
+    "metal": "Ni",
+    "structure": "fcc",
+    "facet": "111",
+    "site": "ontop",
+    "model": "auto",
+    "dipole_method": "auto"
+   },
+   "scores": {
+    "adsorbate": true,
+    "calculator": true,
+    "metal": true,
+    "facet": true
+   },
+   "exact": true,
+   "valid": true,
+   "attempts": 1,
+   "model": "gemini-3.5-flash-lite",
+   "error": null,
+   "api_errors": [
+    "gemini-3.8-flash#1: Error calling model 'gemini-3.8-flash' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and",
+    "gemini-3.8-flash#2: Error calling model 'gemini-3.8-flash' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and",
+    "gemini-3.8-flash#3: Error calling model 'gemini-3.8-flash' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and",
+    "gemini-3.6-flash#1: Error calling model 'gemini-3.6-flash' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and",
+    "gemini-3.6-flash#2: Error calling model 'gemini-3.6-flash' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and",
+    "gemini-3.6-flash#3: Error calling model 'gemini-3.6-flash' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and"
+   ],
+   "latency_s": 4.057169200008502
+  },
+  {
+   "id": "ch3oh-gas-orb",
+   "prompt": "Gas-phase methanol IR spectrum with the Orb molecular model",
+   "expected": {
+    "adsorbate": "CH3OH",
+    "calculator": "orb-mol",
+    "metal": null
+   },
+   "got": {
+    "adsorbate": "CH3OH",
+    "calculator": "orb-mol",
+    "metal": null,
+    "structure": null,
+    "facet": null,
+    "site": null,
+    "model": null,
+    "dipole_method": "auto"
+   },
+   "scores": {
+    "adsorbate": true,
+    "calculator": true,
+    "metal": true
+   },
+   "exact": true,
+   "valid": true,
+   "attempts": 1,
+   "model": "gemini-3.5-flash-lite",
+   "error": null,
+   "api_errors": [
+    "gemini-3.8-flash#1: Error calling model 'gemini-3.8-flash' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and",
+    "gemini-3.8-flash#2: Error calling model 'gemini-3.8-flash' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and",
+    "gemini-3.8-flash#3: Error calling model 'gemini-3.8-flash' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and",
+    "gemini-3.6-flash#1: Error calling model 'gemini-3.6-flash' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and",
+    "gemini-3.6-flash#2: Error calling model 'gemini-3.6-flash' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and",
+    "gemini-3.6-flash#3: Error calling model 'gemini-3.6-flash' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and"
+   ],
+   "latency_s": 2.52891290000116
+  },
+  {
+   "id": "co-pt-xtb-dipole-none",
+   "prompt": "CO on Pt(111) with GFN2-xTB, frequencies only, no dipoles",
+   "expected": {
+    "adsorbate": "CO",
+    "calculator": "xtb",
+    "metal": "Pt",
+    "dipole_method": "none"
+   },
+   "got": {
+    "adsorbate": "CO",
+    "calculator": "xtb",
+    "metal": "Pt",
+    "structure": "fcc",
+    "facet": "111",
+    "site": "ontop",
+    "model": "auto",
+    "dipole_method": "none"
+   },
+   "scores": {
+    "adsorbate": true,
+    "calculator": true,
+    "metal": true,
+    "dipole_method": true
+   },
+   "exact": true,
+   "valid": true,
+   "attempts": 1,
+   "model": "gemini-3.5-flash-lite",
+   "error": null,
+   "api_errors": [
+    "gemini-3.8-flash#1: Error calling model 'gemini-3.8-flash' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and",
+    "gemini-3.8-flash#2: Error calling model 'gemini-3.8-flash' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and",
+    "gemini-3.8-flash#3: Error calling model 'gemini-3.8-flash' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and",
+    "gemini-3.6-flash#1: Error calling model 'gemini-3.6-flash' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and",
+    "gemini-3.6-flash#2: Error calling model 'gemini-3.6-flash' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and",
+    "gemini-3.6-flash#3: Error calling model 'gemini-3.6-flash' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and"
+   ],
+   "latency_s": 2.3271450999891385
+  },
+  {
+   "id": "n2-fe-bcc",
+   "prompt": "N2 on Fe(110) with EMT-like fast potential",
+   "expected": {
+    "adsorbate": "N2",
+    "metal": "Fe",
+    "structure": "bcc",
+    "facet": "110"
+   },
+   "got": {
+    "adsorbate": "N2",
+    "calculator": "emt",
+    "metal": "Fe",
+    "structure": "bcc",
+    "facet": "110",
+    "site": "ontop",
+    "model": "auto",
+    "dipole_method": "auto"
+   },
+   "scores": {
+    "adsorbate": true,
+    "metal": true,
+    "structure": true,
+    "facet": true
+   },
+   "exact": true,
+   "valid": true,
+   "attempts": 1,
+   "model": "gemini-3.5-flash-lite",
+   "error": null,
+   "api_errors": [
+    "gemini-3.8-flash#1: Error calling model 'gemini-3.8-flash' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and",
+    "gemini-3.8-flash#2: Error calling model 'gemini-3.8-flash' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and",
+    "gemini-3.8-flash#3: Error calling model 'gemini-3.8-flash' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and",
+    "gemini-3.6-flash#1: Error calling model 'gemini-3.6-flash' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and",
+    "gemini-3.6-flash#2: Error calling model 'gemini-3.6-flash' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and",
+    "gemini-3.6-flash#3: Error calling model 'gemini-3.6-flash' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and"
+   ],
+   "latency_s": 2.8587962000019616
+  }
+ ],
+ "metrics": {
+  "exact_match": 1.0,
+  "valid_plan_rate": 1.0,
+  "field_accuracy": {
+   "adsorbate": 1.0,
+   "calculator": 1.0,
+   "metal": 1.0,
+   "structure": 1.0,
+   "facet": 1.0,
+   "site": 1.0,
+   "model": 1.0,
+   "dipole_method": 1.0
+  },
+  "field_counts": {
+   "adsorbate": 20,
+   "calculator": 19,
+   "metal": 20,
+   "structure": 4,
+   "facet": 13,
+   "site": 3,
+   "model": 1,
+   "dipole_method": 1
+  },
+  "first_try_rate": 1.0,
+  "validator_rejections": 0,
+  "mean_latency_s": 19.816580185000202,
+  "answered_by": {
+   "gemini-3.6-flash": 10,
+   "gemini-3.5-flash-lite": 10
+  },
+  "rows_with_api_errors": 20
+ }
+}

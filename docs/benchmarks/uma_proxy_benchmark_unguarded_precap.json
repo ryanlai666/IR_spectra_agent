@@ -1,0 +1,200 @@
+{
+  "meta": {
+    "device": "cuda",
+    "gpu": "NVIDIA GeForce RTX 3070 Laptop GPU",
+    "torch": "2.11.0+cu128",
+    "params_total_M": 146.198561,
+    "hyperparameters": {
+      "num_experts": 32,
+      "sphere_channels": 128,
+      "lmax": 2,
+      "mmax": 2,
+      "num_layers": 4,
+      "num_distance_basis": 64,
+      "cutoff": 6.0,
+      "max_neighbors": 300,
+      "hidden_channels": 128,
+      "edge_channels": 128
+    },
+    "total_wall_s": 110.59975219999615,
+    "note": "random weights: timing/VRAM proxy only"
+  },
+  "rows": [
+    {
+      "system": "H2O gas (omol)",
+      "n_atoms": 3,
+      "n_displaced_atoms": 3,
+      "n_images": 18,
+      "batch_size": 1,
+      "forward_passes": 18,
+      "hessian_wall_s": 2.432620499999757,
+      "per_image_ms": 135.14558333331985,
+      "peak_vram_mb": 596.01513671875
+    },
+    {
+      "system": "H2O gas (omol)",
+      "n_atoms": 3,
+      "n_displaced_atoms": 3,
+      "n_images": 18,
+      "batch_size": 6,
+      "forward_passes": 3,
+      "hessian_wall_s": 0.601863650001178,
+      "per_image_ms": 33.43686944450989,
+      "peak_vram_mb": 703.037109375
+    },
+    {
+      "system": "H2O gas (omol)",
+      "n_atoms": 3,
+      "n_displaced_atoms": 3,
+      "n_images": 18,
+      "batch_size": 12,
+      "forward_passes": 2,
+      "hessian_wall_s": 0.36271619999752147,
+      "per_image_ms": 20.150899999862304,
+      "peak_vram_mb": 822.5673828125
+    },
+    {
+      "system": "H2O gas (omol)",
+      "n_atoms": 3,
+      "n_displaced_atoms": 3,
+      "n_images": 18,
+      "batch_size": 24,
+      "forward_passes": 1,
+      "hessian_wall_s": 0.29833639999924344,
+      "per_image_ms": 16.574244444402414,
+      "peak_vram_mb": 951.2158203125
+    },
+    {
+      "system": "NH3 gas (omol)",
+      "n_atoms": 4,
+      "n_displaced_atoms": 4,
+      "n_images": 24,
+      "batch_size": 1,
+      "forward_passes": 24,
+      "hessian_wall_s": 3.529600099998788,
+      "per_image_ms": 147.06667083328284,
+      "peak_vram_mb": 598.08837890625
+    },
+    {
+      "system": "NH3 gas (omol)",
+      "n_atoms": 4,
+      "n_displaced_atoms": 4,
+      "n_images": 24,
+      "batch_size": 6,
+      "forward_passes": 4,
+      "hessian_wall_s": 0.8690814500005217,
+      "per_image_ms": 36.21172708335507,
+      "peak_vram_mb": 715.4599609375
+    },
+    {
+      "system": "NH3 gas (omol)",
+      "n_atoms": 4,
+      "n_displaced_atoms": 4,
+      "n_images": 24,
+      "batch_size": 12,
+      "forward_passes": 2,
+      "hessian_wall_s": 0.574741799999174,
+      "per_image_ms": 23.947574999965582,
+      "peak_vram_mb": 847.4990234375
+    },
+    {
+      "system": "NH3 gas (omol)",
+      "n_atoms": 4,
+      "n_displaced_atoms": 4,
+      "n_images": 24,
+      "batch_size": 24,
+      "forward_passes": 1,
+      "hessian_wall_s": 0.4218672500028333,
+      "per_image_ms": 17.577802083451388,
+      "peak_vram_mb": 1126.712890625
+    },
+    {
+      "system": "CO/Pt(111) 3x3x3 (oc20)",
+      "n_atoms": 29,
+      "n_displaced_atoms": 2,
+      "n_images": 12,
+      "batch_size": 1,
+      "forward_passes": 12,
+      "hessian_wall_s": 1.832877249999001,
+      "per_image_ms": 152.73977083325008,
+      "peak_vram_mb": 904.02490234375
+    },
+    {
+      "system": "CO/Pt(111) 3x3x3 (oc20)",
+      "n_atoms": 29,
+      "n_displaced_atoms": 2,
+      "n_images": 12,
+      "batch_size": 6,
+      "forward_passes": 2,
+      "hessian_wall_s": 0.499021100000391,
+      "per_image_ms": 41.58509166669925,
+      "peak_vram_mb": 2516.87158203125
+    },
+    {
+      "system": "CO/Pt(111) 3x3x3 (oc20)",
+      "n_atoms": 29,
+      "n_displaced_atoms": 2,
+      "n_images": 12,
+      "batch_size": 12,
+      "forward_passes": 1,
+      "hessian_wall_s": 5.060959099999309,
+      "per_image_ms": 421.74659166660905,
+      "peak_vram_mb": 4415.96435546875
+    },
+    {
+      "system": "NH3/Pt(111) 3x3x3 (oc20)",
+      "n_atoms": 31,
+      "n_displaced_atoms": 4,
+      "n_images": 24,
+      "batch_size": 1,
+      "forward_passes": 24,
+      "hessian_wall_s": 3.650424799998291,
+      "per_image_ms": 152.1010333332621,
+      "peak_vram_mb": 929.88330078125
+    },
+    {
+      "system": "NH3/Pt(111) 3x3x3 (oc20)",
+      "n_atoms": 31,
+      "n_displaced_atoms": 4,
+      "n_images": 24,
+      "batch_size": 6,
+      "forward_passes": 4,
+      "hessian_wall_s": 0.830499650001002,
+      "per_image_ms": 34.604152083375084,
+      "peak_vram_mb": 2668.54638671875
+    },
+    {
+      "system": "NH3/Pt(111) 3x3x3 (oc20)",
+      "n_atoms": 31,
+      "n_displaced_atoms": 4,
+      "n_images": 24,
+      "batch_size": 12,
+      "forward_passes": 2,
+      "hessian_wall_s": 3.4389817499977653,
+      "per_image_ms": 143.2909062499069,
+      "peak_vram_mb": 4758.60009765625
+    },
+    {
+      "system": "CO/Pt(111) 4x4x4 (oc20)",
+      "n_atoms": 66,
+      "n_displaced_atoms": 2,
+      "n_images": 12,
+      "batch_size": 1,
+      "forward_passes": 12,
+      "hessian_wall_s": 1.6988184500041825,
+      "per_image_ms": 141.5682041670152,
+      "peak_vram_mb": 1351.4384765625
+    },
+    {
+      "system": "CO/Pt(111) 4x4x4 (oc20)",
+      "n_atoms": 66,
+      "n_displaced_atoms": 2,
+      "n_images": 12,
+      "batch_size": 6,
+      "forward_passes": 2,
+      "hessian_wall_s": 0.6241551000020991,
+      "per_image_ms": 52.012925000174924,
+      "peak_vram_mb": 5166.71728515625
+    }
+  ]
+}
