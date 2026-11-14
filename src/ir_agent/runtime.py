@@ -85,7 +85,7 @@ def _json_default(o: Any) -> Any:
 
     if isinstance(o, np.ndarray):
         return o.tolist()
-    if isinstance(o, (np.floating, np.integer)):
+    if isinstance(o, np.floating | np.integer):
         return o.item()
     if isinstance(o, Path):
         return str(o)
